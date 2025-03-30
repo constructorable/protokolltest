@@ -624,7 +624,7 @@ function initSignatureCanvas(canvasId) {
     function saveSignatureToLocalStorage(canvas, canvasId) {
         const signatureData = canvas.toDataURL();
         
-        const expirationTime = new Date().getTime() + 2700 * 1000; // 45 Minuten (in Millisekunden) werden die Unterschriften gespeichert. 
+        const expirationTime = new Date().getTime() + 30 * 1000; // 45 Minuten (in Millisekunden) werden die Unterschriften gespeichert. 
         const signatureObject = {
             data: signatureData,
             expiration: expirationTime
