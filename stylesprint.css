@@ -819,17 +819,14 @@ td.no-border-right.text-right {
     /* Abstand zur nächsten Zeile (Werte) */
 }
 
-/* Werte (Straße, PLZ, Lage, Datum) */
 #strasseeinzugsign,
 #plzeinzugsign,
 #lageeinzugsign,
-#datumsign {
+#datumsign,
+#mieteridsign {
     display: inline-block !important;
-    /* Elemente nebeneinander anzeigen */
     margin-right: 10px !important;
-    /* Abstand zwischen den Werten */
     font-size: 16px !important;
-    /* Schriftgröße anpassen */
 }
 
 
