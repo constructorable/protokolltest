@@ -15,7 +15,7 @@ function showError(inputElement, message) {
     const errorMessage = document.createElement('div');
     errorMessage.className = 'error-message';
     errorMessage.style.color = 'red';
-    errorMessage.style.fontSize = '12px';
+    errorMessage.style.fontSize = '16px';
     errorMessage.textContent = message;
 
     inputElement.insertAdjacentElement('afterend', errorMessage);
