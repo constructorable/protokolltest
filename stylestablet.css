@@ -1580,6 +1580,7 @@ td.label-cell:nth-child(1) {
 
 /* Media Query für schmale Bildschirme */
 @media screen and (max-width: 1200px) {
+
     /* Tabelle in ein flexbox-Layout umwandeln */
     #einzugmieterTable,
     #einzugmieterTable thead,
@@ -1642,6 +1643,7 @@ td.label-cell:nth-child(1) {
     #addeinziehenderMieterRow {
         display: block;
     }
+
     #addeinziehenderMieterRow td {
         flex: 0 0 100%;
     }
@@ -1714,8 +1716,11 @@ td.label-cell:nth-child(1) {
     margin: 0 2px;
 }
 
+
+
 /* Media Query für schmale Bildschirme */
 @media screen and (max-width: 1200px) {
+
     /* Tabelle in ein Block-Layout umwandeln, aber mit flexbox für Zeilen */
     #auszugmieterTable,
     #auszugmieterTable thead,
@@ -1786,6 +1791,7 @@ td.label-cell:nth-child(1) {
     #addeinziehenderMieterRow {
         display: block;
     }
+
     #addeinziehenderMieterRow td {
         flex: 0 0 100%;
     }
@@ -1798,5 +1804,5 @@ td.label-cell:nth-child(1) {
         position: absolute;
         top: 1px;
     }
-    
+
 }
