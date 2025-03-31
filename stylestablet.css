@@ -1795,7 +1795,8 @@ td.label-cell:nth-child(1) {
     }
 
     .error-message {
-        position: relative;
+        position: absolute;
+        top: 1px;
     }
     
 }
