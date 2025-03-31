@@ -819,6 +819,7 @@ td.no-border-right.text-right {
     /* Abstand zur nächsten Zeile (Werte) */
 }
 
+
 #strasseeinzugsign,
 #plzeinzugsign,
 #lageeinzugsign,
@@ -1903,6 +1904,3 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     position: relative !important;
     left: -12px  !important;
 }
-
-
-  
