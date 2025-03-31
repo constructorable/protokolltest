@@ -211,7 +211,7 @@ document.getElementById('addeinziehenderMieter').addEventListener('click', funct
     const nameId = `NameEin${counter.toString().padStart(2, '0')}`;
     const vornameId = `VornameEin${counter.toString().padStart(2, '0')}`;
 
-    nameCell.innerHTML = `<input type="text" id="${nameId}" class="autoscale nameeinziehmieter" style="min-width: 1px;" placeholder="Name einziehender Mieter">`;
+    nameCell.innerHTML = `<input type="text" id="${nameId}" class="autoscale nameeinziehmieter" style="min-width: 1px;" placeholder="Nachname einziehender Mieter">`;
     vornameCell.innerHTML = `<input type="text" id="${vornameId}" class="autoscale vornameeinziehmieter" style="min-width: 1px;" placeholder="Vorname">`;
     strasseCell.innerHTML = '<input type="text" class="phones autoscale teleinziehmieter" style="min-width: 1px;" placeholder="Telefon">';
     plzOrtCell.innerHTML = '<input type="email" class="mails autoscale maileinziehmieter" style="min-width: 1px;" placeholder="E-Mail">';
@@ -348,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         nameCell.innerHTML = `
             <div class="input-container">
-                <input type="text" id="${nameId}" class="autoscale" style="width: 220px;" placeholder="Name ausziehender Mieter">
+                <input type="text" id="${nameId}" class="autoscale" style="width: 220px;" placeholder="Vor- und Nachname ausziehender Mieter">
 
             </div>`;
         strasseCell.innerHTML = `
@@ -611,7 +611,7 @@ function initSignatureCanvas(canvasId) {
 
     function saveSignatureToLocalStorage(canvas, canvasId) {
         const signatureData = canvas.toDataURL();
-        
+
         const expirationTime = new Date().getTime() + 30 * 1000; // 45 Minuten (in Millisekunden) werden die Unterschriften gespeichert. 
         const signatureObject = {
             data: signatureData,
@@ -622,18 +622,18 @@ function initSignatureCanvas(canvasId) {
 
     function loadSignatureFromLocalStorage(canvas, context, canvasId) {
         const storedData = localStorage.getItem(`signature_${canvasId}`);
-        
+
         // 1. Keine Daten vorhanden? → Abbruch
         if (!storedData) return;
-    
+
         try {
             const signatureObject = JSON.parse(storedData);
-    
+
             // 2. Prüfe, ob das Objekt gültig ist
             if (!signatureObject?.data || !signatureObject?.expiration) {
                 throw new Error("Ungültiges Unterschriftsformat");
             }
-    
+
             // 3. Prüfe, ob die Unterschrift noch gültig ist
             const now = new Date().getTime();
             if (now < signatureObject.expiration) {
@@ -966,28 +966,24 @@ document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUploa
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Funktion zum Formatieren des Datums
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Monate sind 0-basiert
-        const year = date.getFullYear();
-        return `${day}.${month}.${year}`;
-    }
+
 
     // Funktion zum Aktualisieren der Signaturfelder
     function updateSignFields() {
         // Werte aus den Input-Feldern holen und ein Komma anhängen
-        const strasse = document.getElementById("strasseeinzug").value + ",";
-        const lage = document.getElementById("lageeinzug2").value + ",";
-        const plz = document.getElementById("plzeinzug").value + ",";
+        const strasse = document.getElementById("strasseeinzug").value;
+        const lage = document.getElementById("lageeinzug2").value;
+        const plz = document.getElementById("plzeinzug").value;
+        const mieterid = document.getElementById("mieterid").value;
         const datum = formatDate(document.getElementById("datum").value); // Datum formatieren
 
         // Werte in die Signaturfelder schreiben
         document.getElementById("strasseeinzugsign").textContent = strasse;
         document.getElementById("lageeinzugsign").textContent = lage;
         document.getElementById("plzeinzugsign").textContent = plz;
+        document.getElementById("mieteridsign").textContent = mieterid;
         document.getElementById("datumsign").textContent = datum;
     }
 
@@ -995,6 +991,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("strasseeinzug").addEventListener("input", updateSignFields);
     document.getElementById("lageeinzug2").addEventListener("input", updateSignFields);
     document.getElementById("plzeinzug").addEventListener("input", updateSignFields);
+    document.getElementById("mieterid").addEventListener("input", updateSignFields);
     document.getElementById("datum").addEventListener("input", updateSignFields);
 
     // MutationObserver, um programmatische Änderungen zu überwachen
@@ -1003,57 +1000,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const strasseObserver = new MutationObserver(updateSignFields);
     const lageObserver = new MutationObserver(updateSignFields);
     const plzObserver = new MutationObserver(updateSignFields);
+    const mieteridObserver = new MutationObserver(updateSignFields);
     const datumObserver = new MutationObserver(updateSignFields);
 
     strasseObserver.observe(document.getElementById("strasseeinzug"), observerConfig);
     lageObserver.observe(document.getElementById("lageeinzug2"), observerConfig);
     plzObserver.observe(document.getElementById("plzeinzug"), observerConfig);
+    mieteridObserver.observe(document.getElementById("mieterid"), observerConfig);
     datumObserver.observe(document.getElementById("datum"), observerConfig);
 
     // Beim Laden der Seite sofort die Signaturfelder aktualisieren
     updateSignFields();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1157,9 +1115,9 @@ inputFields.forEach((input) => {
 
 
 
-// Funktion zum Formatieren des Datums im Feld bei REnovierungsverplfichtung
-// Funktion zum Formatieren des Datums im Feld bei REnovierungsverplfichtung
-// Funktion zum Formatieren des Datums im Feld bei REnovierungsverplfichtung
+// Funktion zum Formatieren des Datums im Feld bei Renovierungsverpflichtung
+// Funktion zum Formatieren des Datums im Feld bei Renovierungsverpflichtung
+// Funktion zum Formatieren des Datums im Feld bei Renovierungsverpflichtung
 function formatDate(inputDate) {
     const date = new Date(inputDate); // Datumsobjekt erstellen
     const day = String(date.getDate()).padStart(2, '0'); // Tag (mit führender Null)
@@ -1199,7 +1157,7 @@ window.addEventListener('beforeunload', function (event) {
     const confirmationMessage = 'Möchten Sie die Seite wirklich verlassen? Alle Eingaben gehen dadurch verloren.';
     event.returnValue = confirmationMessage;
     return confirmationMessage;
-}); 
+});
 
 // Funktion, um den Namen unter der Unterschrift anzuzeigen
 // Funktion, um den Namen unter der Unterschrift anzuzeigen
@@ -1343,7 +1301,7 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
 
         const headers = [
             { text: 'Bezeichnung', width: '230px' },
-            { text: 'Zählernummer', width: '170px' },
+            { text: 'Zählernummer', width: '250px' },
             { text: 'Einbaulage', width: '290px' },
             { text: 'Zählerstand', width: '166px' }
         ];
@@ -1381,7 +1339,7 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
         </select>`;
 
     const zaehlernummerCell = document.createElement('td');
-    zaehlernummerCell.innerHTML = '<input type="text" placeholder="" class="metercounter autoscale" style="width:170px;">';
+    zaehlernummerCell.innerHTML = '<input type="text" placeholder="" class="metercounter autoscale" style="width:250px;">';
 
     const einbaulageCell = document.createElement('td');
     einbaulageCell.innerHTML = '<input type="text" placeholder="" class="autoscale" style="width: 100%;">';
@@ -1405,9 +1363,9 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
 
 
 
-// Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorahnden" auf "nein" geklickt wird.
-// Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorahnden" auf "nein" geklickt wird.
-// Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorahnden" auf "nein" geklickt wird.
+// Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorhanden" auf "nein" geklickt wird.
+// Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorhanden" auf "nein" geklickt wird.
+// Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorhanden" auf "nein" geklickt wird.
 document.addEventListener("DOMContentLoaded", function () {
     function setupRoomToggle(room) {
         // Überprüfen, ob der Container die ID "weitereBemerkungenContainer" oder "nebenraum" hat
@@ -1502,6 +1460,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
 
 // Vorname und Nachname unter die Unterschriftenfelder setzen xxx
 // Vorname und Nachname unter die Unterschriftenfelder setzen
