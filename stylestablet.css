@@ -1700,7 +1700,7 @@ td.label-cell:nth-child(1) {
     width: 100%;
     box-sizing: border-box;
     font-size: 22px;
-    padding: 5px;
+    padding: 5px 5px 5px 5px;
 }
 
 #auszugmieterTable .size-controls {
@@ -1788,4 +1788,9 @@ td.label-cell:nth-child(1) {
     #addeinziehenderMieterRow td {
         flex: 0 0 100%;
     }
+
+    #auszugmieterTable input {
+        padding: 8px 5px 8px 5px;
+    }
+    
 }
