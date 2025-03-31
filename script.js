@@ -27,7 +27,7 @@ function toggleMode() {
 /* Schriftgrößenänderung */
 /* Schriftgrößenänderung */
 // Funktion zum Hinzufügen von Schriftgrößen-Steuerungen zu Input-Feldern
-function addFontControlsToInputs() {
+/* function addFontControlsToInputs() {
     // Alle Input-Felder vom Typ "text" und "email" auswählen
     const inputs = document.querySelectorAll('input[type="text"], input[type="email"]');
 
@@ -71,9 +71,9 @@ function addFontControlsToInputs() {
         // Schriftgrößen-Steuerung initialisieren
         initFontControls(input, plusButton, minusButton);
     });
-}
+} */
 // Funktion zur Initialisierung der Schriftgrößen-Steuerung
-function initFontControls(input, plusButton, minusButton) {
+/* function initFontControls(input, plusButton, minusButton) {
     let fontSize = parseFloat(window.getComputedStyle(input).fontSize);
     const minSize = 8; // Minimale Schriftgröße
     const maxSize = 24; // Maximale Schriftgröße
@@ -95,9 +95,9 @@ function initFontControls(input, plusButton, minusButton) {
 
     // Initiale Schriftgröße setzen
     updateFontSize(fontSize);
-}
+} */
 // Funktion zum Beobachten von DOM-Änderungen
-function observeDOMChanges() {
+/* function observeDOMChanges() {
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.type === 'childList') {
@@ -156,12 +156,12 @@ function observeDOMChanges() {
         childList: true,
         subtree: true,
     });
-}
+} */
 // Initialisierung beim Laden der Seite
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
     addFontControlsToInputs(); // Vorhandene Inputs verarbeiten
     observeDOMChanges(); // Zukünftige Inputs beobachten
-});
+}); */
 
 
 
@@ -349,34 +349,22 @@ document.addEventListener("DOMContentLoaded", function () {
         nameCell.innerHTML = `
             <div class="input-container">
                 <input type="text" id="${nameId}" class="autoscale" style="width: 220px;" placeholder="Name ausziehender Mieter">
-                <div class="size-controls">
-                    <button class="font-plus" disabled="">+</button>
-                    <button class="font-minus">-</button>
-                </div>
+
             </div>`;
         strasseCell.innerHTML = `
             <div class="input-container">
                 <input type="text" class="newstreets autoscale" style="width: 220px;" placeholder="neue Straße">
-                <div class="size-controls">
-                    <button class="font-plus" disabled="">+</button>
-                    <button class="font-minus">-</button>
-                </div>
+
             </div>`;
         plzOrtCell.innerHTML = `
             <div class="input-container">
-                <input type="text" class="plzauszug autoscale" style="width: 230px;" placeholder="Ort / Postleitzahl">
-                <div class="size-controls">
-                    <button class="font-plus" disabled="">+</button>
-                    <button class="font-minus">-</button>
-                </div>
+                <input type="text" class="plzauszug autoscale" style="width: 230px;" placeholder="PLZ / Ort">
+
             </div>`;
         emailCell.innerHTML = `
             <div class="input-container">
                 <input type="email" class="mails2 autoscale" style="width: 160px;" placeholder="E-Mail">
-                <div class="size-controls">
-                    <button class="font-plus" disabled="">+</button>
-                    <button class="font-minus">-</button>
-                </div>
+
             </div>`;
 
         newRow.appendChild(nameCell);
