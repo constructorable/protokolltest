@@ -973,10 +973,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Funktion zum Aktualisieren der Signaturfelder
     function updateSignFields() {
         // Werte aus den Input-Feldern holen und ein Komma anhängen
-        const strasse = document.getElementById("strasseeinzug").value;
-        const lage = document.getElementById("lageeinzug2").value;
-        const plz = document.getElementById("plzeinzug").value;
-        const mieterid = document.getElementById("mieterid").value;
+        const strasse = document.getElementById("strasseeinzug").value + ",";
+        const lage = document.getElementById("lageeinzug2").value + ",";
+        const plz = document.getElementById("plzeinzug").value + ",";
+        const mieterid = document.getElementById("mieterid").value + ",";
         const datum = formatDate(document.getElementById("datum").value); // Datum formatieren
 
         // Werte in die Signaturfelder schreiben
