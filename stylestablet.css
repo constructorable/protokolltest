@@ -1256,7 +1256,7 @@ input[type="date"] {
 #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(4)>input:nth-child(1),
 #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(4)>input:nth-child(1),
 #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(4)>input:nth-child(1) {
-    width: 315px !important;
+    width: 100% !important;
 }
 
 
@@ -1628,14 +1628,14 @@ td.label-cell:nth-child(1) {
     /* Inputfelder anpassen */
     #einzugmieterTable input {
         width: 100% !important;
-        font-size: 14px;
+        font-size: 22px;
     }
 
     /* Button für das Hinzufügen eines neuen Mieters anpassen */
     #addeinziehenderMieter {
         width: 100%;
         padding: 10px;
-        font-size: 16px;
+        font-size: 22px;
     }
 
     /* Die Zeile mit dem Hinzufügen-Button soll volle Breite haben */
@@ -1699,7 +1699,7 @@ td.label-cell:nth-child(1) {
 #auszugmieterTable input {
     width: 100%;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 22px;
     padding: 5px;
 }
 
@@ -1763,7 +1763,8 @@ td.label-cell:nth-child(1) {
     /* Inputfelder anpassen */
     #auszugmieterTable input {
         width: 100% !important;
-        font-size: 14px;
+        font-size: 22px;
+        padding: 5px 5px 5px 5px;
     }
 
     /* Spezielle Klassen anpassen */
@@ -1777,7 +1778,7 @@ td.label-cell:nth-child(1) {
     #addausziehenderMieter {
         width: 100%;
         padding: 10px;
-        font-size: 16px;
+        font-size: 22px;
     }
 
     /* Die Zeile mit dem Hinzufügen-Button soll volle Breite haben */
