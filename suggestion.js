@@ -1,5 +1,5 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
-// Version 3.2
+// Version 3.22
 
 // suggestion.js
 
@@ -62,6 +62,8 @@ const fussbodenMaterialien = [
 ];
 
 const fussbodenFarben = [
+    "braun",
+    "holz",
     "hellbraun",
     "dunkelbraun",
     "natur",
@@ -97,7 +99,36 @@ const stockwerke = [
     "5. OG mitte",
     "6. OG rechts",
     "6. OG links",
-    "6. OG mitte"
+    "6. OG mitte",
+    "DG rechts",
+    "DG links",
+    "DG mitte",
+    "Souterrain",
+    "RG, EG rechts",
+    "RG, EG links",
+    "RG, EG mitte",
+    "RG, 1. OG rechts",
+    "RG, 1. OG links",
+    "RG, 1. OG mitte",
+    "RG, 2. OG rechts",
+    "RG, 2. OG links",
+    "RG, 2. OG mitte",
+    "RG, 3. OG rechts",
+    "RG, 3. OG links",
+    "RG, 3. OG mitte",
+    "RG, 4. OG rechts",
+    "RG, 4. OG links",
+    "RG, 4. OG mitte",
+    "RG, 5. OG rechts",
+    "RG, 5. OG links",
+    "RG, 5. OG mitte",
+    "RG, 6. OG rechts",
+    "RG, 6. OG links",
+    "RG, 6. OG mitte",
+    "RG, DG rechts",
+    "RG, DG links",
+    "RG, DG mitte",
+    "RG, Souterrain"
 ];
 
 // Warte, bis das DOM vollständig geladen ist
