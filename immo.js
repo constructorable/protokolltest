@@ -1,8 +1,8 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
-// Version 3.2
+// Version 3.24_alpha
+
 // immo.js
 
-// Warte, bis das DOM vollständig geladen ist
 document.addEventListener("DOMContentLoaded", function () {
     // Definiere ein Array mit Straßennamen, Postleitzahlen und Orten
     const strassen = [
