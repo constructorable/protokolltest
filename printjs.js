@@ -1,14 +1,9 @@
-// Copyright - Oliver Acker, acker_oliver@yahoo.de
-// Version 3.21
-
 document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
 function validateStrasseeinzug() {
     const strasseeinzugInput = document.getElementById("strasseeinzug");
-
 
     if (!strasseeinzugInput.value || strasseeinzugInput.value.trim() === "") {
         alert("Objekt / Straße bitte eingeben.");
@@ -48,26 +43,22 @@ function validateZentralCheckboxes() {
     return true;
 }
 
-// Event-Listener für den "PDF speichern"-Button
 document.getElementById('savePdfButton').addEventListener('click', async function (event) {
-    // Überprüfe die Checkboxen in der Tabelle "zentral"
+
     if (!validateStrasseeinzug()) {
         event.preventDefault();
         return;
     }
 
-    // Überprüfe die Checkboxen in der Tabelle "zentral"
     if (!validateZentralCheckboxes()) {
         event.preventDefault();
         return;
     }
 
-    // Überprüfe die Checkboxen für Abnahme/Übergabe
     if (!validateCheckboxes()) {
         event.preventDefault();
         return;
     }
-
 
     const loadingOverlay = document.getElementById('loadingOverlay');
     loadingOverlay.style.display = 'flex';
@@ -132,30 +123,26 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
 
         async function renderElementToPDF(element, yOffset = margin) {
             try {
-                await new Promise(resolve => setTimeout(resolve, 100)); // Kurze Verzögerung
+                await new Promise(resolve => setTimeout(resolve, 100));
                 const canvas = await html2canvas(element, { scale: 1, useCORS: true });
                 const imgData = canvas.toDataURL('image/jpeg', 0.9);
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
-        
-                // Verfügbare Höhe auf einer Seite
+
                 const maxPageHeight = pageHeight - 2 * margin;
-        
-                // Skalierte Höhe basierend auf der verfügbaren Breite
+
                 let scaledHeight = (imgHeight * usableWidth) / imgWidth;
-        
-                // Überprüfen, ob der Inhalt auf eine Seite passt
+
                 if (scaledHeight > maxPageHeight) {
-                    // Inhalt ist zu groß, Skalierungsfaktor berechnen
+
                     const scaleFactor = maxPageHeight / scaledHeight;
-                    scaledHeight *= scaleFactor; // Skalierte Höhe anpassen
-                    const scaledWidth = usableWidth * scaleFactor; // Skalierte Breite anpassen
-        
-                    // Skalierten Inhalt auf einer Seite rendern
+                    scaledHeight *= scaleFactor;
+                    const scaledWidth = usableWidth * scaleFactor;
+
                     pdf.addImage(
                         imgData,
                         'JPEG',
-                        margin + (usableWidth - scaledWidth) / 2, // Zentrieren
+                        margin + (usableWidth - scaledWidth) / 2,
                         yOffset,
                         scaledWidth,
                         scaledHeight,
@@ -163,10 +150,10 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                         'FAST'
                     );
                 } else {
-                    // Inhalt passt auf eine Seite
+
                     pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'FAST');
                 }
-        
+
                 return yOffset + scaledHeight + margin;
             } catch (error) {
                 console.warn("Fehler beim Rendern des Elements:", element, error);
@@ -174,21 +161,11 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             }
         }
 
-
-
-
-
-
-
-
-
-
         function updateProgress(current, total) {
             const percentage = Math.round((current / total) * 100);
             progressBar.style.width = `${Math.min(percentage, 100)}%`;
             progressText.textContent = `${Math.min(percentage, 100)}% abgeschlossen`;
         }
-
 
         const totalElements = [
             elements.allgemein,
@@ -207,7 +184,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             ...(elements.bilderzimmer ? Array.from(elements.bilderzimmer.children) : []),
             ...(elements.largeImages ? Array.from(elements.largeImages) : [])
         ].length;
-
 
         let currentElement = 0;
 
@@ -274,7 +250,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         currentElement++;
         updateProgress(currentElement, totalElements);
 
-
         if (elements.bilderzimmer) {
             const children = Array.from(elements.bilderzimmer.children);
             for (let i = 0; i < children.length; i += 2) {
@@ -339,7 +314,12 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         }
 
         const fileName = `${strasse}_${datum}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
-        pdf.save(fileName);
+                pdf.save(fileName);
+
+
+
+
+
 
         inputs.forEach((input, index) => {
             input.style.height = originalHeights[index];
@@ -351,8 +331,16 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         themeElement.setAttribute("href", currentTheme);
         buttons.forEach(button => button.style.display = '');
 
-        document.querySelectorAll(".imagePreview, .image-preview, .customUploadButton, input[type='file']").forEach(element => {
+        /*         document.querySelectorAll(".imagePreview, .image-preview, .customUploadButton, input[type='file']").forEach(element => {
+                    element.style.display = "inline-block";
+                }); */
+
+        document.querySelectorAll(".customUploadButton").forEach(element => {
             element.style.display = "inline-block";
+        });
+
+        document.querySelectorAll(".imagePreview, .image-preview, input[type='file']").forEach(element => {
+            element.style.display = "none";
         });
 
         loadingOverlay.style.display = 'none';
