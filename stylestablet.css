@@ -1,5 +1,5 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
-Version 3.22 */
+// Version 3.24_alpha */
 
 body {
     font-family: Arial, sans-serif;
@@ -1412,7 +1412,7 @@ input[type="date"] {
 
 .main-upload-button {
     display: block;
-    margin: 0 auto;
+    margin-left: auto;
     padding: 10px 20px;
     background: #778ec1;
     color: white;
@@ -1425,21 +1425,18 @@ input[type="date"] {
 .choice-menu {
     position: absolute;
     top: 100%;
-    /* Menü unter dem Button platzieren */
-    left: 50%;
-    /* Menü horizontal zentrieren */
+    left: 85%;
     transform: translateX(-50%);
-    /* Menü horizontal zentrieren */
-    background: white;
+    background:white;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius:4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 100;
     margin-top: 5px;
-    /* Kleiner Abstand zum Button */
-    min-width: 200px;
+    min-width: 350px;
     text-align: center;
-    /* Text im Menü zentrieren */
+    font-size: 24px;
+
 }
 
 .menu-choice {
@@ -1447,6 +1444,7 @@ input[type="date"] {
     padding: 10px;
     cursor: pointer;
     color: #333;
+    line-height:35px;
 }
 
 .menu-choice:hover {
@@ -1715,6 +1713,66 @@ td.label-cell:nth-child(1) {
     padding: 2px 5px;
     margin: 0 2px;
 }
+
+.customUploadButton {
+    display: block;
+    width: 33%;
+    margin-left: auto;
+    margin-top:35px;
+
+}
+
+.newstreets::placeholder {
+    color: red;
+    opacity: 1; 
+}
+
+.newstreets::-webkit-input-placeholder { 
+    color: red;
+}
+.newstreets::-moz-placeholder { 
+    color: red;
+    opacity: 1; 
+}
+.newstreets:-ms-input-placeholder { 
+    color: red;
+}
+.newstreets:-moz-placeholder { 
+    color: red;
+}
+
+.plzauszug::placeholder {
+    color: red;
+    opacity: 1; 
+}
+
+.plzauszug::-webkit-input-placeholder { 
+    color: red;
+}
+.plzauszug::-moz-placeholder { 
+    color: red;
+    opacity: 1; 
+}
+.plzauszug:-ms-input-placeholder { 
+    color: red;
+}
+.plzauszug:-moz-placeholder { 
+    color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
