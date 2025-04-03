@@ -781,9 +781,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Event-Listener
-        document.getElementById("mieterid").addEventListener("input", function () {
+/*         document.getElementById("mieterid").addEventListener("input", function () {
             setTimeout(handleMieterIdChange, 50); // Kurze Verzögerung für Dropdown-Auswahl
-        });
+        }); */
 
         // Standard-Listener für andere Felder
         document.getElementById("strasseeinzug").addEventListener("input", updateSignFields);
