@@ -60,8 +60,22 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         return;
     }
 
+
     const loadingOverlay = document.getElementById('loadingOverlay');
     loadingOverlay.style.display = 'flex';
+
+
+
+    // NEU: Placeholder ausblenden
+    const inputsWithPlaceholders = document.querySelectorAll('input[placeholder], textarea[placeholder]');
+    const originalPlaceholders = [];
+    inputsWithPlaceholders.forEach(input => {
+        originalPlaceholders.push({
+            element: input,
+            placeholder: input.getAttribute('placeholder')
+        });
+        input.removeAttribute('placeholder');
+    });
 
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
@@ -161,11 +175,65 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             }
         }
 
-        function updateProgress(current, total) {
-            const percentage = Math.round((current / total) * 100);
-            progressBar.style.width = `${Math.min(percentage, 100)}%`;
-            progressText.textContent = `${Math.min(percentage, 100)}% abgeschlossen`;
+
+        let targetPercentage = 0;
+        let currentDisplayPercentage = 0;
+        const progressIntervalDuration = 30;
+
+        function updateProgressSmoothly(target) {
+            targetPercentage = target;
+
+            if (!window.progressInterval) {
+                window.progressInterval = setInterval(animateProgress, progressIntervalDuration);
+            }
         }
+
+        function animateProgress() {
+            if (currentDisplayPercentage < targetPercentage) {
+                currentDisplayPercentage++;
+                progressBar.style.width = `${currentDisplayPercentage}%`;
+                progressText.textContent = `${currentDisplayPercentage}% abgeschlossen`;
+
+                updateProgressColor(currentDisplayPercentage);
+            }
+
+            if (currentDisplayPercentage >= targetPercentage) {
+                clearInterval(window.progressInterval);
+                window.progressInterval = null;
+            }
+        }
+
+        if (currentDisplayPercentage >= 100) {
+            progressBar.classList.add('progress-complete');
+            setTimeout(() => {
+                progressBar.classList.remove('progress-complete');
+            }, 1000);
+        }
+
+        function updateProgressColor(percentage) {
+            if (percentage > 75) {
+                progressBar.style.backgroundColor = '#2E7D32'; // Dunkelgrün (reif)
+                progressBar.style.boxShadow = '0 0 15px rgba(46, 125, 50, 0.6)';
+            } else if (percentage > 50) {
+                progressBar.style.backgroundColor = '#388E3C'; // Mittelgrün (wachsend)
+                progressBar.style.boxShadow = '0 0 12px rgba(56, 142, 60, 0.5)';
+            } else if (percentage > 25) {
+                progressBar.style.backgroundColor = '#4CAF50'; // Frischgrün
+                progressBar.style.boxShadow = '0 0 8px rgba(76, 175, 80, 0.4)';
+            } else {
+                progressBar.style.backgroundColor = '#8BC34A'; // Hellgrün (Keimling)
+                progressBar.style.boxShadow = '0 0 5px rgba(139, 195, 74, 0.3)';
+            }
+        }
+
+
+
+        function updateProgress(current, total) {
+            const percentage = Math.min(Math.round((current / total) * 100), 100);
+            updateProgressSmoothly(percentage);
+        }
+
+
 
         const totalElements = [
             elements.allgemein,
@@ -314,7 +382,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         }
 
         const fileName = `${strasse}_${datum}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
-                pdf.save(fileName);
+        pdf.save(fileName);
 
 
 
@@ -328,6 +396,14 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
     } catch (error) {
         console.error("Fehler beim Generieren des PDFs:", error);
     } finally {
+
+        originalPlaceholders.forEach(item => {
+            item.element.setAttribute('placeholder', item.placeholder);
+        });
+
+        themeElement.setAttribute("href", currentTheme);
+        buttons.forEach(button => button.style.display = '');
+
         themeElement.setAttribute("href", currentTheme);
         buttons.forEach(button => button.style.display = '');
 
