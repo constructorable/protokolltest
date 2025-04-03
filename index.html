@@ -33,7 +33,7 @@
             <div class="loading-content">
                 <span id="closeLoadingOverlay"
                     style="cursor: pointer; position: absolute; top: 10px; right: 10px; font-size: 20px;">&times;</span>
-                <div id="progressBar" style="width: 0%; height: 20px; background-color: #4CAF50;"></div>
+                <div id="progressBar" style="width: 0%; height: 20px; background-color: #28a226;"></div>
                 <div id="progressText">0% abgeschlossen</div>
             </div>
         </div>
@@ -41,10 +41,11 @@
 
 
 
+
         <div class="sticky-container">
 
             <button id="newTabButton">Neuen Tab öffnen</button>
-            <button id="savePdfButton">Als PDF speichern (3.241_alpha)</button>
+            <button id="savePdfButton">Als PDF speichern</button>
             <button id="sendEmailButton">PDF versenden</button>
 
         </div>
@@ -103,7 +104,7 @@
                             <td style="text-align: left; width: 380px; padding-right:10px;">Objekt / Straße</td>
                             <td colspan="5">
                                 <input id="strasseeinzug" type="text" name="bemerkungen"
-                                    class="testeinzeilig langes-input autoscale" style="width: 350px;">
+                                    class="testeinzeilig langes-input autoscale" style="width: 370px;">
                                 <div id="suggestionList"></div>
                             </td>
 
@@ -124,11 +125,11 @@
 
                         <tr>
                             <!-- PLZ / Ort 1 -->
-                            <td style="width: 350px;" class="objekt">PLZ / Ort</td>
+                            <td style="width: 370px;" class="objekt">PLZ / Ort</td>
                             <td colspan="5">
                                 <input type="text" id="plzeinzug" name="bemerkungen"
                                     class="testeinzeilig langes-input autoscale"
-                                    style="width: 350px; margin-right:10px;">
+                                    style="width: 370px; margin-right:10px;">
                             </td>
 
                             <!-- Datum -->
@@ -143,11 +144,11 @@
 
                         <tr>
                             <!-- Mieternummer -->
-                            <td style="width: 350px; text-align: left; padding:10px;">Mieternummer</td>
+                            <td style="width: 370px; text-align: left; padding:10px;">Mieternummer</td>
                             <td colspan="5">
                                 <input type="text" id="mieterid" name="bemerkungen"
                                     class="testeinzeilig langes-input autoscale"
-                                    style="width: 350px; margin-right:0px;">
+                                    style="width: 370px; margin-right:0px;">
                             </td>
 
 
@@ -515,7 +516,7 @@
                         <td>Farbe der Wände</td>
                         <td colspan="5">
                             <input id="farbeInput1" type="text" name="farbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="farbe" data-suggestion-list="farbeSuggestions1">
                             <div id="farbeSuggestions1" class="suggestion-list"></div>
                         </td>
@@ -604,24 +605,15 @@
 
 
                     <tr>
-                        <td>Fußboden Material</td>
+                        <td>Fußboden</td>
                         <td colspan="5">
                             <input id="fussbodenInput1" type="text" name="fussboden"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="fussboden" data-suggestion-list="fussbodenSuggestions1">
                             <div id="fussbodenSuggestions1" class="suggestion-list"></div>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Fußboden-Farbe</td>
-                        <td colspan="5">
-                            <input id="fussbodenFarbeInput1" type="text" name="fussbodenFarbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
-                                data-type="fussboden-farbe" data-suggestion-list="fussbodenFarbeSuggestions1">
-                            <div id="fussbodenFarbeSuggestions1" class="suggestion-list"></div>
-                        </td>
-                    </tr>
 
                     <tr>
                         <td>Schränke</td>
@@ -885,7 +877,10 @@
                         </td>
                     </tr>
 
-                    <tr>
+
+
+
+<!--                     <tr>
                         <td>Anzahl der Rauchwarnmelder</td>
 
                         <td class="no-border-right  text-right"
@@ -909,7 +904,17 @@
                             <label for="rwm2" class="radio-label"></label>
                         </td>
 
+                    </tr> -->
+
+                    <tr>
+                        <td class="rwm-label">Anzahl der Rauchwarnmelder</td>
+                        <td colspan="4" class="rwm-input-container">
+                            <input type="number" id="rwm-count1" name="rwm-count" min="0" value="0" class="rwm-input">
+                        </td>
                     </tr>
+
+
+
 
                     <tr>
                         <td class="commentshead">Bemerkungen Küche</td>
@@ -1199,7 +1204,7 @@
                         <td>Farbe der Wände</td>
                         <td colspan="5">
                             <input id="farbeInput2" type="text" name="farbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="farbe" data-suggestion-list="farbeSuggestions2">
                             <div id="farbeSuggestions2" class="suggestion-list"></div>
                         </td>
@@ -1288,10 +1293,10 @@
 
 
                     <tr>
-                        <td>Fußboden Material</td>
+                        <td>Fußboden</td>
                         <td colspan="5">
                             <input id="fussbodenInput2" type="text" name="fussboden"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="fussboden" data-suggestion-list="fussbodenSuggestions2">
                             <div id="fussbodenSuggestions2" class="suggestion-list"></div>
                         </td>
@@ -1299,15 +1304,7 @@
 
 
 
-                    <tr>
-                        <td>Fußboden-Farbe</td>
-                        <td colspan="5">
-                            <input id="fussbodenFarbeInput2" type="text" name="fussbodenFarbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
-                                data-type="fussboden-farbe" data-suggestion-list="fussbodenFarbeSuggestions2">
-                            <div id="fussbodenFarbeSuggestions2" class="suggestion-list"></div>
-                        </td>
-                    </tr>
+
 
                     <tr>
                         <td>Handwaschbecken</td>
@@ -1996,7 +1993,7 @@
                         <td>Farbe der Wände</td>
                         <td colspan="5">
                             <input id="farbeInput3" type="text" name="farbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="farbe" data-suggestion-list="farbeSuggestions3">
                             <div id="farbeSuggestions3" class="suggestion-list"></div>
                         </td>
@@ -2086,24 +2083,16 @@
 
 
                     <tr>
-                        <td>Fußboden Material</td>
+                        <td>Fußboden</td>
                         <td colspan="5">
                             <input id="fussbodenInput3" type="text" name="fussboden"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="fussboden" data-suggestion-list="fussbodenSuggestions3">
                             <div id="fussbodenSuggestions3" class="suggestion-list"></div>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Fußboden-Farbe</td>
-                        <td colspan="5">
-                            <input id="fussbodenFarbeInput3" type="text" name="fussbodenFarbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
-                                data-type="fussboden-farbe" data-suggestion-list="fussbodenFarbeSuggestions3">
-                            <div id="fussbodenFarbeSuggestions3" class="suggestion-list"></div>
-                        </td>
-                    </tr>
+
 
                     <tr>
                         <td>Handwaschbecken</td>
@@ -2785,7 +2774,7 @@
                         <td>Farbe der Wände</td>
                         <td colspan="5">
                             <input id="farbeInput4" type="text" name="farbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="farbe" data-suggestion-list="farbeSuggestions4">
                             <div id="farbeSuggestions4" class="suggestion-list"></div>
                         </td>
@@ -2850,26 +2839,14 @@
 
 
                     <tr>
-                        <td>Fußboden Material</td>
+                        <td>Fußboden</td>
                         <td colspan="5">
                             <input id="fussbodenInput4" type="text" name="fussboden"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                 data-type="fussboden" data-suggestion-list="fussbodenSuggestions4">
                             <div id="fussbodenSuggestions4" class="suggestion-list"></div>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>Fußboden-Farbe</td>
-                        <td colspan="5">
-                            <input id="fussbodenFarbeInput4" type="text" name="fussbodenFarbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
-                                data-type="fussboden-farbe" data-suggestion-list="fussbodenFarbeSuggestions4">
-                            <div id="fussbodenFarbeSuggestions4" class="suggestion-list"></div>
-                        </td>
-                    </tr>
-
-
 
                     <tr>
                         <td>Steckdosen / Lichtschalter</td>
@@ -2930,33 +2907,14 @@
 
 
                     <tr>
-                        <td>Anzahl der Rauchwarnmelder</td>
-
-                        <td class="no-border-right text-right"
-                            style="text-align: right; padding-right:10px; background-color:rgb(255, 255, 255);">
-                            0
-                        </td>
-                        <td>
-                            <input type="radio" id="dieleflurrwm1" name="dieleflurrwm" value="dieleflurrwm">
-                            <label for="dieleflurrwm1" class="radio-label"></label>
-                        </td>
-
-
-                        <td class="no-border-right text-right"
-                            style="text-align: right; padding-right:10px; background-color:rgb(255, 255, 255);">
-                            1 (oder mehr)
-                        </td>
-                        <td class="no-border-right">
-                            <input type="radio" id="dieleflurrwm2" name="dieleflurrwm" value="dieleflurrwm">
-                            <label for="dieleflurrwm2" class="radio-label"></label>
-                        </td>
-                        <td>
-
-
-
-
+                        <td class="rwm-label">Anzahl der Rauchwarnmelder</td>
+                        <td colspan="4" class="rwm-input-container">
+                            <input type="number" id="rwm-count2" name="rwm-count" min="0" value="0" class="rwm-input">
                         </td>
                     </tr>
+
+
+
                     <tr>
                         <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Diele / Flur:
                         </td>
@@ -3274,7 +3232,7 @@
                             <td>Farbe der Wände</td>
                             <td colspan="5">
                                 <input id="farbeInput5" type="text" name="farbe"
-                                    class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                    class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                     data-type="farbe" data-suggestion-list="farbeSuggestions5">
                                 <div id="farbeSuggestions5" class="suggestion-list"></div>
                             </td>
@@ -3341,25 +3299,14 @@
 
 
                         <tr>
-                            <td>Fußboden Material</td>
+                            <td>Fußboden</td>
                             <td colspan="5">
                                 <input id="fussbodenInput5" type="text" name="fussboden"
-                                    class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                    class="testeinzeilig langes-input autoscale suggestion-input" style="width: 370px;"
                                     data-type="fussboden" data-suggestion-list="fussbodenSuggestions5">
                                 <div id="fussbodenSuggestions5" class="suggestion-list"></div>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td>Fußboden-Farbe</td>
-                            <td colspan="5">
-                                <input id="fussbodenFarbeInput5" type="text" name="fussbodenFarbe"
-                                    class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
-                                    data-type="fussboden-farbe" data-suggestion-list="fussbodenFarbeSuggestions5">
-                                <div id="fussbodenFarbeSuggestions5" class="suggestion-list"></div>
-                            </td>
-                        </tr>
-
 
                         <tr>
                             <td>Radio-/Fernseh-/Internetdose</td>
@@ -3425,34 +3372,12 @@
                         <tr>
 
 
-                        <tr>
-                            <td>Anzahl der Rauchwarnmelder</td>
-
-                            <td class="no-border-right text-right"
-                                style="text-align: right; padding-right:10px; background-color:rgb(255, 255, 255);">
-                                0
-                            </td>
-                            <td>
-                                <input type="radio" id="abstellrwm1" name="abstellrwm" value="abstellrwm">
-                                <label for="abstellrwm1" class="radio-label"></label>
-                            </td>
-
-
-                            <td class="no-border-right text-right"
-                                style="text-align: right; padding-right:10px; background-color:rgb(255, 255, 255);">
-                                1 (oder mehr)
-                            </td>
-                            <td class="no-border-right">
-                                <input type="radio" id="abstellrwm2" name="abstellrwm" value="abstellrwm">
-                                <label for="abstellrwm2" class="radio-label"></label>
-                            </td>
-                            <td>
-
-
-
-
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="rwm-label">Anzahl der Rauchwarnmelder</td>
+                                <td colspan="4" class="rwm-input-container">
+                                    <input type="number" id="rwm-count3" name="rwm-count" min="0" value="0" class="rwm-input">
+                                </td>
+                            </tr>
 
 
 
