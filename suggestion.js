@@ -15,50 +15,139 @@ const mitarbeiternamen = [
 
 // Definiere das Array mit den Farben
 const farben = [
+
     "weiß",
     "beige",
-    "grau",
-    "hellgrau",
+    "grau",        // Wird unten erweitert
+    "hellgrau",    // Wird unten erweitert
     "anthrazit",
     "creme",
     "elfenbein",
     "taubenblau",
-    "mintgrün",
-    "pastellrosa",
+    "hellblau",
+    "dunkelblau",
+    "mintgrün",    // Wird unten ergänzt
+    "pastellrosa", // Wird unten ergänzt
     "sand",
     "terrakotta",
-    "olivgrün",
+    "olivgrün",    // Wird unten ergänzt
     "taupe",
     "vanille",
     "himmelblau",
-    "lachs",
-    "moosgrün",
-    "zitronengelb",
-    "sonstige"
+    "lachs",       // Wird unten ergänzt
+    "moosgrün",    // Wird unten ergänzt
+    "zitronengelb",// Wird unten ergänzt
+    "sonstige",
+
+    // Rot
+    "rot",
+    "hellrot",
+    "dunkelrot",
+    "karminrot",
+    "weinrot",
+    
+    // Grün
+    "grün",
+    "hellgrün",
+    "dunkelgrün",
+    "waldgrün",
+    "apfelgrün",
+    
+    // Braun
+    "braun",
+    "hellbraun",
+    "dunkelbraun",
+    "kakao",
+    "mahagoni",
+    
+    // Grau (Ergänzung zu vorhandenen)
+    "mittelgrau",
+    "steingrau",
+    "silbergrau",
+    
+    // Lila
+    "lila",
+    "helllila",
+    "dunkellila",
+    "flieder",
+    "lavendel",
+    
+    // Rosa
+    "rosa",
+    "hellrosa",
+    "dunkelrosa",
+    "puderrosa",
+    "altrosa",
+    
+    // Gelb
+    "gelb",
+    "hellgelb",
+    "dunkelgelb",
+    "sonnenblumengelb",
+    "goldgelb"
 ];
 
 // Definiere das Array mit den Fußbodenmaterialien
 const fussbodenMaterialien = [
-    "Parkett",
+    "Holz - Parkett, Eiche",
+    "Holz - Parkett, Esche",
+    "Holz - Parkett, Kiefer",
+    "Holz - Parkett, Meranti",
+    "Holz - Parkett, Lärche",
+    "Holz",
+    "Holz - Dielen",
+    "Holz - Dielen, Eiche",
+    "Holz - Dielen, Kiefer",
+    "Holz - Dielen, Lärche",
+    "Holz - Dielen, Esche",
+    "Holz - Dielen, Meranti",
+    "Holz - Dielen, Bambus",
     "Laminat",
+    "Laminat - Optik Buche",
+    "Laminat - Optik Esche",
+    "Laminat - Optik Eiche",
+    "Laminat - Optik Kiefer",
+    "Laminat - Optik Stein",
+    "Laminat - Optik terrakotta",
+    "Laminat - Optik Bunt / Musterung",
     "Fliesen",
+    "Fliesen - beige",
+    "Fliesen - weiß",
+    "Fliesen - schwarz",
+    "Fliesen - grau",
+    "Fliesen - blau",
+    "Fliesen - grün",
+    "Fliesen - terrakotta",
     "Teppich",
     "Vinyl",
+    "Vinyl - Optik Buche",
+    "Vinyl - Optik Esche",
+    "Vinyl - Optik Eiche",
+    "Vinyl - Optik Kiefer",
+    "Vinyl - Optik Stein",
+    "Vinyl - Optik terrakotta",
+    "Vinyl - Optik Bunt / Musterung",
+    "PVC",
+    "PVC - Optik Buche",
+    "PVC - Optik Esche",
+    "PVC - Optik Eiche",
+    "PVC - Optik Kiefer",
+    "PVC - Optik Stein",
+    "PVC - Optik terrakotta",
+    "PVC - Optik Bunt / Musterung",
+    "Beton",
     "Betonoptik",
     "Kork",
     "Naturstein",
     "Marmor",
     "Granit",
     "Linoleum",
-    "Dielen",
-    "Eichenholz",
-    "Bambus",
     "Terrazzo",
     "Zement",
     "Kunststoff",
     "Gummi",
     "Keramik",
-    "sonstige"
+    "sonstiger Bodenbelag"
 ];
 
 const fussbodenFarben = [
@@ -78,84 +167,6 @@ const fussbodenFarben = [
     "sonstige"
 ];
 
-const stockwerke = [
-    "EG rechts",
-    "EG links",
-    "EG mitte",
-    "1. OG rechts",
-    "1. OG links",
-    "1. OG mitte",
-    "2. OG rechts",
-    "2. OG links",
-    "2. OG mitte",
-    "3. OG rechts",
-    "3. OG links",
-    "3. OG mitte",
-    "4. OG rechts",
-    "4. OG links",
-    "4. OG mitte",
-    "5. OG rechts",
-    "5. OG links",
-    "5. OG mitte",
-    "6. OG rechts",
-    "6. OG links",
-    "6. OG mitte",
-    "DG rechts",
-    "DG links",
-    "DG mitte",
-    "Souterrain",
-    "VH, EG rechts",
-    "VH, EG links",
-    "VH, EG mitte",
-    "VH, 1. OG rechts",
-    "VH, 1. OG links",
-    "VH, 1. OG mitte",
-    "VH, 2. OG rechts",
-    "VH, 2. OG links",
-    "VH, 2. OG mitte",
-    "VH, 3. OG rechts",
-    "VH, 3. OG links",
-    "VH, 3. OG mitte",
-    "VH, 4. OG rechts",
-    "VH, 4. OG links",
-    "VH, 4. OG mitte",
-    "VH, 5. OG rechts",
-    "VH, 5. OG links",
-    "VH, 5. OG mitte",
-    "VH, 6. OG rechts",
-    "VH, 6. OG links",
-    "VH, 6. OG mitte",
-    "VH, DG rechts",
-    "VH, DG links",
-    "VH, DG mitte",
-    "VH, Souterrain",
-    "RG, EG rechts",
-    "RG, EG links",
-    "RG, EG mitte",
-    "RG, 1. OG rechts",
-    "RG, 1. OG links",
-    "RG, 1. OG mitte",
-    "RG, 2. OG rechts",
-    "RG, 2. OG links",
-    "RG, 2. OG mitte",
-    "RG, 3. OG rechts",
-    "RG, 3. OG links",
-    "RG, 3. OG mitte",
-    "RG, 4. OG rechts",
-    "RG, 4. OG links",
-    "RG, 4. OG mitte",
-    "RG, 5. OG rechts",
-    "RG, 5. OG links",
-    "RG, 5. OG mitte",
-    "RG, 6. OG rechts",
-    "RG, 6. OG links",
-    "RG, 6. OG mitte",
-    "RG, DG rechts",
-    "RG, DG links",
-    "RG, DG mitte",
-    "RG, Souterrain"
-];
-
 // Warte, bis das DOM vollständig geladen ist
 document.addEventListener("DOMContentLoaded", function () {
     // Funktion zum Aktualisieren der Signaturfelder
@@ -170,24 +181,26 @@ document.addEventListener("DOMContentLoaded", function () {
     // Funktion, um Vorschläge basierend auf der Benutzereingabe anzuzeigen
     function showSuggestions(input, suggestionsArray, suggestionList) {
         const inputValue = input.value.toLowerCase();
-        const suggestions = suggestionsArray.filter(item =>
-            item.toLowerCase().startsWith(inputValue)
+        
+        // Suche nach Teilstrings in allen Einträgen
+        const suggestions = suggestionsArray.filter(item => 
+            item.toLowerCase().includes(inputValue)
         );
-
+    
         suggestionList.innerHTML = "";
-
+    
         suggestions.forEach(item => {
             const option = document.createElement("div");
             option.textContent = item;
             option.classList.add("suggestion-item");
             option.addEventListener("click", () => {
-                input.value = item; // Setze den ausgewählten Wert in das Input-Feld
-                suggestionList.innerHTML = ""; // Leere die Vorschlagsliste
-                updateSignFields(); // Aktualisiere die Signaturfelder SOFORT
+                input.value = item;
+                suggestionList.innerHTML = "";
+                updateSignFields();
             });
             suggestionList.appendChild(option);
         });
-
+    
         if (suggestions.length > 0) {
             suggestionList.style.display = "block";
         } else {
@@ -251,9 +264,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 case "fussboden-farbe":
                     suggestionsArray = fussbodenFarben;
                     break;
-                case "stockwerk":
+/*                 case "stockwerk":
                     suggestionsArray = stockwerke;
-                    break;
+                    break; */
                 default:
                     console.warn(`Unbekannter Datentyp: ${dataType}`);
                     return;
