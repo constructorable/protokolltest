@@ -1369,41 +1369,27 @@ input[type="date"] {
 
 .suggestion-list {
     border: 1px solid #ccc;
-    /* Rahmen */
     max-height: 450px;
-    /* Maximale Höhe */
     overflow-y: auto;
-    /* Scrollbar, falls nötig */
-    width: 240px;
-    /* Breite anpassen */
+    width: 350px;
     display: none;
-    /* Standardmäßig versteckt */
     position: absolute;
-    /* Absolute Positionierung */
     z-index: 1000;
-    /* Hoher Z-Index, um über anderen Elementen zu liegen */
     background-color: rgb(241, 245, 255);
-    /* Hintergrundfarbe */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Leichter Schatten */
     margin-top: 5px;
-    /* Abstand zum Input-Feld */
 }
 
 .suggestion-item {
     padding: 8px;
-    /* Innenabstand */
     cursor: pointer;
-    /* Zeiger-Cursor */
     font-size: 24px;
-    /* Schriftgröße */
     color: #333;
-    /* Schriftfarbe */
+
 }
 
 .suggestion-item:hover {
     background-color: #f0f0f0;
-    /* Hintergrundfarbe beim Hover */
 }
 
 .main-button-container {
@@ -1427,9 +1413,9 @@ input[type="date"] {
     top: 100%;
     left: 85%;
     transform: translateX(-50%);
-    background:white;
+    background: white;
     border: 1px solid #ddd;
-    border-radius:4px;
+    border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 100;
     margin-top: 5px;
@@ -1444,7 +1430,7 @@ input[type="date"] {
     padding: 10px;
     cursor: pointer;
     color: #333;
-    line-height:35px;
+    line-height: 35px;
 }
 
 .menu-choice:hover {
@@ -1718,45 +1704,51 @@ td.label-cell:nth-child(1) {
     display: block;
     width: 33%;
     margin-left: auto;
-    margin-top:35px;
+    margin-top: 35px;
 
 }
 
 .newstreets::placeholder {
     color: red;
-    opacity: 1; 
+    opacity: 1;
 }
 
-.newstreets::-webkit-input-placeholder { 
+.newstreets::-webkit-input-placeholder {
     color: red;
 }
-.newstreets::-moz-placeholder { 
+
+.newstreets::-moz-placeholder {
     color: red;
-    opacity: 1; 
+    opacity: 1;
 }
-.newstreets:-ms-input-placeholder { 
+
+.newstreets:-ms-input-placeholder {
     color: red;
 }
-.newstreets:-moz-placeholder { 
+
+.newstreets:-moz-placeholder {
     color: red;
 }
 
 .plzauszug::placeholder {
     color: red;
-    opacity: 1; 
+    opacity: 1;
 }
 
-.plzauszug::-webkit-input-placeholder { 
+.plzauszug::-webkit-input-placeholder {
     color: red;
 }
-.plzauszug::-moz-placeholder { 
+
+.plzauszug::-moz-placeholder {
     color: red;
-    opacity: 1; 
+    opacity: 1;
 }
-.plzauszug:-ms-input-placeholder { 
+
+.plzauszug:-ms-input-placeholder {
     color: red;
 }
-.plzauszug:-moz-placeholder { 
+
+.plzauszug:-moz-placeholder {
     color: red;
 }
 
@@ -1863,4 +1855,44 @@ td.label-cell:nth-child(1) {
         top: 1px;
     }
 
+}
+
+
+
+.rwm-label {
+    font-size: 22px;
+    text-align: left;
+}
+
+.rwm-input-container {
+    text-align: left;
+}
+
+.rwm-input {
+    width: 80px;
+    font-size: 22px;
+    text-align: center;
+}
+
+#rwm-count1,
+#rwm-count2,
+#rwm-count3,
+#rwm-countzimm01,
+#rwm-countzimm02,
+#rwm-countzimm03,
+#rwm-countzimm04,
+#rwm-countzimm05,
+#rwm-countzimm06,
+#rwm-countzimm07,
+#rwm-countzimm08,
+#rwm-countzimm09,
+#rwm-countzimm10,
+#rwm-countzimm11 {
+    width: 55px !important;
+}
+
+.commentshead {
+
+    padding-top: 12px;
+    font-weight: 600;
 }
