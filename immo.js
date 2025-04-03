@@ -2054,7 +2054,8 @@ document.addEventListener("DOMContentLoaded", function () {
         
     ];
 
-    let lastMieternummerValue = "";
+    let lastValidMieternummer = "";
+    let isUserTyping = false;
 
     function updateSignFields() {
         document.getElementById("strasseeinzugsign").textContent = document.getElementById("strasseeinzug").value;
@@ -2064,23 +2065,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fillFieldsByMieternummer(mieterId) {
-        // Nur ausfüllen wenn die Eingabe länger wird (nicht beim Löschen)
-        if (mieterId.length < lastMieternummerValue.length) {
-            lastMieternummerValue = mieterId;
-            return;
-        }
-
         const found = strassen.find(strasse => 
-            strasse.mieternummer.toLowerCase().startsWith(mieterId.toLowerCase())
+            strasse.mieternummer.toLowerCase() === mieterId.toLowerCase()
         );
         
-        if (found && mieterId.length > 0) {
+        if (found) {
             document.getElementById("strasseeinzug").value = found.objekt;
             document.getElementById("plzeinzug").value = `${found.plz} ${found.ort}`;
             document.getElementById("lageeinzug2").value = found.lage;
+            lastValidMieternummer = mieterId;
+            updateSignFields();
+        } else if (mieterId.length === 0) {
+            // Felder leeren wenn Mieternummer komplett gelöscht wurde
+            document.getElementById("strasseeinzug").value = "";
+            document.getElementById("plzeinzug").value = "";
+            document.getElementById("lageeinzug2").value = "";
+            lastValidMieternummer = "";
             updateSignFields();
         }
-        lastMieternummerValue = mieterId;
     }
 
     function showSuggestions(input, isMieternummerSearch) {
@@ -2106,13 +2108,11 @@ document.addEventListener("DOMContentLoaded", function () {
             option.addEventListener("click", () => {
                 input.value = isMieternummerSearch ? strasse.mieternummer : strasse.objekt;
                 if (isMieternummerSearch) {
-                    document.getElementById("strasseeinzug").value = strasse.objekt;
-                    document.getElementById("plzeinzug").value = `${strasse.plz} ${strasse.ort}`;
-                    document.getElementById("lageeinzug2").value = strasse.lage;
-                    lastMieternummerValue = strasse.mieternummer;
+                    fillFieldsByMieternummer(strasse.mieternummer);
                 }
                 updateSignFields();
                 suggestionList.style.display = "none";
+                isUserTyping = false;
             });
             suggestionList.appendChild(option);
         });
@@ -2130,18 +2130,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mieternummer Input Handling
     document.getElementById("mieterid").addEventListener("input", function (event) {
+        isUserTyping = true;
         showSuggestions(event.target, true);
-        
-        // Nur bei Enter oder expliziter Auswahl ausfüllen
-        if (event.inputType === "insertReplacementText") {
-            fillFieldsByMieternummer(event.target.value);
-        }
     });
 
     document.getElementById("mieterid").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             fillFieldsByMieternummer(event.target.value);
             document.getElementById("suggestionList").style.display = "none";
+            isUserTyping = false;
+        }
+    });
+
+    document.getElementById("mieterid").addEventListener("blur", function(event) {
+        if (isUserTyping) {
+            // Nur ausfüllen wenn der Wert einem vollständigen Eintrag entspricht
+            const currentValue = event.target.value;
+            if (strassen.some(s => s.mieternummer === currentValue)) {
+                fillFieldsByMieternummer(currentValue);
+            } else if (currentValue.length === 0) {
+                fillFieldsByMieternummer("");
+            }
+            isUserTyping = false;
         }
     });
 
