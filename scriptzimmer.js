@@ -18,9 +18,9 @@ function initializeSuggestionInputs() {
             case "fussboden":
                 suggestionsArray = fussbodenMaterialien;
                 break;
-            case "fussboden-farbe":
-                suggestionsArray = fussbodenFarben;
-                break;
+            /*             case "fussboden-farbe":
+                            suggestionsArray = fussbodenFarben;
+                            break; */
             case "stockwerk":
                 suggestionsArray = stockwerke;
                 break;
@@ -370,15 +370,7 @@ function addRoom() {
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Fußboden-Farbe</td>
-                        <td colspan="5">
-                            <input id="fussbodenFarbeInput${specialRoomCount}" type="text" name="fussbodenFarbe"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
-                                data-type="fussboden-farbe" data-suggestion-list="fussbodenFarbeSuggestions${specialRoomCount}">
-                            <div id="fussbodenFarbeSuggestions${specialRoomCount}" class="suggestion-list"></div>
-                        </td>
-                    </tr>
+
 
 
             <tr>
@@ -443,34 +435,15 @@ function addRoom() {
             <tr>
 
 
-            <tr>
-                <td>Anzahl der Rauchwarnmelder</td>
-
-                <td class="no-border-right text-right"
-                    style="text-align: right; padding-right:10px; background-color:rgb(255, 255, 255);">
-                    0
-                </td>
-                <td>
-                    <input type="radio" id="${roomId}-rwm1" name="${roomId}-rwm" value="${roomId}-rwm">
-                    <label for="${roomId}-rwm1" class="radio-label"></label>
-                </td>
-
-
-                <td class="no-border-right text-right"
-                    style="text-align: right; padding-right:10px; background-color:rgb(255, 255, 255);">
-                    1 (oder mehr)
-                </td>
-                <td class="no-border-right">
-                    <input type="radio" id="${roomId}-rwm2" name="${roomId}-rwm" value="${roomId}-rwm">
-                    <label for="${roomId}-rwm2" class="radio-label"></label>
-                </td>
-                <td>
 
 
 
-
-                </td>
-            </tr>
+                    <tr>
+                        <td class="rwm-label">Anzahl der Rauchwarnmelder</td>
+                        <td colspan="4" class="rwm-input-container">
+                            <input type="number" id="rwm-count${roomId}" name="rwm-count" min="0" value="0" class="rwm-input">
+                        </td>
+                    </tr>
 
 
             <tr>
@@ -560,7 +533,7 @@ function addRoom() {
     addRemarkButton.classList.add("add-remark-btn");
     addRemarkButton.textContent = "+";
     addRemarkButton.onclick = function () { addRemark(roomDiv); };
-    
+
 
 
     roomDiv.appendChild(roomTitle);
