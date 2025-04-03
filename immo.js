@@ -1,3 +1,6 @@
+// Copyright - Oliver Acker, acker_oliver@yahoo.de
+// Version 3.24_alpha
+
 document.addEventListener("DOMContentLoaded", function () {
     window.strassen = [
         {mieternummer: "CI001-M-20010.01", objekt: "Amalienstr. 38", plz: "90419", ort: "Nürnberg", lage: "EG rechts - WE10"},
