@@ -756,6 +756,13 @@ h3 {
     display: inline-block;
 }
 
+.large-image-wrapperxxx {
+    position: relative;
+    /* Wichtig für %-basierte Positionierung */
+    min-height: 300px;
+    /* Beispielwert, anpassen */
+}
+
 .delete-btn {
     background-color: rgb(139, 0, 0);
     color: white;
@@ -769,12 +776,30 @@ h3 {
     border-radius: 22px;
 }
 
+
+
 .image-preview .image-container .image-wrapper .delete-btn {
     background-color: #ac1a1a;
     border-radius: 22px;
-    top: -8px;
-    right: -10px;
+/*     top: -8px;
+    right: -10px; */
+/*     top: -93% !important;
+    right: -97% !important; */
+    top: -11% !important;
+  right: -6% !important;
 }
+
+[id^="largexxx-wrapperxxx-imgxxx"] {
+    background-color: #eeeeee !important;
+    padding: 10px !important;
+    margin-bottom:10px;
+    border-radius:11px;
+}
+
+
+
+
+
 
 #large-images-section {
     margin-top: 40px;
@@ -1705,7 +1730,7 @@ td.label-cell:nth-child(1) {
     width: 33%;
     margin-left: auto;
     margin-top: 35px;
-    font-size:20px;
+    font-size: 20px;
 
 }
 
