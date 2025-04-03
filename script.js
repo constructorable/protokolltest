@@ -5,7 +5,6 @@
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
 document.addEventListener("DOMContentLoaded", function () {
-    // Event Listener für den Button hinzufügen
     document.getElementById('toggleModeButton').addEventListener('click', toggleMode);
 });
 function toggleMode() {
@@ -158,16 +157,13 @@ document.getElementById('addeinziehenderMieter').addEventListener('click', funct
 /* Button ausziehender Mieter hinzufügen (inkl. Unterschriftenfeld für ausziehenden Mieter)... */
 /* Button ausziehender Mieter hinzufügen (inkl. Unterschriftenfeld für ausziehenden Mieter)... */
 /* Button ausziehender Mieter hinzufügen (inkl. Unterschriftenfeld für ausziehenden Mieter)... */
-/* Button ausziehender Mieter hinzufügen (inkl. Unterschriftenfeld für ausziehenden Mieter)... */
 document.addEventListener("DOMContentLoaded", function () {
     let counter = 1;
 
-    // Button zum Hinzufügen eines ausziehenden Mieters
     document.getElementById('addausziehenderMieter').addEventListener('click', function () {
         let table = document.getElementById('auszugmieterTable');
 
-        // Erstelle die Tabelle, falls sie noch nicht existiert
-        if (!table) {
+         if (!table) {
             table = document.createElement('table');
             table.id = 'auszugmieterTable';
 
@@ -179,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const th = document.createElement('th');
                 th.textContent = headerText;
                 if (headerText === 'E-Mail') {
-                    th.style.width = '118px'; // Breite der E-Mail-Spalte
+                    th.style.width = '118px';
                 }
                 headerRow.appendChild(th);
             });
@@ -194,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
             button.insertAdjacentElement('beforebegin', table);
         }
 
-        // Neue Zeile für den ausziehenden Mieter erstellen
         const newRow = document.createElement('tr');
         const nameCell = document.createElement('td');
         const strasseCell = document.createElement('td');
@@ -232,7 +227,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         table.querySelector('tbody').appendChild(newRow);
 
-        // Unterschriftenfeld und Namensanzeige erstellen
         const signatureContainer = document.createElement('div');
         signatureContainer.classList.add('signature-container');
         signatureContainer.id = `signature-container-ausziehender-mieter-${counter}`;
@@ -254,8 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         signatureContainer.appendChild(signatureBox);
 
-        // Mieter-Info direkt unter der Signatur-Box platzieren
-        const mieterInfo = document.createElement('div');
+         const mieterInfo = document.createElement('div');
         mieterInfo.id = `ausziehender-mieter-info-${counter}`;
         mieterInfo.style.marginTop = '-10px';
         mieterInfo.style.marginLeft = '1px';
@@ -265,19 +258,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         signatureContainer.appendChild(mieterInfo);
 
-        // Unterschriftenfeld und Namensanzeige in .signature-content einfügen (nach den einziehenden Mietern)
         const signatureContent = document.querySelector('.signature-content');
         if (signatureContent) {
-            // Füge das neue Unterschriftenfeld nach den bestehenden Unterschriftenfeldern ein
             signatureContent.appendChild(signatureContainer);
         } else {
             console.error("Container mit der Klasse '.signature-content' nicht gefunden!");
         }
 
-        // Signatur-Canvas initialisieren
         initSignatureCanvas(`ausziehender-mieter-signature-${counter}`);
 
-        // Event-Listener für das Namensfeld
         const nameInput = document.getElementById(nameId);
         const fullNameSpan = document.getElementById(`ausziehender-mieter-fullname-${counter}`);
 
@@ -286,7 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
             updateFullName(fullNameSpan, fullName);
         });
 
-        // Schriftgrößen-Steuerung für die neuen Input-Felder initialisieren
         const inputContainers = signatureContainer.querySelectorAll('.input-container');
         inputContainers.forEach(container => {
             const input = container.querySelector('input');
@@ -339,33 +327,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Unterschriftenfeld Canvas-Größe dynamisch an Container anpassen (gut für responive Design geeignet)
 // Unterschriftenfeld Canvas-Größe dynamisch an Container anpassen (gut für responive Design geeignet)
 // Unterschriftenfeld Canvas-Größe dynamisch an Container anpassen (gut für responive Design geeignet)
@@ -382,8 +343,6 @@ function resizeCanvas(canvas, context) {
     // Unterschrift wiederherstellen
     loadSignature(canvas, context, tempImage);
 }
-
-
 
 
 // Unterschriftenfeld: Diese Funktion initialisiert ein Canvas-Element, das als Signaturfeld verwendet werden kann
@@ -575,60 +534,15 @@ window.onload = function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Bemerkungszeile duplizieren */
 /* Bemerkungszeile duplizieren */
 /* Bemerkungszeile duplizieren */
-// Funktion zum Duplizieren einer Zeile
+
 function duplicateRow(button) {
-    // Finde die aktuelle Zeile (die Zeile, in der der Button geklickt wurde)
     const row = button.closest('tr');
 
-    // Klone die Zeile
     const newRow = row.cloneNode(true);
 
-    // Lösche den Wert im Input-Feld der neuen Zeile
     const inputField = newRow.querySelector('input.dupli');
     if (inputField) {
         inputField.value = '';
@@ -819,21 +733,11 @@ document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUploa
 
 
 
-
-
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
-
 document.addEventListener("DOMContentLoaded", function () {
-    // Warte kurz um sicherzustellen dass immo.js geladen ist
     setTimeout(function () {
-        // Funktion zum Formatieren des Datums
-        /*         function formatDate(dateString) {
-                    if (!dateString) return "";
-                    const date = new Date(dateString);
-                    return date.toLocaleDateString('de-DE');
-                } */
 
         function formatDate(dateString) {
             if (!dateString) return "";
@@ -1060,14 +964,10 @@ window.addEventListener('beforeunload', function (event) {
 // Funktion, um den Namen unter der Unterschrift anzuzeigen
 // Funktion, um den Namen unter der Unterschrift anzuzeigen
 function updateFullName(fullNameSpan, fullName) {
-    // Trenne den Namen in "Name" und "Vorname" basierend auf dem Komma
-    const [name, vorname] = fullName.split(',').map(part => part.trim());
-
-    // Setze den Namen im Format "Vorname Name"
+     const [name, vorname] = fullName.split(',').map(part => part.trim());
     if (vorname && name) {
         fullNameSpan.textContent = `${vorname} ${name}`;
     } else {
-        // Falls kein Komma vorhanden ist, zeige den gesamten Namen an
         fullNameSpan.textContent = fullName;
     }
 }
@@ -1080,15 +980,12 @@ function updateFullName(fullNameSpan, fullName) {
 document.getElementById('addKeyButton').addEventListener('click', function () {
     const tableContainer = document.getElementById('schluesselTableContainer');
 
-    // Überprüfen, ob die Tabelle bereits existiert
     let table = document.getElementById('schluesselTable');
 
     if (!table) {
-        // Tabelle und den entsprechenden Kopf erstellen
         table = document.createElement('table');
         table.id = 'schluesselTable';
 
-        // CSS für die Tabelle hinzufügen
         const style = document.createElement('style');
         style.textContent = `
             #schluesselTable {
@@ -1170,7 +1067,6 @@ document.getElementById('addKeyButton').addEventListener('click', function () {
     newRow.appendChild(anzahlCell);
     newRow.appendChild(schluesselnummerCell);
 
-    // Zeile in den Tabellenkörper einfügen
     const tbody = table.querySelector('tbody');
     tbody.appendChild(newRow);
 });
@@ -1184,14 +1080,12 @@ document.getElementById('addKeyButton').addEventListener('click', function () {
 document.getElementById('addZaehlerButton').addEventListener('click', function () {
     const tableContainer = document.getElementById('zaehlerTableContainer');
 
-    // Überprüfen, ob die Tabelle bereits existiert
     let table = document.getElementById('zaehlerTable');
 
     if (!table) {
-        // Tabelle und den entsprechenden Kopf erstellen
         table = document.createElement('table');
         table.id = 'zaehlerTable';
-        table.style.width = '100%'; // Breite der Tabelle
+        table.style.width = '100%';
 
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
@@ -1206,7 +1100,7 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
         headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header.text;
-            th.style.width = header.width; // Breite der Überschrift anpassen
+            th.style.width = header.width;
             headerRow.appendChild(th);
         });
 
@@ -1216,11 +1110,9 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
         const tbody = document.createElement('tbody');
         table.appendChild(tbody);
 
-        // Die Tabelle in den DOM einfügen
         tableContainer.appendChild(table);
     }
 
-    // Neue Zeile in den Tabellenkörper hinzufügen
     const newRow = document.createElement('tr');
 
     const bezeichnungCell = document.createElement('td');
@@ -1249,14 +1141,9 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
     newRow.appendChild(einbaulageCell);
     newRow.appendChild(zaehlerstandCell);
 
-    // Zeile in den Tabellenkörper einfügen
     const tbody = table.querySelector('tbody');
     tbody.appendChild(newRow);
 });
-
-
-
-
 
 
 
@@ -1378,7 +1265,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let text = h3.textContent.trim();
 
             if (table) {
-                // Wenn die Tabelle existiert, setze die Überschrift auf den Standardtext
                 if (text === notGivenText) {
                     h3.textContent = headingText;
                     h3.style.color = "black";
@@ -1386,7 +1272,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     h3.style.paddingBottom = "0px";
                 }
             } else {
-                // Wenn die Tabelle nicht existiert, setze die Überschrift auf "nicht angegeben"
                 if (text === headingText) {
                     h3.textContent = notGivenText;
                     h3.style.color = "#c80000";
@@ -1397,11 +1282,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Funktion zur Überprüfung der einziehenden Mieter
     function checkAndUpdateEinziehenderMieter() {
         let found = false;
 
-        // Prüfe, ob ein Element mit der ID, die "NameEin" enthält, vorhanden ist
         for (let i = 1; i <= 99; i++) {
             let element = document.getElementById("NameEin" + String(i).padStart(2, "0"));
             if (element) {
@@ -1410,7 +1293,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        // Passe die Überschrift basierend auf dem Vorhandensein der Tabelle an
         document.querySelectorAll("h3").forEach(function (h3) {
             let text = h3.textContent.trim();
 
@@ -1432,13 +1314,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Initiale Prüfung beim Laden der Seite
     checkAndUpdateHeading("schluesselTable", "Schlüssel", "Schlüssel (nicht angegeben)");
     checkAndUpdateHeading("auszugmieterTable", "ausziehender Mieter", "ausziehender Mieter (nicht zutreffend)");
     checkAndUpdateHeading("zaehlerTable", "Zähler", "Zähler (nicht angegeben)");
     checkAndUpdateEinziehenderMieter();
 
-    // Event Listener für Buttons
     document.getElementById('addKeyButton').addEventListener('click', function () {
         setTimeout(function () {
             checkAndUpdateHeading("schluesselTable", "Schlüssel", "Schlüssel (nicht angegeben)");
