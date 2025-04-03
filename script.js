@@ -470,7 +470,7 @@ function initSignatureCanvas(canvasId) {
     function saveSignatureToLocalStorage(canvas, canvasId) {
         const signatureData = canvas.toDataURL();
 
-         const expirationTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 Stunden werden die Unterschriften gespeichert. 
+        const expirationTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 Stunden werden die Unterschriften gespeichert. 
         const signatureObject = {
             data: signatureData,
             expiration: expirationTime
@@ -826,49 +826,88 @@ document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUploa
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Warte kurz um sicherzustellen dass immo.js geladen ist
+    setTimeout(function () {
+        // Funktion zum Formatieren des Datums
+        /*         function formatDate(dateString) {
+                    if (!dateString) return "";
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('de-DE');
+                } */
 
+        function formatDate(dateString) {
+            if (!dateString) return "";
 
-    // Funktion zum Aktualisieren der Signaturfelder
-    function updateSignFields() {
-        // Werte aus den Input-Feldern holen und ein Komma anhängen
-        const strasse = document.getElementById("strasseeinzug").value + ",";
-        const lage = document.getElementById("lageeinzug2").value + ",";
-        const plz = document.getElementById("plzeinzug").value + ",";
-        const mieterid = document.getElementById("mieterid").value + ",";
-        const datum = formatDate(document.getElementById("datum").value); // Datum formatieren
+            const date = new Date(dateString);
 
-        // Werte in die Signaturfelder schreiben
-        document.getElementById("strasseeinzugsign").textContent = strasse;
-        document.getElementById("lageeinzugsign").textContent = lage;
-        document.getElementById("plzeinzugsign").textContent = plz;
-        document.getElementById("mieteridsign").textContent = mieterid;
-        document.getElementById("datumsign").textContent = datum;
-    }
+            // Führende Nullen ergänzen
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Monate sind 0-basiert
+            const year = date.getFullYear();
 
-    // Event-Listener für Input-Felder hinzufügen
-    document.getElementById("strasseeinzug").addEventListener("input", updateSignFields);
-    document.getElementById("lageeinzug2").addEventListener("input", updateSignFields);
-    document.getElementById("plzeinzug").addEventListener("input", updateSignFields);
-    document.getElementById("mieterid").addEventListener("input", updateSignFields);
-    document.getElementById("datum").addEventListener("input", updateSignFields);
+            return `${day}.${month}.${year}`;
+        }
 
-    // MutationObserver, um programmatische Änderungen zu überwachen
-    const observerConfig = { attributes: true, childList: true, subtree: true };
+        // Verbesserte Update-Funktion
+        function updateSignFields() {
+            const strasse = document.getElementById("strasseeinzug").value + ",";
+            const lage = document.getElementById("lageeinzug2").value + ",";
+            const plz = document.getElementById("plzeinzug").value + ",";
+            const mieterid = document.getElementById("mieterid").value + ",";
+            const datum = formatDate(document.getElementById("datum").value);
 
-    const strasseObserver = new MutationObserver(updateSignFields);
-    const lageObserver = new MutationObserver(updateSignFields);
-    const plzObserver = new MutationObserver(updateSignFields);
-    const mieteridObserver = new MutationObserver(updateSignFields);
-    const datumObserver = new MutationObserver(updateSignFields);
+            document.getElementById("strasseeinzugsign").textContent = strasse;
+            document.getElementById("lageeinzugsign").textContent = lage;
+            document.getElementById("plzeinzugsign").textContent = plz;
+            document.getElementById("mieteridsign").textContent = mieterid;
+            document.getElementById("datumsign").textContent = datum;
+        }
 
-    strasseObserver.observe(document.getElementById("strasseeinzug"), observerConfig);
-    lageObserver.observe(document.getElementById("lageeinzug2"), observerConfig);
-    plzObserver.observe(document.getElementById("plzeinzug"), observerConfig);
-    mieteridObserver.observe(document.getElementById("mieterid"), observerConfig);
-    datumObserver.observe(document.getElementById("datum"), observerConfig);
+        // Spezielle Funktion für Mieternummer-Änderungen
+        function handleMieterIdChange() {
+            const mieterIdInput = document.getElementById("mieterid");
+            const fullValue = window.strassen.find(s =>
+                s.mieternummer.startsWith(mieterIdInput.value)
+            )?.mieternummer;
 
-    // Beim Laden der Seite sofort die Signaturfelder aktualisieren
-    updateSignFields();
+            if (fullValue) {
+                mieterIdInput.value = fullValue;
+            }
+            updateSignFields();
+        }
+
+        // Event-Listener
+        document.getElementById("mieterid").addEventListener("input", function () {
+            setTimeout(handleMieterIdChange, 50); // Kurze Verzögerung für Dropdown-Auswahl
+        });
+
+        // Standard-Listener für andere Felder
+        document.getElementById("strasseeinzug").addEventListener("input", updateSignFields);
+        document.getElementById("lageeinzug2").addEventListener("input", updateSignFields);
+        document.getElementById("plzeinzug").addEventListener("input", updateSignFields);
+        document.getElementById("datum").addEventListener("input", updateSignFields);
+
+        // MutationObserver für programmatische Änderungen
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.attributeName === 'value') {
+                    updateSignFields();
+                }
+            });
+        });
+
+        // Observer für alle relevanten Felder
+        const fields = ["strasseeinzug", "lageeinzug2", "plzeinzug", "mieterid", "datum"];
+        fields.forEach(id => {
+            observer.observe(document.getElementById(id), {
+                attributes: true,
+                attributeFilter: ['value']
+            });
+        });
+
+        // Initiale Aktualisierung
+        updateSignFields();
+    }, 100); // 100ms Wartezeit für immo.js
 });
 
 
