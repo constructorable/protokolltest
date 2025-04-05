@@ -525,7 +525,7 @@
 
 
                     <tr>
-                        <td>Fliesen</td>
+                        <td>Fliesenspiegel</td>
                         <td>
                             <input type="radio" id="fliesen1" name="fliesen" value="in Ordnung">
                             <label for="fliesen1" class="radio-label"></label>
@@ -748,7 +748,7 @@
                     </tr>
 
                     <tr>
-                        <td>Elektrik</td>
+                        <td>Steckdosen / Lichtschalter</td>
                         <td>
                             <input type="radio" id="elektrik1" name="elektrik" value="in Ordnung">
                             <label for="elektrik1" class="radio-label"></label>
@@ -878,52 +878,16 @@
                     </tr>
 
 
-
-
-<!--                     <tr>
-                        <td>Anzahl der Rauchwarnmelder</td>
-
-                        <td class="no-border-right  text-right"
-                            style="text-align:right; padding-right:10px; background-color:white;">
-
-                            0
-                        </td>
-                        <td>
-                            <input type="radio" id="rwm1" name="rwm" value="rwm">
-                            <label for="rwm1" class="radio-label"></label>
-                        </td>
-
-
-                        <td class="no-border-right  text-right"
-                            style="text-align:right; padding-right:10px; background-color:white;">
-
-                            1 (oder mehr)
-                        </td>
-                        <td class="no-border-right">
-                            <input type="radio" id="rwm2" name="rwm" value="rwm">
-                            <label for="rwm2" class="radio-label"></label>
-                        </td>
-
-                    </tr> -->
-
                     <tr>
                         <td class="rwm-label">Anzahl der Rauchwarnmelder</td>
                         <td colspan="4" class="rwm-input-container">
-                            <input type="number" id="rwm-count1" name="rwm-count" min="0" value="0" class="rwm-input">
+                            <input type="number" id="rwm-count1" name="rwm-count" min="1" class="rwm-input">
                         </td>
                     </tr>
 
-
-
-
                     <tr>
-                        <td class="commentshead">Bemerkungen Küche</td>
+                        <td class="commentshead">Bemerkungen Küche:</td>
                     </tr>
-
-
-
-
-
 
                     <tr class="original-row">
 
@@ -1508,7 +1472,7 @@
 
 
                     <tr>
-                        <td>Ventilator / Belüftungssiebe</td>
+                        <td>Ventilator</td>
                         <td>
                             <input type="radio" id="bathventi1" name="bathventi" value="in Ordnung">
                             <label for="bathventi1" class="radio-label"></label>
@@ -1530,6 +1494,32 @@
                         <td>
                             <input type="radio" id="bathventi5" name="bathventi" value="nicht vorhanden">
                             <label for="bathventi5" class="radio-label"></label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Belüftungssiebe</td>
+                        <td>
+                            <input type="radio" id="bathsieb1" name="bathsieb" value="in Ordnung">
+                            <label for="bathsieb1" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="bathsieb2" name="bathsieb"
+                                value="reparatur- / renovierungsbedürftig">
+                            <label for="bathsieb2" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="bathsieb3" name="bathsieb00" value="Reparatur durch den Mieter">
+                            <label for="bathsieb3" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="bathsieb4" name="bathsieb00"
+                                value="Reparatur durch den Vermieter">
+                            <label for="bathsieb4" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="bathsieb5" name="bathsieb" value="nicht vorhanden">
+                            <label for="bathsieb5" class="radio-label"></label>
                         </td>
                     </tr>
 
@@ -1692,7 +1682,7 @@
 
 
                     <tr>
-                        <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Bad</td>
+                        <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Bad:</td>
                     </tr>
 
 
@@ -2300,7 +2290,7 @@
 
 
                     <tr>
-                        <td>Ventilator / Belüftungssiebe</td>
+                        <td>Ventilator</td>
                         <td>
                             <input type="radio" id="guestwcventi1" name="guestwcventi" value="in Ordnung">
                             <label for="guestwcventi1" class="radio-label"></label>
@@ -2323,6 +2313,33 @@
                         <td>
                             <input type="radio" id="guestwcventi5" name="guestwcventi" value="nicht vorhanden">
                             <label for="guestwcventi5" class="radio-label"></label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Belüftungssieb</td>
+                        <td>
+                            <input type="radio" id="guestwcsiebwc1" name="guestwcsiebwc" value="in Ordnung">
+                            <label for="guestwcsiebwc1" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="guestwcsiebwc2" name="guestwcsiebwc"
+                                value="reparatur- / renovierungsbedürftig">
+                            <label for="guestwcsiebwc2" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="guestwcsiebwc3" name="guestwcsiebwc00"
+                                value="Reparatur durch den Mieter">
+                            <label for="guestwcsiebwc3" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="guestwcsiebwc4" name="guestwcsiebwc00"
+                                value="Reparatur durch den Vermieter">
+                            <label for="guestwcsiebwc4" class="radio-label"></label>
+                        </td>
+                        <td>
+                            <input type="radio" id="guestwcsiebwc5" name="guestwcsiebwc" value="nicht vorhanden">
+                            <label for="guestwcsiebwc5" class="radio-label"></label>
                         </td>
                     </tr>
 
@@ -2493,7 +2510,7 @@
 
 
                     <tr>
-                        <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Gäste-WC</td>
+                        <td colspan="6" style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Gäste-WC:</td>
                     </tr>
 
                     <tr class="original-row">
@@ -2916,7 +2933,7 @@
 
 
                     <tr>
-                        <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Diele / Flur:
+                        <td colspan="6" style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Diele / Flur:
                         </td>
                     </tr>
 
@@ -3383,7 +3400,7 @@
 
 
                         <tr>
-                            <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Abstellraum
+                            <td colspan="6" style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen Abstellraum:
                             </td>
                         </tr>
 
@@ -3624,7 +3641,7 @@
 
 
                         <tr>
-                            <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen zu weiteren
+                            <td colspan="6" style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen zu weiteren
                                 Flächen:</td>
                         </tr>
 
@@ -3808,7 +3825,7 @@
 
 
                         <tr>
-                            <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen</td>
+                            <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen:</td>
                         </tr>
 
 
@@ -3854,7 +3871,7 @@
 
                     <table>
 
-                        <tr>
+<!--                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2" class="no-border-right text-right"
                                 style="background-color:#fff; text-align:right;">
@@ -3873,12 +3890,12 @@
                                     style="padding-right:10px;">
                                 <label for="hauptBemerkungen2" class="radio-label" style="padding-right:20px;"></label>
                             </td>
-                        </tr>
+                        </tr> -->
 
 
                         <tr>
                             <td colspan="5">
-                                ...Dieses Protokoll ist Bestandteil des Mietvertrags (bei Einzug)
+                                Dieses Protokoll ist Bestandteil des Mietvertrags (bei Einzug)
                             </td>
                             <td colspan="1" class="no-border-right text-right"
                                 style="background-color:#fff; text-align:right;">
@@ -3893,7 +3910,7 @@
 
 
                         <tr>
-                            <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen</td>
+                            <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen:</td>
                         </tr>
 
                         <tr class="original-row">
