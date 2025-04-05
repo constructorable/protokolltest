@@ -780,6 +780,11 @@ document.addEventListener("DOMContentLoaded", function () {
             updateSignFields();
         }
 
+        // Event-Listener
+/*         document.getElementById("mieterid").addEventListener("input", function () {
+            setTimeout(handleMieterIdChange, 50); // Kurze Verzögerung für Dropdown-Auswahl
+        }); */
+
         // Standard-Listener für andere Felder
         document.getElementById("strasseeinzug").addEventListener("input", updateSignFields);
         document.getElementById("lageeinzug2").addEventListener("input", updateSignFields);
