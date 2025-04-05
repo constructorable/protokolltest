@@ -1985,8 +1985,8 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 }
 
 .rwm-input {
-    width: 80px;
-    font-size: 18px;
+    width: 20px;
+    font-size: 16px;
     text-align: center;
 
 
@@ -2006,7 +2006,7 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 #rwm-countzimm09,
 #rwm-countzimm10,
 #rwm-countzimm11 {
-    width: 55px !important;
+    width: 30px !important;
     border-radius: 5px;
 }
 
@@ -2029,11 +2029,11 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 #zimm10>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
 #zimm11>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
 #zimm12>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1) {
-    line-height: 2;
+    line-height: 1;
 }
 
 #zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1),
 #zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1),
 #zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1) {
-    line-height: 2;
+    line-height: 1;
 }
