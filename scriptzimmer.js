@@ -52,6 +52,7 @@ function addRoom() {
     specialRoomCount++;
     const roomId = "zimm" + String(roomCount).padStart(2, '0');
     const container = document.getElementById("room-container");
+    const roomIdnumber = String(roomCount).padStart(1, '0');
 
     const roomDiv = document.createElement("div");
     roomDiv.classList.add("room-container");
@@ -119,7 +120,7 @@ function addRoom() {
             </tr>
 
 
-            <tr style="border-top:50px solid #fff;">
+            <tr style="border-top:25px solid #fff;">
                 <th>Bereich</th>
                 <th>in Ordnung</th>
                 <th>reparatur - bedürftig</th>
@@ -305,7 +306,7 @@ function addRoom() {
 
 
             <tr>
-                <td>Heizkörper / Ventile / Rohre</td>
+                <td style="padding-bottom: 20px; padding-top:20px">Heizkörper / Ventile / Rohre</td>
                 <td>
                     <input type="radio" id="${roomId}-heizkoerper1" name="${roomId}-heizkoerper" value="in Ordnung">
                     <label for="${roomId}-heizkoerper1" class="radio-label"></label>
@@ -331,6 +332,18 @@ function addRoom() {
                     <label for="${roomId}-heizkoerper5" class="radio-label"></label>
                 </td>
             </tr>
+
+
+                                <tr>
+                        <td>Fußboden Material</td>
+                        <td colspan="5">
+                            <input id="fussbodenInput${specialRoomCount}" type="text" name="fussboden"
+                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
+                                data-type="fussboden" data-suggestion-list="fussbodenSuggestions${specialRoomCount}">
+                            <div id="fussbodenSuggestions${specialRoomCount}" class="suggestion-list"></div>
+                        </td>
+                    </tr>
+
 
             <tr>
                 <td>Fußboden / Leisten</td>
@@ -360,21 +373,13 @@ function addRoom() {
             </tr>
 
 
-                    <tr>
-                        <td>Fußboden Material</td>
-                        <td colspan="5">
-                            <input id="fussbodenInput${specialRoomCount}" type="text" name="fussboden"
-                                class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;"
-                                data-type="fussboden" data-suggestion-list="fussbodenSuggestions${specialRoomCount}">
-                            <div id="fussbodenSuggestions${specialRoomCount}" class="suggestion-list"></div>
-                        </td>
-                    </tr>
+
 
 
 
 
             <tr>
-                <td>Radio- / Fernseh- / Internetdose</td>
+                <td style="padding-bottom: 20px; padding-top:20px">Radio- / Fernseh- / Internetdose</td>
                 <td>
                     <input type="radio" id="${roomId}-internet1" name="${roomId}-internet" value="in Ordnung">
                     <label for="${roomId}-internet1" class="radio-label"></label>
@@ -406,7 +411,7 @@ function addRoom() {
 
 
             <tr>
-                <td>Steckdosen / Lichtschalter</td>
+                <td style="padding-bottom: 20px;">Steckdosen / Lichtschalter</td>
                 <td>
                     <input type="radio" id="${roomId}-elektrik1" name="${roomId}-elektrik" value="in Ordnung">
                     <label for="${roomId}-elektrik1" class="radio-label"></label>
@@ -441,13 +446,13 @@ function addRoom() {
                     <tr>
                         <td class="rwm-label">Anzahl der Rauchwarnmelder</td>
                         <td colspan="4" class="rwm-input-container">
-                            <input type="number" id="rwm-count${roomId}" name="rwm-count" min="0" value="0" class="rwm-input">
+                            <input type="number" id="rwm-count${roomId}" name="rwm-count" min="1" class="rwm-input">
                         </td>
                     </tr>
 
 
             <tr>
-                <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen:</td>
+                <td colspan="6" style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen zu Zimmer ${roomIdnumber}:</td>
             </tr>
     `;
 
