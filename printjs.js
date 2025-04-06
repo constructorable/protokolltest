@@ -1,3 +1,7 @@
+// Copyright - Oliver Acker, acker_oliver@yahoo.de
+// print.js
+// Version 3.25_beta
+
 document.addEventListener('DOMContentLoaded', function () {
 
 });
@@ -426,3 +430,5 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         }
     }
 });
+
+
