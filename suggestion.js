@@ -1,5 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
-// Version 3.24_alpha
+// suggestion.js
+// Version 3.25_beta
 
 // suggestion.js
 
