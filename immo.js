@@ -1,5 +1,5 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
-// Version 3.24_alpha
+// Version 3.25_beta
 
 document.addEventListener("DOMContentLoaded", function () {
     window.strassen = [
