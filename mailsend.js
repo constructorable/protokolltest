@@ -1,5 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
-// Version 3.24_alpha
+// mailsend.js
+// Version 3.25_beta
 
 
 function sendEmail(fileName, emails, client) {
