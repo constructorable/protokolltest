@@ -1,5 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
-// Version 3.24_alpha
+// script.js
+// Version 3.25_beta
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -1347,5 +1348,56 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function () {
             checkAndUpdateHeading("zaehlerTable", "Zähler", "Zähler (nicht angegeben)");
         }, 100);
+    });
+});
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const masterRadio = document.getElementById('weitereBemerkungen2');
+    const dependentRadios = [
+        'weitereBemerkungen6', 
+        'weitereBemerkungen9',
+        'nichtZutreffendCheckbox2'
+    ];
+
+    if (!masterRadio) {
+        console.error('Haupt-Radio-Button nicht gefunden');
+        return;
+    }
+
+    masterRadio.addEventListener('click', function() {
+        const isChecked = this.checked;
+        
+        dependentRadios.forEach(id => {
+            const radio = document.getElementById(id);
+            if (radio) {
+                // Setze den Zustand des abhängigen Elements
+                radio.checked = isChecked;
+                
+                // Finde das zugehörige Label
+                const label = document.querySelector(`label[for="${id}"]`) || radio.nextElementSibling;
+                
+                // Aktualisiere die visuelle Darstellung
+                if (label) {
+                    if (isChecked) {
+                        label.classList.add('checked');
+                        label.classList.remove('unchecked');
+                    } else {
+                        label.classList.add('unchecked');
+                        label.classList.remove('checked');
+                    }
+                }
+                
+                // Trigger Events
+                const event = new Event('change', { bubbles: true });
+                radio.dispatchEvent(event);
+            }
+        });
+        
+        console.log(`Master Radio ${isChecked ? 'aktiviert' : 'deaktiviert'}, alle abhängigen Elemente aktualisiert`);
     });
 });
