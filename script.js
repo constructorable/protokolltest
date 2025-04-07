@@ -737,7 +737,7 @@ document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUploa
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
 
         function formatDate(dateString) {
@@ -782,9 +782,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Event-Listener
-/*         document.getElementById("mieterid").addEventListener("input", function () {
-            setTimeout(handleMieterIdChange, 50); // Kurze Verzögerung für Dropdown-Auswahl
-        }); */
+        document.getElementById("mieterid").addEventListener("input", function () {
+            setTimeout(handleMieterIdChange, 500);
+        });
 
         // Standard-Listener für andere Felder
         document.getElementById("strasseeinzug").addEventListener("input", updateSignFields);
@@ -813,6 +813,124 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initiale Aktualisierung
         updateSignFields();
     }, 100); // 100ms Wartezeit für immo.js
+}); */
+
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+        function formatDate(dateString) {
+            if (!dateString) return "";
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
+
+        // Verbesserte Update-Funktion mit Fehlerbehandlung
+        function updateSignFields() {
+            try {
+                const strasse = document.getElementById("strasseeinzug")?.value + "," || "";
+                const lage = document.getElementById("lageeinzug2")?.value + "," || "";
+                const plz = document.getElementById("plzeinzug")?.value + "," || "";
+                const mieterid = document.getElementById("mieterid")?.value + "," || "";
+                const datum = formatDate(document.getElementById("datum")?.value);
+
+                // Sicherstellen, dass die Signaturfelder existieren
+                const strasseSign = document.getElementById("strasseeinzugsign");
+                const lageSign = document.getElementById("lageeinzugsign");
+                const plzSign = document.getElementById("plzeinzugsign");
+                const mieteridSign = document.getElementById("mieteridsign");
+                const datumSign = document.getElementById("datumsign");
+
+                if (strasseSign) strasseSign.textContent = strasse;
+                if (lageSign) lageSign.textContent = lage;
+                if (plzSign) plzSign.textContent = plz;
+                if (mieteridSign) mieteridSign.textContent = mieterid;
+                if (datumSign) datumSign.textContent = datum;
+            } catch (error) {
+                console.error("Fehler beim Aktualisieren der Signaturfelder:", error);
+            }
+        }
+
+        // Verbesserte Mieternummer-Handling
+        function handleMieterIdChange() {
+            try {
+                const mieterIdInput = document.getElementById("mieterid");
+                if (!mieterIdInput || !window.strassen) return;
+                
+                const fullValue = window.strassen.find(s => 
+                    s.mieternummer.startsWith(mieterIdInput.value)
+                )?.mieternummer;
+
+                if (fullValue) {
+                    mieterIdInput.value = fullValue;
+                }
+                updateSignFields();
+            } catch (error) {
+                console.error("Fehler bei Mieternummer-Update:", error);
+            }
+        }
+
+        // Event-Listener mit Debounce
+        function setupEventListeners() {
+            const debounce = (func, delay) => {
+                let timeout;
+                return function() {
+                    const context = this;
+                    const args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), delay);
+                };
+            };
+
+            const fields = [
+                {id: "mieterid", handler: debounce(handleMieterIdChange, 500)},
+                {id: "strasseeinzug", handler: updateSignFields},
+                {id: "lageeinzug2", handler: updateSignFields},
+                {id: "plzeinzug", handler: updateSignFields},
+                {id: "datum", handler: updateSignFields}
+            ];
+
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (element) {
+                    element.addEventListener("input", field.handler);
+                    element.addEventListener("change", updateSignFields);
+                }
+            });
+        }
+
+        // Robustere MutationObserver-Implementierung
+        function setupMutationObserver() {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
+                        updateSignFields();
+                    }
+                });
+            });
+
+            const fields = ["strasseeinzug", "lageeinzug2", "plzeinzug", "mieterid", "datum"];
+            fields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    observer.observe(element, {
+                        attributes: true,
+                        attributeFilter: ['value'],
+                        subtree: true
+                    });
+                }
+            });
+        }
+
+        // Initialisierung
+        setupEventListeners();
+        setupMutationObserver();
+        updateSignFields();
+
+        // Fallback: Regelmäßige Überprüfung (falls nötig)
+        setInterval(updateSignFields, 2000);
+    }, 100);
 });
 
 
