@@ -1916,6 +1916,8 @@ td.label-cell:nth-child(1) {
 #rwm-countzimm10,
 #rwm-countzimm11 {
     width: 55px !important;
+    height: 36px !important;
+    border: 1px solid #7e7e7e !important;
 }
 
 .commentshead {
