@@ -430,5 +430,3 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         }
     }
 });
-
-
