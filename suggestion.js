@@ -90,6 +90,7 @@ const farben = [
 
 // Definiere das Array mit den Fußbodenmaterialien
 const fussbodenMaterialien = [
+    "Holz - Parkett",
     "Holz - Parkett, Eiche",
     "Holz - Parkett, Esche",
     "Holz - Parkett, Kiefer",
