@@ -1,6 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
 // script.js
-// Version 3.26_beta
+// Version 3.27_beta
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -21,7 +21,54 @@ function toggleMode() {
     }
 }
 
+/* Originalbilder auf Tablet abspeichern... */
+/* Originalbilder auf Tablet abspeichern... */
+/* Originalbilder auf Tablet abspeichern... */
+async function saveOriginalToDownloads(file, title = "Protokollbild") {
+    try {
+        // Fall 1: File System Access API (Chrome/Android)
+        if ('showSaveFilePicker' in window) {
+            const options = {
+                suggestedName: `${title}_${new Date().toISOString().slice(0, 10)}.jpg`,
+                types: [{
+                    description: 'JPEG Bild',
+                    accept: { 'image/jpeg': ['.jpg'] }
+                }]
+            };
+            const handle = await window.showSaveFilePicker(options);
+            const writable = await handle.createWritable();
+            await writable.write(file);
+            await writable.close();
+            console.log("Bild gespeichert unter:", handle.name);
+            return true;
+        }
 
+        // Fall 2: Fallback für andere Browser (z. B. Firefox/Samsung Internet)
+        else {
+            const url = URL.createObjectURL(file);
+            const link = document.getElementById('hiddenDownloadLink');
+            link.href = url;
+            link.download = `${title}_${new Date().toISOString().slice(0, 10)}.jpg`;
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+            return true;
+        }
+    } catch (error) {
+        console.error("Fehler beim Speichern:", error);
+        return false;
+    }
+}
+
+async function saveOriginalToDownloads(file, title) {
+    try {
+        // ... (vorheriger Code) ...
+        alert("Bild wurde im Download-Ordner gespeichert!");
+        return true;
+    } catch (error) {
+        alert("Fehler beim Speichern des Bildes.");
+        return false;
+    }
+}
 
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
@@ -590,6 +637,8 @@ function setupImageUpload(uploadButton) {
 
         // Bilder verarbeiten und hinzufügen, ohne bestehende Bilder zu ersetzen
         Array.from(event.target.files).forEach(file => {
+            // Original-Bild in den Downloads speichern
+            saveOriginalToDownloads(file, title);
             let reader = new FileReader();
             reader.onload = function (e) {
                 let img = new Image();
@@ -658,9 +707,9 @@ function setupImageUpload(uploadButton) {
 
                         // Löschen-Funktion
                         deleteButton.addEventListener("click", function () {
-                            imgWrapper.remove(); 
-                            highResWrapper.remove(); 
-                            URL.revokeObjectURL(scaledImageSrc); 
+                            imgWrapper.remove();
+                            highResWrapper.remove();
+                            URL.revokeObjectURL(scaledImageSrc);
 
                             // Entferne das Bild aus localStorage
                             storedImages = storedImages.filter(img => img.imageUrl !== scaledImageSrc);
