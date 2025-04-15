@@ -4,7 +4,7 @@
 
 
 function sendEmail(fileName, emails, client) {
-  
+
     const objekt = document.getElementById('strasseeinzug').value;
     const lage = document.getElementById('lageeinzug2').value;
     const plzOrt = document.getElementById('plzeinzug').value;
@@ -15,13 +15,13 @@ function sendEmail(fileName, emails, client) {
     const uebergabeCheckbox = document.getElementById('uebergabe').checked ? "Übergabeprotokoll" : "";
 
 
-     let protokollTyp = "";
+    let protokollTyp = "";
 
-    
+
     if (abnahmeCheckbox && uebergabeCheckbox) {
         protokollTyp = "Abnahme- und Übergabeprotokoll";
     } else {
-  
+
         protokollTyp = `${abnahmeCheckbox} ${uebergabeCheckbox}`.trim();
     }
 
@@ -30,8 +30,8 @@ function sendEmail(fileName, emails, client) {
         `${objekt}, ${lage} - ${protokollTyp} / ${mietid}`
     );
 
-   
-  
+
+
     const body = encodeURIComponent(
         `Sehr geehrte Damen und Herren,\n` +
         `anbei erhalten Sie das erstellte Dokument (${protokollTyp}).\n\n` +
@@ -49,24 +49,24 @@ function sendEmail(fileName, emails, client) {
 
     );
 
- 
+
     const emailList = emails.join(',');
     const ccEmail = "hausverwaltung@sauer-immobilien.de";
-    const bccEmail = "acker_oliver@yahoo.de";
+
 
     let mailtoLink;
     switch (client) {
         case 'gmail':
-            mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailList}&cc=${ccEmail}&bcc=${bccEmail}&su=${subject}&body=${body}`;
+            mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailList}&cc=${ccEmail}&su=${subject}&body=${body}`;
             break;
         case 'outlook':
-            mailtoLink = `https://outlook.live.com/owa/?path=/mail/action/compose&to=${emailList}&cc=${ccEmail}&bcc=${bccEmail}&subject=${subject}&body=${body}`;
+            mailtoLink = `https://outlook.live.com/owa/?path=/mail/action/compose&to=${emailList}&cc=${ccEmail}&subject=${subject}&body=${body}`;
             break;
         case 'yahoo':
-            mailtoLink = `https://compose.mail.yahoo.com/?to=${emailList}&cc=${ccEmail}&bcc=${bccEmail}&subject=${subject}&body=${body}`;
+            mailtoLink = `https://compose.mail.yahoo.com/?to=${emailList}&cc=${ccEmail}&subject=${subject}&body=${body}`;
             break;
         default:
-            mailtoLink = `mailto:${emailList}?cc=${ccEmail}&bcc=${bccEmail}&subject=${subject}&body=${body}`;
+            mailtoLink = `mailto:${emailList}?cc=${ccEmail}&subject=${subject}&body=${body}`;
             break;
     }
 
@@ -180,6 +180,6 @@ function findValidEmails() {
 }
 
 document.getElementById('sendEmailButton').addEventListener('click', function () {
-    const fileName = localStorage.getItem('lastGeneratedPdfName'); 
+    const fileName = localStorage.getItem('lastGeneratedPdfName');
     showEmailMenu(fileName);
 });
