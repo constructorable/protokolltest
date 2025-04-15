@@ -624,7 +624,6 @@ function setupImageUpload(uploadButton) {
                         const imageData = {
                             title: title,
                             imageUrl: scaledImageSrc,
-                            timestamp: new Date().toISOString(),
                         };
                         let storedImages = JSON.parse(localStorage.getItem('uploadedImages')) || [];
                         storedImages.push(imageData);
