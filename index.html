@@ -1,6 +1,6 @@
 <!-- Copyright - Oliver Acker, acker_oliver@yahoo.de
 index.html
-// Version 3.27_beta -->
+// Version 3.25_beta -->
 
 <!DOCTYPE html>
 <html lang="de">
@@ -14,13 +14,12 @@ index.html
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="scriptzimmer.js"></script>
+    <script src="onlyPicToPDF.js" defer></script>
 
 </head>
 
 <body>
 
-    <a id="hiddenDownloadLink" style="display: none;"></a>
-    
     <div class="container">
         <div id="loadingOverlay" style="display: none;">
             <div class="loading-content">
@@ -34,7 +33,8 @@ index.html
         <div class="sticky-container">
 
             <button id="newTabButton">Neuen Tab öffnen</button>
-            <button id="savePdfButton">Als PDF speichern</button>
+            <button id="savePdfButton">Protokoll zu PDF</button>
+            <button id="exportImagesButton">Bilder als PDF</button>
             <button id="sendEmailButton">PDF versenden</button>
 
         </div>
