@@ -1,6 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
 // print.js
-// Version 3.25_beta
+// Version 3.26_beta
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -142,8 +142,16 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         async function renderElementToPDF(element, yOffset = margin) {
             try {
                 await new Promise(resolve => setTimeout(resolve, 100));
-                const canvas = await html2canvas(element, { scale: 1, useCORS: true });
-                const imgData = canvas.toDataURL('image/jpeg', 0.9);
+
+                const canvas = await html2canvas(element, { 
+                    scale: 2, // Erhöhen Sie diesen Wert für höhere Auflösung
+                    useCORS: true,
+                    logging: false,
+                    allowTaint: true,
+                    letterRendering: true });
+                
+                
+                const imgData = canvas.toDataURL('image/jpeg', 0.6);
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
 
@@ -169,7 +177,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                     );
                 } else {
 
-                    pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'FAST');
+                    pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'SLOW');
                 }
 
                 return yOffset + scaledHeight + margin;
