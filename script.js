@@ -1,6 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
 // script.js
-// Version 3.27_beta
+// Version 3.26_beta
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -21,54 +21,7 @@ function toggleMode() {
     }
 }
 
-/* Originalbilder auf Tablet abspeichern... */
-/* Originalbilder auf Tablet abspeichern... */
-/* Originalbilder auf Tablet abspeichern... */
-async function saveOriginalToDownloads(file, title = "Protokollbild") {
-    try {
-        // Fall 1: File System Access API (Chrome/Android)
-        if ('showSaveFilePicker' in window) {
-            const options = {
-                suggestedName: `${title}_${new Date().toISOString().slice(0, 10)}.jpg`,
-                types: [{
-                    description: 'JPEG Bild',
-                    accept: { 'image/jpeg': ['.jpg'] }
-                }]
-            };
-            const handle = await window.showSaveFilePicker(options);
-            const writable = await handle.createWritable();
-            await writable.write(file);
-            await writable.close();
-            console.log("Bild gespeichert unter:", handle.name);
-            return true;
-        }
 
-        // Fall 2: Fallback für andere Browser (z. B. Firefox/Samsung Internet)
-        else {
-            const url = URL.createObjectURL(file);
-            const link = document.getElementById('hiddenDownloadLink');
-            link.href = url;
-            link.download = `${title}_${new Date().toISOString().slice(0, 10)}.jpg`;
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-            return true;
-        }
-    } catch (error) {
-        console.error("Fehler beim Speichern:", error);
-        return false;
-    }
-}
-
-async function saveOriginalToDownloads(file, title) {
-    try {
-        // ... (vorheriger Code) ...
-        alert("Bild wurde im Download-Ordner gespeichert!");
-        return true;
-    } catch (error) {
-        alert("Fehler beim Speichern des Bildes.");
-        return false;
-    }
-}
 
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
@@ -628,154 +581,233 @@ function deleteRow(button) {
 // Bilder hochladen, Funktion zum Hinzufügen des Event-Listeners für ein bestimmtes .imageUpload-Element
 // Bilder hochladen, Funktion zum Hinzufügen des Event-Listeners für ein bestimmtes .imageUpload-Element
 function setupImageUpload(uploadButton) {
-    uploadButton.addEventListener("change", function (event) {
+    uploadButton.addEventListener("change", async function (event) {
         const title = this.getAttribute("data-title");
+        const imagePreview = this.nextElementSibling;
+        const signContainer = document.querySelector('.bilderzimmer');
 
-        // Container für Miniaturansichten und hochauflösende Bilder auswählen
-        const imagePreview = this.nextElementSibling; // Miniaturansicht-Container
-        const signContainer = document.querySelector('.bilderzimmer'); // Container für hochauflösende Bilder
+        // Verarbeitung aller Dateien mit for..of statt forEach
+        for (const file of Array.from(event.target.files)) {
+            try {
+                const fileName = `Protokoll_${new Date().toISOString().slice(0, 10)}_${file.name.replace(/\s+/g, '_')}`;
 
-        // Bilder verarbeiten und hinzufügen, ohne bestehende Bilder zu ersetzen
-        Array.from(event.target.files).forEach(file => {
-            // Original-Bild in den Downloads speichern
-            saveOriginalToDownloads(file, title);
-            let reader = new FileReader();
-            reader.onload = function (e) {
-                let img = new Image();
-                img.src = e.target.result;
+                // 1. Originalbild speichern
+                const success = await saveImageToDownloads(file, fileName);
+                if (success && typeof android !== 'undefined' && android.scanFile) {
+                    android.scanFile(fileName);
+                }
 
-                img.onload = function () {
-                    let canvas = document.createElement("canvas");
-                    let ctx = canvas.getContext("2d");
+                // 2. Bildverarbeitung für Vorschau und PDF
+                await processImageForDisplay(file, title, imagePreview, signContainer);
 
-                    // Zielgröße für die Skalierung
-                    const maxWidth = 2500;
-                    const maxHeight = 2500;
-                    let width = img.width;
-                    let height = img.height;
+            } catch (error) {
+                console.error(`Fehler bei ${file.name}:`, error);
+            }
+        }
 
-                    // Skalieren, wenn eine Seite größer als die maximale Größe ist
-                    if (width > maxWidth || height > maxHeight) {
-                        const ratio = Math.min(maxWidth / width, maxHeight / height);
-                        width = width * ratio;
-                        height = height * ratio;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    // Bild komprimieren und als Blob speichern
-                    canvas.toBlob(function (blob) {
-                        const scaledImageSrc = URL.createObjectURL(blob);
-
-                        // Temporär im localStorage speichern
-                        const imageData = {
-                            title: title,
-                            imageUrl: scaledImageSrc,
-                        };
-                        let storedImages = JSON.parse(localStorage.getItem('uploadedImages')) || [];
-                        storedImages.push(imageData);
-                        localStorage.setItem('uploadedImages', JSON.stringify(storedImages));
-
-                        // Miniaturansicht mit Löschen-Button
-                        let imgWrapper = document.createElement("div");
-                        imgWrapper.style.display = "inline-block";
-                        imgWrapper.style.position = "relative";
-                        imgWrapper.style.margin = "5px";
-
-                        let imgThumbnail = document.createElement("img");
-                        imgThumbnail.src = scaledImageSrc;
-                        imgThumbnail.style.maxWidth = "100px";
-                        imgThumbnail.style.maxHeight = "100px";
-                        imgThumbnail.style.border = "1px solid #ccc";
-                        imgThumbnail.style.borderRadius = "5px";
-
-                        // Löschen-Button für Miniaturansicht
-                        let deleteButton = document.createElement("button");
-                        deleteButton.textContent = "X";
-                        deleteButton.style.position = "absolute";
-                        deleteButton.style.top = "-10px";
-                        deleteButton.style.right = "-11px";
-                        deleteButton.style.color = "white";
-                        deleteButton.style.backgroundColor = "rgb(181, 45, 45)"; // Hintergrundfarbe rot
-                        deleteButton.style.border = "none";
-                        deleteButton.style.cursor = "pointer";
-                        deleteButton.style.fontSize = "12px";
-                        deleteButton.style.borderRadius = "15px";
-                        deleteButton.style.padding = "3px 7px";
-
-                        // Löschen-Funktion
-                        deleteButton.addEventListener("click", function () {
-                            imgWrapper.remove();
-                            highResWrapper.remove();
-                            URL.revokeObjectURL(scaledImageSrc);
-
-                            // Entferne das Bild aus localStorage
-                            storedImages = storedImages.filter(img => img.imageUrl !== scaledImageSrc);
-                            localStorage.setItem('uploadedImages', JSON.stringify(storedImages));
-                        });
-
-                        imgWrapper.appendChild(imgThumbnail);
-                        imgWrapper.appendChild(deleteButton);
-                        imagePreview.appendChild(imgWrapper);
-
-                        // Hochauflösendes Bild mit Titel in der gewünschten HTML-Struktur
-                        let highResWrapper = document.createElement("div");
-                        highResWrapper.className = "large-image-wrapperxxx";
-                        highResWrapper.id = `largexxx-wrapperxxx-imgxxx-${storedImages.length}-${Math.random().toString(36).substr(2, 9)}`;
-
-                        let titleElement = document.createElement("p");
-                        titleElement.textContent = title;
-
-                        let imgHighRes = document.createElement("img");
-                        imgHighRes.src = scaledImageSrc;
-                        imgHighRes.style.display = "block";
-                        imgHighRes.style.width = "auto";
-                        imgHighRes.style.height = "600px";
-                        imgHighRes.style.border = "1px solid #ccc";
-                        imgHighRes.style.borderRadius = "5px";
-                        imgHighRes.style.margin = "0 auto";
-                        imgHighRes.style.marginBottom = "25px";
-
-                        let deleteButtonHighRes = document.createElement("button");
-                        deleteButtonHighRes.className = "delete-btn";
-                        deleteButtonHighRes.textContent = "X";
-                        deleteButtonHighRes.style.color = "white";
-                        deleteButtonHighRes.style.backgroundColor = "rgb(181, 45, 45)";
-                        deleteButtonHighRes.style.border = "none";
-                        deleteButtonHighRes.style.cursor = "pointer";
-                        deleteButtonHighRes.style.fontSize = "12px";
-                        deleteButtonHighRes.style.borderRadius = "15px";
-                        deleteButtonHighRes.style.padding = "3px 7px";
-
-                        // Löschen-Funktion für das hochauflösende Bild
-                        deleteButtonHighRes.addEventListener("click", function () {
-                            highResWrapper.remove();
-                            imgWrapper.remove();
-                            URL.revokeObjectURL(scaledImageSrc);
-
-                            // Entferne das Bild aus localStorage
-                            storedImages = storedImages.filter(img => img.imageUrl !== scaledImageSrc);
-                            localStorage.setItem('uploadedImages', JSON.stringify(storedImages));
-                        });
-
-                        highResWrapper.appendChild(titleElement);
-                        highResWrapper.appendChild(imgHighRes);
-                        highResWrapper.appendChild(deleteButtonHighRes);
-                        signContainer.appendChild(highResWrapper);
-                    }, 'image/jpeg', 0.6); // Qualität auf 75% setzen
-                };
-            };
-
-            reader.readAsDataURL(file);
-        });
-
-        // Nach dem Hochladen den Input zurücksetzen, damit man das gleiche Bild erneut hochladen kann
         this.value = "";
     });
 }
 
+async function processImageForDisplay(file, title, imagePreview, signContainer) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+
+        reader.onload = async function (e) {
+            const img = new Image();
+            img.src = e.target.result;
+
+            img.onload = async function () {
+                // Canvas für Skalierung erstellen
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                const maxSize = 2500;
+
+                // Skalierungsberechnung
+                let { width, height } = calculateDimensions(img.width, img.height, maxSize);
+                canvas.width = width;
+                canvas.height = height;
+
+                // Bild zeichnen
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Qualitätsstufen
+                const previewQuality = 0.6;  // Für Vorschau
+                const storageQuality = 0.8;   // Für localStorage
+
+                // Vorschau erstellen
+                await createPreview(canvas, title, imagePreview, signContainer, previewQuality, storageQuality);
+                resolve();
+            };
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+function calculateDimensions(originalWidth, originalHeight, maxSize) {
+    let width = originalWidth;
+    let height = originalHeight;
+
+    if (width > maxSize || height > maxSize) {
+        const ratio = Math.min(maxSize / width, maxSize / height);
+        width = Math.floor(width * ratio);
+        height = Math.floor(height * ratio);
+    }
+
+    return { width, height };
+}
+
+async function createPreview(canvas, title, imagePreview, signContainer, previewQuality, storageQuality) {
+    return new Promise((resolve) => {
+        // Hochwertigere Version für localStorage
+        canvas.toBlob(async (storageBlob) => {
+            const storageUrl = URL.createObjectURL(storageBlob);
+
+            // Bilddaten speichern
+            const imageData = {
+                title: title,
+                imageUrl: storageUrl,
+                timestamp: new Date().toISOString()
+            };
+
+            let storedImages = JSON.parse(localStorage.getItem('uploadedImages')) || [];
+            storedImages.push(imageData);
+            localStorage.setItem('uploadedImages', JSON.stringify(storedImages));
+
+            // Vorschau mit niedrigerer Qualität erstellen
+            canvas.toBlob((previewBlob) => {
+                const previewUrl = URL.createObjectURL(previewBlob);
+
+                // Miniaturansicht erstellen
+                const thumbnail = createThumbnail(previewUrl, title, () => {
+                    removeImage(storageUrl, storedImages);
+                });
+
+                // Hochauflösende Ansicht erstellen
+                const fullSize = createFullSizeImage(storageUrl, title, () => {
+                    removeImage(storageUrl, storedImages);
+                });
+
+                // Elemente einfügen
+                imagePreview.appendChild(thumbnail);
+                signContainer.appendChild(fullSize);
+
+                resolve();
+            }, 'image/jpeg', previewQuality);
+        }, 'image/jpeg', storageQuality);
+    });
+}
+
+function createThumbnail(imageUrl, title, onDelete) {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "inline-block";
+    wrapper.style.position = "relative";
+    wrapper.style.margin = "5px";
+
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.style.maxWidth = "100px";
+    img.style.maxHeight = "100px";
+    img.style.border = "1px solid #ccc";
+    img.style.borderRadius = "5px";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = "X";
+    deleteBtn.style.position = "absolute";
+    deleteBtn.style.top = "-10px";
+    deleteBtn.style.right = "-11px";
+    deleteBtn.style.backgroundColor = "rgb(181, 45, 45)";
+    deleteBtn.style.color = "white";
+    deleteBtn.style.border = "none";
+    deleteBtn.style.borderRadius = "15px";
+    deleteBtn.style.padding = "3px 7px";
+    deleteBtn.style.cursor = "pointer";
+    deleteBtn.addEventListener("click", onDelete);
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(deleteBtn);
+
+    return wrapper;
+}
+
+function createFullSizeImage(imageUrl, title, onDelete) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "large-image-wrapper";
+    wrapper.id = `image-${Date.now()}`;
+
+    const titleElement = document.createElement("p");
+    titleElement.textContent = title;
+
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.style.display = "block";
+    img.style.width = "auto";
+    img.style.height = "600px";
+    img.style.margin = "0 auto 25px";
+    img.style.border = "1px solid #ccc";
+    img.style.borderRadius = "5px";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.innerHTML = "X";
+    deleteBtn.style.backgroundColor = "rgb(181, 45, 45)";
+    deleteBtn.style.color = "white";
+    deleteBtn.style.border = "none";
+    deleteBtn.style.borderRadius = "15px";
+    deleteBtn.style.padding = "3px 7px";
+    deleteBtn.style.cursor = "pointer";
+    deleteBtn.addEventListener("click", onDelete);
+
+    wrapper.appendChild(titleElement);
+    wrapper.appendChild(img);
+    wrapper.appendChild(deleteBtn);
+
+    return wrapper;
+}
+
+function removeImage(imageUrl, imagesArray) {
+    URL.revokeObjectURL(imageUrl);
+    const updatedImages = imagesArray.filter(img => img.imageUrl !== imageUrl);
+    localStorage.setItem('uploadedImages', JSON.stringify(updatedImages));
+}
+
+// Hilfsfunktion zum Speichern der Originale
+async function saveImageToDownloads(file, fileName) {
+    try {
+        // Moderne Browser (Chrome/Edge)
+        if ('showSaveFilePicker' in window) {
+            const handle = await window.showSaveFilePicker({
+                suggestedName: fileName,
+                types: [{
+                    description: 'JPEG Images',
+                    accept: { 'image/jpeg': ['.jpg'] }
+                }]
+            });
+            const writable = await handle.createWritable();
+            await writable.write(file);
+            await writable.close();
+            return true;
+        }
+
+        // Fallback für andere Browser
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(file);
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        }, 100);
+
+        return true;
+    } catch (error) {
+        console.error('Speichern fehlgeschlagen:', error);
+        return false;
+    }
+}
 document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUpload);
 
 
@@ -1487,3 +1519,82 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(`Master Radio ${isChecked ? 'aktiviert' : 'deaktiviert'}, alle abhängigen Elemente aktualisiert`);
     });
 });
+
+
+
+
+
+
+
+
+
+async function saveImageToDownloads(blob, fileName) {
+    try {
+        // Methode 1: Moderner Chrome mit File System Access API
+        if ('showSaveFilePicker' in window) {
+            const handle = await window.showSaveFilePicker({
+                suggestedName: fileName,
+                types: [{
+                    description: 'JPEG Images',
+                    accept: { 'image/jpeg': ['.jpg'] }
+                }],
+            });
+            const writable = await handle.createWritable();
+            await writable.write(blob);
+            await writable.close();
+            return true;
+        }
+
+        // Methode 2: Android Download Manager Fallback
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.style.display = 'none';
+
+        // Kritisch: Android benötigt einen User-Event
+        document.body.appendChild(link);
+        link.click();
+
+        // Aufräumen nach 1 Minute
+        setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }, 60000);
+
+        return true;
+    } catch (error) {
+        console.error('Speicherfehler:', error);
+        // Methode 3: IndexedDB als letzter Ausweg
+        await saveToIndexedDB(blob, fileName);
+        alert("Bild wurde im App-Speicher gesichert! Nutzen Sie den Export-Button.");
+        return false;
+    }
+}
+
+// Hilfsfunktion für IndexedDB
+async function saveToIndexedDB(blob, fileName) {
+    return new Promise((resolve) => {
+        const request = indexedDB.open('ImageStorage', 1);
+
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('images')) {
+                db.createObjectStore('images', { keyPath: 'id' });
+            }
+        };
+
+        request.onsuccess = () => {
+            const db = request.result;
+            const tx = db.transaction('images', 'readwrite');
+            const store = tx.objectStore('images');
+            store.put({
+                id: Date.now(),
+                name: fileName,
+                data: blob,
+                timestamp: new Date()
+            });
+            tx.oncomplete = () => resolve(true);
+        };
+    });
+}
