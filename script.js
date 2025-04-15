@@ -1572,6 +1572,8 @@ async function saveImageToDownloads(blob, fileName) {
     }
 }
 
+
+
 // Hilfsfunktion für IndexedDB
 async function saveToIndexedDB(blob, fileName) {
     return new Promise((resolve) => {
@@ -1598,3 +1600,6 @@ async function saveToIndexedDB(blob, fileName) {
         };
     });
 }
+
+const uploadButton = document.getElementById('yourUploadButton');
+setupImageUpload(uploadButton);
