@@ -308,7 +308,8 @@ h2 {
 .signature-clear-btn,
 #uploadImageButton,
 #sendEmailButton,
-#zwischensavefButton {
+#zwischensavefButton,
+#exportImagesButton {
     padding: 10px 20px;
     background-color: #ceebd1;
     color: #202020;
@@ -327,7 +328,8 @@ h2 {
 #savePdfButton,
 #sendEmailButton,
 .signature-clear-btn,
-#zwischensavefButton {
+#zwischensavefButton,
+#exportImagesButton {
 
     background-color: #ced9eb;
 
@@ -468,7 +470,8 @@ h2 {
 #sendEmailButton,
 #uploadImageButton,
 #zwischensafebutton,
-#newTabButton {
+#newTabButton,
+#exportImagesButton {
     background-color: rgb(105, 130, 187);
     color: #fff;
 
