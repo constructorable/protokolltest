@@ -1,6 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
 // print.js
-// Version 3.27_beta
+// Version 3.26_beta
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -143,14 +143,15 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             try {
                 await new Promise(resolve => setTimeout(resolve, 100));
 
-                const canvas = await html2canvas(element, { 
+                const canvas = await html2canvas(element, {
                     scale: 2, // Erhöhen Sie diesen Wert für höhere Auflösung
                     useCORS: true,
                     logging: false,
                     allowTaint: true,
-                    letterRendering: true });
-                
-                
+                    letterRendering: true
+                });
+
+
                 const imgData = canvas.toDataURL('image/jpeg', 0.6);
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
@@ -173,7 +174,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                         scaledWidth,
                         scaledHeight,
                         undefined,
-                        'FAST'
+                        'SLOW'
                     );
                 } else {
 
@@ -393,7 +394,12 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             protokollTyp = 'Übergabeprotokoll';
         }
 
-        const fileName = `${strasse}_${datum}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
+        /*         const fileName = `${strasse}_${datum}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
+                pdf.save(fileName); */
+
+        const now = new Date();
+        const timeStr = now.toTimeString().slice(0, 8).replace(/:/g, '-');
+        const fileName = `${strasse}_${datum}_${timeStr}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
         pdf.save(fileName);
 
 
