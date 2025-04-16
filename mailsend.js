@@ -52,7 +52,7 @@ function sendEmail(fileName, emails, client) {
  
     const emailList = emails.join(',');
     const ccEmail = "hausverwaltung@sauer-immobilien.de";
-    const bccEmail = "acker_oliver@yahoo.de";
+    const bccEmail = "info@sauer-immobilien.de";
 
     let mailtoLink;
     switch (client) {
