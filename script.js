@@ -1,6 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
 // script.js
-// Version 3.26_beta
+// Version 3.28_alpha
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -20,6 +20,37 @@ function toggleMode() {
         link.setAttribute("href", "styles.css"); // Dunkler Modus
     }
 }
+
+
+
+
+
+
+
+//Toggle für Zimmer 6 bis 10
+//Toggle für Zimmer 6 bis 10
+//Toggle für Zimmer 6 bis 10
+/* function toggleDiv() {
+    const div = document.getElementById('togglezimmersixzuten');
+    if (div) {
+        const isHidden = window.getComputedStyle(div).display === 'none';
+        div.style.display = isHidden ? 'block' : 'none';
+    }
+}
+function toggleDiv() {
+    const div = document.getElementById('togglezimmersixzuten');
+    if (div) div.classList.toggle('hidden');
+} */
+
+    function toggleDiv() {
+        const div = document.getElementById('togglezimmersixzuten');
+        if (div) {
+            div.classList.toggle('visible');
+        }
+    }
+
+
+
 
 
 
@@ -658,9 +689,9 @@ function setupImageUpload(uploadButton) {
 
                         // Löschen-Funktion
                         deleteButton.addEventListener("click", function () {
-                            imgWrapper.remove(); 
-                            highResWrapper.remove(); 
-                            URL.revokeObjectURL(scaledImageSrc); 
+                            imgWrapper.remove();
+                            highResWrapper.remove();
+                            URL.revokeObjectURL(scaledImageSrc);
 
                             // Entferne das Bild aus localStorage
                             storedImages = storedImages.filter(img => img.imageUrl !== scaledImageSrc);
@@ -989,11 +1020,11 @@ window.addEventListener('beforeunload', function (event) {
         return confirmationMessage;
     }
 });
-document.getElementById('newTabButton').addEventListener('click', function () {
+/* document.getElementById('newTabButton').addEventListener('click', function () {
     allowUnload = true;
     window.open('https://www.google.com', '_blank');
     setTimeout(() => { allowUnload = false; }, 1000);
-});
+}); */
 window.addEventListener('beforeunload', function (event) {
     const confirmationMessage = 'Möchten Sie die Seite wirklich verlassen? Alle Eingaben gehen dadurch verloren.';
     event.returnValue = confirmationMessage;
@@ -1176,7 +1207,7 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
     einbaulageCell.innerHTML = '<input type="text" placeholder="" class="autoscale" style="width: 100%;">';
 
     const zaehlerstandCell = document.createElement('td');
-    zaehlerstandCell.innerHTML = '<input type="text" placeholder="" class="meterstand autoscale" style="width:166px;">';
+    zaehlerstandCell.innerHTML = '<input type="number" placeholder="" class="meterstand autoscale" style="width:166px;">';
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(zaehlernummerCell);
@@ -1239,21 +1270,23 @@ document.addEventListener("DOMContentLoaded", function () {
             let arrow = header.querySelector("span.arrows00"); // Suche nach einem span mit der Klasse arrows00
             if (!arrow) {
                 arrow = document.createElement("span");
-                arrow.textContent = " ▼";
-                arrow.classList.add("arrows00"); // Füge die Klasse arrows00 hinzu
-                arrow.style.transition = "transform 0.3s ease";
+                /*    arrow.textContent = " ▼"; */
+                /*    arrow.classList.add("arrows00");  */
+                /*     arrow.style.transition = "transform 0.3s ease"; */
                 header.appendChild(arrow);
             }
 
             content.style.display = "table"; // Räume sollen offen sein
-            header.style.cursor = "pointer";
+            /*   header.style.cursor = "pointer"; */
             header.style.display = "flex";
             header.style.justifyContent = "space-between";
             header.style.alignItems = "center";
 
-            header.addEventListener("click", function () {
-                toggleRoom(header, content, arrow);
-            });
+            // Togglefunktion vorübergehend deaktiviert
+            //             header.addEventListener("click", function () {
+            //                toggleRoom(header, content, arrow);
+            //            }) 
+            ;
         }
     }
 
