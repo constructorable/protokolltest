@@ -19,16 +19,7 @@ function validateNumberFields() {
 }
 
 
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
-
 });
 
 function validateStrasseeinzug() {
@@ -197,7 +188,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 await new Promise(resolve => setTimeout(resolve, 100));
 
                 const canvas = await html2canvas(element, {
-                    scale: 2, // Erhöhen Sie diesen Wert für höhere Auflösung
+                    scale: 1, // Erhöhen Sie diesen Wert für höhere Auflösung
                     useCORS: true,
                     logging: false,
                     allowTaint: true,
@@ -227,11 +218,11 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                         scaledWidth,
                         scaledHeight,
                         undefined,
-                        'SLOW'
+                        'FAST'
                     );
                 } else {
 
-                    pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'SLOW');
+                    pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'FAST');
                 }
 
                 return yOffset + scaledHeight + margin;
