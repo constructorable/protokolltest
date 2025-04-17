@@ -1,6 +1,6 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
 // script.js
-// Version 3.28_alpha
+// Version 3.26_beta
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -20,8 +20,6 @@ function toggleMode() {
         link.setAttribute("href", "styles.css"); // Dunkler Modus
     }
 }
-
-
 
 
 
@@ -492,8 +490,6 @@ function initSignatureCanvas(canvasId) {
 }
 
 // Funktion zum Löschen der Unterschrift
-// Funktion zum Löschen der Unterschrift
-// Funktion zum Löschen der Unterschrift
 function clearSignature(canvasId) {
     const canvas = document.getElementById(canvasId);
     const context = canvas.getContext('2d');
@@ -542,6 +538,7 @@ window.onload = function () {
 /* Bemerkungszeile duplizieren */
 /* Bemerkungszeile duplizieren */
 /* Bemerkungszeile duplizieren */
+
 function duplicateRow(button) {
     const row = button.closest('tr');
 
@@ -661,9 +658,9 @@ function setupImageUpload(uploadButton) {
 
                         // Löschen-Funktion
                         deleteButton.addEventListener("click", function () {
-                            imgWrapper.remove();
-                            highResWrapper.remove();
-                            URL.revokeObjectURL(scaledImageSrc);
+                            imgWrapper.remove(); 
+                            highResWrapper.remove(); 
+                            URL.revokeObjectURL(scaledImageSrc); 
 
                             // Entferne das Bild aus localStorage
                             storedImages = storedImages.filter(img => img.imageUrl !== scaledImageSrc);
@@ -738,6 +735,7 @@ document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUploa
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
+
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
         function formatDate(dateString) {
@@ -968,6 +966,8 @@ function formatDate(inputDate) {
     const year = date.getFullYear(); // Jahr
     return `${day}.${month}.${year}`; // Datum im Format DD.MM.YYYY zurückgeben
 }
+
+// Event-Listener für das Datums-Input-Feld
 document.getElementById('arbeitsdatum').addEventListener('change', function () {
     const inputDate = this.value; // Wert des Input-Felds
     const formattedDate = formatDate(inputDate); // Datum formatieren
@@ -988,6 +988,11 @@ window.addEventListener('beforeunload', function (event) {
         event.returnValue = confirmationMessage;
         return confirmationMessage;
     }
+});
+document.getElementById('newTabButton').addEventListener('click', function () {
+    allowUnload = true;
+    window.open('https://www.google.com', '_blank');
+    setTimeout(() => { allowUnload = false; }, 1000);
 });
 window.addEventListener('beforeunload', function (event) {
     const confirmationMessage = 'Möchten Sie die Seite wirklich verlassen? Alle Eingaben gehen dadurch verloren.';
@@ -1171,7 +1176,7 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
     einbaulageCell.innerHTML = '<input type="text" placeholder="" class="autoscale" style="width: 100%;">';
 
     const zaehlerstandCell = document.createElement('td');
-    zaehlerstandCell.innerHTML = '<input type="number" placeholder="" class="meterstand autoscale" style="width:166px;">';
+    zaehlerstandCell.innerHTML = '<input type="text" placeholder="" class="meterstand autoscale" style="width:166px;">';
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(zaehlernummerCell);
@@ -1234,23 +1239,21 @@ document.addEventListener("DOMContentLoaded", function () {
             let arrow = header.querySelector("span.arrows00"); // Suche nach einem span mit der Klasse arrows00
             if (!arrow) {
                 arrow = document.createElement("span");
-                /*    arrow.textContent = " ▼"; */
-                /*    arrow.classList.add("arrows00");  */
-                /*     arrow.style.transition = "transform 0.3s ease"; */
+                arrow.textContent = " ▼";
+                arrow.classList.add("arrows00"); // Füge die Klasse arrows00 hinzu
+                arrow.style.transition = "transform 0.3s ease";
                 header.appendChild(arrow);
             }
 
             content.style.display = "table"; // Räume sollen offen sein
-            /*   header.style.cursor = "pointer"; */
+            header.style.cursor = "pointer";
             header.style.display = "flex";
             header.style.justifyContent = "space-between";
             header.style.alignItems = "center";
 
-            // Togglefunktion vorübergehend deaktiviert
-            //             header.addEventListener("click", function () {
-            //                toggleRoom(header, content, arrow);
-            //            }) 
-            ;
+            header.addEventListener("click", function () {
+                toggleRoom(header, content, arrow);
+            });
         }
     }
 
@@ -1291,6 +1294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function updateFullName(fullNameSpan, name, vorname) {
     fullNameSpan.textContent = name && vorname ? `${vorname} ${name}` : '';
 }
+
 
 
 /* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
@@ -1392,9 +1396,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
+
 document.addEventListener('DOMContentLoaded', function () {
     const masterRadio = document.getElementById('weitereBemerkungen2');
     const dependentRadios = [
