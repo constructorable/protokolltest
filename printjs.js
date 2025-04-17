@@ -1,25 +1,9 @@
 // Copyright - Oliver Acker, acker_oliver@yahoo.de
 // print.js
-// Version 3.28_alpha
-
-
-
-
-function validateNumberFields() {
-    let isValid = true;
-    document.querySelectorAll('input[type="number"].meterstand').forEach(input => {
-        if(isNaN(input.value) || input.value === '') {
-            input.style.border = '2px solid red';
-            isValid = false;
-        } else {
-            input.style.border = '';
-        }
-    });
-    return isValid;
-}
-
+// Version 3.26_beta
 
 document.addEventListener('DOMContentLoaded', function () {
+
 });
 
 function validateStrasseeinzug() {
@@ -64,12 +48,6 @@ function validateZentralCheckboxes() {
 }
 
 document.getElementById('savePdfButton').addEventListener('click', async function (event) {
-
-    if (!validateNumberFields()) {
-        event.preventDefault();
-        alert('Bitte überprüfen Sie die Zählerstände - nur Zahlen sind erlaubt!');
-        return;
-    }
 
     if (!validateStrasseeinzug()) {
         event.preventDefault();
@@ -125,18 +103,8 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         wc: document.querySelector('#zzzwc'),
         flur: document.querySelector('#zzzflur'),
         abstellraum: document.querySelector('#abstellContainer'),
-       /*  roomContainers: document.querySelectorAll('.room-container'), */
+        roomContainers: document.querySelectorAll('.room-container'),
         nebenraum: document.querySelector('#nebenraumContainer'),
-        zimmer01: document.querySelector('#zzzzimmer01'),
-        zimmer02: document.querySelector('#zzzzimmer02'),
-        zimmer03: document.querySelector('#zzzzimmer03'),
-        zimmer04: document.querySelector('#zzzzimmer04'),
-        zimmer05: document.querySelector('#zzzzimmer05'),
- /*        zimmer06: document.querySelector('#zzzzimmer06'),
-        zimmer07: document.querySelector('#zzzzimmer07'),
-        zimmer08: document.querySelector('#zzzzimmer08'),
-        zimmer09: document.querySelector('#zzzzimmer09'),
-        zimmer10: document.querySelector('#zzzzimmer10'), */
         weitereBemerkungen: document.querySelector('#weitereBemerkungenContainer'),
         hauptBemerkungen: document.querySelector('#hauptBemerkungenContainer'),
         signtoggle: document.querySelector('#signtoggle'),
@@ -146,19 +114,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         stammdupli: document.querySelector('.stammdupli')
     };
 
-    if (
-        !elements.allgemein ||
-        !elements.kueche ||
-        !elements.bad ||
-        !elements.wc ||
-        !elements.flur ||
-        !elements.abstellraum ||
-        !elements.zimmer01 ||
-        !elements.zimmer02 ||
-        !elements.zimmer03 ||
-        !elements.zimmer04 ||
-        !elements.zimmer05
-    ) {
+    if (!elements.allgemein || !elements.kueche || !elements.bad || !elements.wc || !elements.flur || !elements.abstellraum) {
         console.error("Fehler: Ein oder mehrere erforderliche Elemente wurden nicht gefunden.");
         loadingOverlay.style.display = 'none';
         if (stickyContainer) {
@@ -187,15 +143,14 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             try {
                 await new Promise(resolve => setTimeout(resolve, 100));
 
-                const canvas = await html2canvas(element, {
-                    scale: 1, // Erhöhen Sie diesen Wert für höhere Auflösung
+                const canvas = await html2canvas(element, { 
+                    scale: 2, // Erhöhen Sie diesen Wert für höhere Auflösung
                     useCORS: true,
                     logging: false,
                     allowTaint: true,
-                    letterRendering: true
-                });
-
-
+                    letterRendering: true });
+                
+                
                 const imgData = canvas.toDataURL('image/jpeg', 0.6);
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
@@ -222,7 +177,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                     );
                 } else {
 
-                    pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'FAST');
+                    pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'SLOW');
                 }
 
                 return yOffset + scaledHeight + margin;
@@ -299,12 +254,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             elements.wc,
             elements.flur,
             elements.abstellraum,
-            elements.zimmer01,
-            elements.zimmer02,
-            elements.zimmer03,
-            elements.zimmer04,
-            elements.zimmer05,
-     /*        ...elements.roomContainers, */
+            ...elements.roomContainers,
             elements.nebenraum,
             elements.weitereBemerkungen,
             elements.hauptBemerkungen,
@@ -327,33 +277,13 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         if (document.querySelector('#guestwc2')?.checked) neinElements.push(elements.wc);
         if (document.querySelector('#dieleflur2')?.checked) neinElements.push(elements.flur);
         if (document.querySelector('#abstell2')?.checked) neinElements.push(elements.abstellraum);
-        if (document.querySelector('#zimmer01-2')?.checked) neinElements.push(elements.zimmer01);
-        if (document.querySelector('#zimmer02-2')?.checked) neinElements.push(elements.zimmer02);
-        if (document.querySelector('#zimmer03-2')?.checked) neinElements.push(elements.zimmer03);
-        if (document.querySelector('#zimmer04-2')?.checked) neinElements.push(elements.zimmer04);
-        if (document.querySelector('#zimmer05-2')?.checked) neinElements.push(elements.zimmer05);
-/*         if (document.querySelector('#zimmer06-2')?.checked) neinElements.push(elements.zimmer06);
-        if (document.querySelector('#zimmer07-2')?.checked) neinElements.push(elements.zimmer07);
-        if (document.querySelector('#zimmer08-2')?.checked) neinElements.push(elements.zimmer08);
-        if (document.querySelector('#zimmer09-2')?.checked) neinElements.push(elements.zimmer09);
-        if (document.querySelector('#zimmer10-2')?.checked) neinElements.push(elements.zimmer10); */
 
         const roomsToRender = [
             { condition: !document.querySelector('#kitch2')?.checked, element: elements.kueche },
             { condition: !document.querySelector('#bath2')?.checked, element: elements.bad },
             { condition: !document.querySelector('#guestwc2')?.checked, element: elements.wc },
             { condition: !document.querySelector('#dieleflur2')?.checked, element: elements.flur },
-            { condition: !document.querySelector('#abstell2')?.checked, element: elements.abstellraum },
-            { condition: !document.querySelector('#zimmer01-2')?.checked, element: elements.zimmer01 },
-            { condition: !document.querySelector('#zimmer02-2')?.checked, element: elements.zimmer02 },
-            { condition: !document.querySelector('#zimmer03-2')?.checked, element: elements.zimmer03 },
-            { condition: !document.querySelector('#zimmer04-2')?.checked, element: elements.zimmer04 },
-            { condition: !document.querySelector('#zimmer05-2')?.checked, element: elements.zimmer05 }
- /*            { condition: !document.querySelector('#zimmer06-2')?.checked, element: elements.zimmer06 },
-            { condition: !document.querySelector('#zimmer07-2')?.checked, element: elements.zimmer07 },
-            { condition: !document.querySelector('#zimmer08-2')?.checked, element: elements.zimmer08 },
-            { condition: !document.querySelector('#zimmer09-2')?.checked, element: elements.zimmer09 },
-            { condition: !document.querySelector('#zimmer10-2')?.checked, element: elements.zimmer10 }  */
+            { condition: !document.querySelector('#abstell2')?.checked, element: elements.abstellraum }
         ];
 
         for (const room of roomsToRender) {
@@ -365,14 +295,14 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             }
         }
 
-/*         if (elements.roomContainers.length > 0) {
+        if (elements.roomContainers.length > 0) {
             for (const room of elements.roomContainers) {
                 pdf.addPage();
                 await renderElementToPDF(room);
                 currentElement++;
                 updateProgress(currentElement, totalElements);
             }
-        } */
+        }
 
         if (neinElements.length > 0) {
             pdf.addPage();
@@ -463,25 +393,11 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             protokollTyp = 'Übergabeprotokoll';
         }
 
-        /*         const fileName = `${strasse}_${datum}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
-                pdf.save(fileName); */
-
-        const now = new Date();
-        const timeStr = now.toTimeString().slice(0, 8).replace(/:/g, '-');
-        const fileName = `${strasse}_${datum}_${timeStr}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
+        const fileName = `${strasse}_${datum}_${protokollTyp}.pdf`.replace(/\s+/g, '_');
         pdf.save(fileName);
 
 
-        // Zeige den "PDF versenden"-Button an
-        const sendEmailButton = document.getElementById('sendEmailButton');
-        if (sendEmailButton) {
-            sendEmailButton.style.display = 'block';
-            // Optional: Visuelles Highlight
-            sendEmailButton.classList.add('button-pulse');
-            setTimeout(() => {
-                sendEmailButton.classList.remove('button-pulse');
-            }, 2000);
-        }
+
 
 
 
