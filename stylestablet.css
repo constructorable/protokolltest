@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 // stylestablet.css
-// Version 3.25_beta */
+// Version 3.28_beta */
 
 body {
     font-family: Arial, sans-serif;
@@ -1989,4 +1989,14 @@ td.label-cell:nth-child(1) {
 .radio-label[style*="--checked-state: checked"]::after,
 .checkbox-label[style*="--checked-state: checked"]::after {
     color: rgb(33, 33, 33) !important;
+}
+
+#togglezimmersixzuten {
+    background-color: #fc0;
+    padding-top: 22px;
+    display: none; /* Initial ausgeblendet */
+}
+
+#togglezimmersixzuten.visible {
+    display: block; /* Sichtbar, wenn die Klasse 'visible' hinzugefügt wird */
 }
