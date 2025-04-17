@@ -25,35 +25,6 @@ function toggleMode() {
 
 
 
-
-
-//Toggle für Zimmer 6 bis 10
-//Toggle für Zimmer 6 bis 10
-//Toggle für Zimmer 6 bis 10
-/* function toggleDiv() {
-    const div = document.getElementById('togglezimmersixzuten');
-    if (div) {
-        const isHidden = window.getComputedStyle(div).display === 'none';
-        div.style.display = isHidden ? 'block' : 'none';
-    }
-}
-function toggleDiv() {
-    const div = document.getElementById('togglezimmersixzuten');
-    if (div) div.classList.toggle('hidden');
-} */
-
-    function toggleDiv() {
-        const div = document.getElementById('togglezimmersixzuten');
-        if (div) {
-            div.classList.toggle('visible');
-        }
-    }
-
-
-
-
-
-
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
@@ -521,6 +492,8 @@ function initSignatureCanvas(canvasId) {
 }
 
 // Funktion zum Löschen der Unterschrift
+// Funktion zum Löschen der Unterschrift
+// Funktion zum Löschen der Unterschrift
 function clearSignature(canvasId) {
     const canvas = document.getElementById(canvasId);
     const context = canvas.getContext('2d');
@@ -569,7 +542,6 @@ window.onload = function () {
 /* Bemerkungszeile duplizieren */
 /* Bemerkungszeile duplizieren */
 /* Bemerkungszeile duplizieren */
-
 function duplicateRow(button) {
     const row = button.closest('tr');
 
@@ -766,7 +738,6 @@ document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUploa
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
 // Stammdaten aus allgemeinen Informationen ziehen und unterhalb der Überschrift "Unterschriften" hinzufügen
-
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
         function formatDate(dateString) {
@@ -997,8 +968,6 @@ function formatDate(inputDate) {
     const year = date.getFullYear(); // Jahr
     return `${day}.${month}.${year}`; // Datum im Format DD.MM.YYYY zurückgeben
 }
-
-// Event-Listener für das Datums-Input-Feld
 document.getElementById('arbeitsdatum').addEventListener('change', function () {
     const inputDate = this.value; // Wert des Input-Felds
     const formattedDate = formatDate(inputDate); // Datum formatieren
@@ -1020,11 +989,6 @@ window.addEventListener('beforeunload', function (event) {
         return confirmationMessage;
     }
 });
-/* document.getElementById('newTabButton').addEventListener('click', function () {
-    allowUnload = true;
-    window.open('https://www.google.com', '_blank');
-    setTimeout(() => { allowUnload = false; }, 1000);
-}); */
 window.addEventListener('beforeunload', function (event) {
     const confirmationMessage = 'Möchten Sie die Seite wirklich verlassen? Alle Eingaben gehen dadurch verloren.';
     event.returnValue = confirmationMessage;
@@ -1329,7 +1293,6 @@ function updateFullName(fullNameSpan, name, vorname) {
 }
 
 
-
 /* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
 /* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
 /* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
@@ -1429,12 +1392,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
-
 document.addEventListener('DOMContentLoaded', function () {
     const masterRadio = document.getElementById('weitereBemerkungen2');
     const dependentRadios = [
