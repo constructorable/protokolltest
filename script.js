@@ -1,6 +1,6 @@
-// Copyright - Oliver Acker, acker_oliver@yahoo.de
-// script.js
-// Version 3.26_beta
+/* Copyright - Oliver Acker, acker_oliver@yahoo.de
+script.js
+Version 3.34_beta */
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -23,115 +23,101 @@ function toggleMode() {
 
 
 
-/* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
-/* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
-/* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
-let counterEinziehender = 1;
-document.getElementById('addeinziehenderMieter').addEventListener('click', function () {
-    let table = document.getElementById('einzugmieterTable');
-    if (!table) {
-        table = document.createElement('table');
-        table.id = 'einzugmieterTable';
 
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-        const headers = [
-            { text: 'Name', width: '30%' },
-            { text: 'Vorname', width: '25%' },
-            { text: 'Tel.:', width: '20%' },
-            { text: 'E-Mail', width: '25%' }
-        ];
 
-        headers.forEach(header => {
-            const th = document.createElement('th');
-            th.textContent = header.text;
-            th.style.width = header.width;
-            headerRow.appendChild(th);
-        });
+/* const toggleBtn = document.getElementById("toggleStickyBtn");
+const stickyContainer = document.getElementById("stickyContainer");
 
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
+toggleBtn.addEventListener("click", () => {
+    const isOpen = stickyContainer.getAttribute("data-state") === "open";
 
-        const tbody = document.createElement('tbody');
-        table.appendChild(tbody);
-
-        const button = document.getElementById('addeinziehenderMieter');
-        button.insertAdjacentElement('beforebegin', table);
+    if (isOpen) {
+        // Menü schließen
+        stickyContainer.setAttribute("data-state", "closed");
+        toggleBtn.setAttribute("data-state", "closed");
+    } else {
+        // Menü öffnen
+        stickyContainer.setAttribute("data-state", "open");
+        toggleBtn.setAttribute("data-state", "open");
     }
+});
+ */
 
-    const newRow1 = document.createElement('tr');
-    const nameCell = document.createElement('td');
-    const vornameCell = document.createElement('td');
-    const strasseCell = document.createElement('td');
-    const plzOrtCell = document.createElement('td');
 
-    const counter = document.querySelectorAll('.signature-container').length + 1;
-    const nameId = `NameEin${counter.toString().padStart(2, '0')}`;
-    const vornameId = `VornameEin${counter.toString().padStart(2, '0')}`;
+// Sticky- und Toggle Menü
+// Sticky- und Toggle Menü
+// Sticky- und Toggle Menü
+const toggleBtn = document.getElementById("toggleStickyBtn");
+const stickyContainer = document.getElementById("stickyContainer");
+const pageOverlay = document.createElement("div");
+pageOverlay.style.position = "fixed";
+pageOverlay.style.top = "0";
+pageOverlay.style.left = "0";
+pageOverlay.style.width = "100%";
+pageOverlay.style.height = "100%";
+pageOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
+pageOverlay.style.backdropFilter = "blur(5px)";
+pageOverlay.style.zIndex = "998";
+pageOverlay.style.display = "none";
+document.body.appendChild(pageOverlay);
+stickyContainer.style.zIndex = "999";
+function toggleMenu(isOpen) {
+    if (isOpen) {
+        stickyContainer.setAttribute("data-state", "open");
+        toggleBtn.setAttribute("data-state", "open");
+        pageOverlay.style.display = "block";
+    } else {
+        stickyContainer.setAttribute("data-state", "closed");
+        toggleBtn.setAttribute("data-state", "closed");
+        pageOverlay.style.display = "none";
+    }
+}
+toggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = stickyContainer.getAttribute("data-state") === "open";
+    toggleMenu(!isOpen);
+});
+pageOverlay.addEventListener("click", () => {
+    toggleMenu(false);
+});
+stickyContainer.addEventListener("click", (e) => {
+    e.stopPropagation();
+});
+function ensureToggleBtnExists() {
+    const existingBtn = document.getElementById("toggleStickyBtn");
+    if (!existingBtn) {
+        const newBtn = document.createElement("button");
+        newBtn.className = "pdf-button";
+        newBtn.id = "toggleStickyBtn";
+        newBtn.setAttribute("data-state", "closed");
+        newBtn.textContent = "Menü";
+        document.body.appendChild(newBtn);
+        newBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = stickyContainer.getAttribute("data-state") === "open";
+            toggleMenu(!isOpen);
+        });
+    }
+}
 
-    nameCell.innerHTML = `<input type="text" id="${nameId}" class="autoscale nameeinziehmieter" style="min-width: 1px;" placeholder="Nachname einziehender Mieter">`;
-    vornameCell.innerHTML = `<input type="text" id="${vornameId}" class="autoscale vornameeinziehmieter" style="min-width: 1px;" placeholder="Vorname">`;
-    strasseCell.innerHTML = '<input type="text" class="phones autoscale teleinziehmieter" style="min-width: 1px;" placeholder="Telefon">';
-    plzOrtCell.innerHTML = '<input type="email" class="mails autoscale maileinziehmieter" style="min-width: 1px;" placeholder="E-Mail">';
 
-    newRow1.appendChild(nameCell);
-    newRow1.appendChild(vornameCell);
-    newRow1.appendChild(strasseCell);
-    newRow1.appendChild(plzOrtCell);
 
-    const tbody = table.querySelector('tbody');
-    tbody.insertBefore(newRow1, tbody.firstChild);
 
-    const signatureContainer = document.createElement('div');
-    signatureContainer.classList.add('signature-container');
-    signatureContainer.id = `signature-container-einziehender-mieter-${counter}`;
 
-    const signatureBox = document.createElement('div');
-    signatureBox.classList.add('signature-box');
 
-    const clearButton = document.createElement('button');
-    clearButton.type = 'button';
-    clearButton.classList.add('signature-clear-btn');
-    clearButton.textContent = 'x';
-    clearButton.onclick = () => clearSignature(`einziehender-mieter-signature-${counter}`);
-    signatureBox.appendChild(clearButton);
+/* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
+/* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
+/* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
+document.addEventListener("DOMContentLoaded", function () {
+    let counterEinziehender = 1;
 
-    const canvas = document.createElement('canvas');
-    canvas.id = `einziehender-mieter-signature-${counter}`;
-    canvas.classList.add('signature-canvas3');
-    signatureBox.appendChild(canvas);
+    document.getElementById('addeinziehenderMieter').addEventListener('click', function () {
+        let table = document.getElementById('einzugmieterTable');
 
-    signatureContainer.appendChild(signatureBox);
-
-    const mieterInfo = document.createElement('div');
-    mieterInfo.id = `einziehender-mieter-info-${counter}`;
-    mieterInfo.style.marginTop = '-10px';
-    mieterInfo.style.marginLeft = '11px';
-    mieterInfo.style.fontWeight = 'bold';
-    mieterInfo.style.textAlign = 'left';
-    mieterInfo.innerHTML = `einziehender Mieter: <span id="einziehender-mieter-fullname-${counter}"></span>`;
-
-    signatureContainer.appendChild(mieterInfo);
-
-    const signatureContent = document.querySelector('.signature-content');
-    signatureContent.appendChild(signatureContainer);
-
-    initSignatureCanvas(`einziehender-mieter-signature-${counter}`);
-
-    const nameInput = document.getElementById(nameId);
-    const vornameInput = document.getElementById(vornameId);
-    const fullNameSpan = document.getElementById(`einziehender-mieter-fullname-${counter}`);
-
-    nameInput.addEventListener('input', () => updateFullName(fullNameSpan, nameInput.value, vornameInput.value));
-    vornameInput.addEventListener('input', () => updateFullName(fullNameSpan, nameInput.value, vornameInput.value));
-
-    let table2 = document.getElementById('einzugmieterTable');
-
-    if (table2) {
-        if (!table2.querySelector('thead')) {
+        // Tabellen-Header nur einmal erstellen
+        if (!table.querySelector('thead')) {
             const thead = document.createElement('thead');
             const headerRow = document.createElement('tr');
-
             const headers = [
                 { text: 'Name', width: '30%' },
                 { text: 'Vorname', width: '25%' },
@@ -147,19 +133,123 @@ document.getElementById('addeinziehenderMieter').addEventListener('click', funct
             });
 
             thead.appendChild(headerRow);
+            table.appendChild(thead);
 
-            table2.insertBefore(thead, table2.querySelector('tbody'));
+            const tbody = document.createElement('tbody');
+            table.appendChild(tbody);
         }
+
+        // Neue Zeile erstellen
+        const newRow = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        const vornameCell = document.createElement('td');
+        const telefonCell = document.createElement('td');
+        const emailCell = document.createElement('td');
+
+        const counter1 = document.querySelectorAll('.signature-container').length + 1;
+        const suffix1 = counter1.toString().padStart(2, '0');
+
+        const nameId = `NameEin${suffix1}`;
+        const vornameId = `VornameEin${suffix1}`;
+        const telefonId = `TelefonEin${suffix1}`;
+        const emailId = `MailEin${suffix1}`;
+
+        nameCell.innerHTML = `
+        <input type="text" id="${nameId}" class="autoscale nameeinziehmieter" 
+               style="min-width: 1px;" placeholder="Nachname einziehender Mieter">`;
+
+        vornameCell.innerHTML = `
+        <input type="text" id="${vornameId}" class="autoscale vornameeinziehmieter" 
+               style="min-width: 1px;" placeholder="Vorname">`;
+
+        telefonCell.innerHTML = `
+        <input type="text" id="${telefonId}" class="phones autoscale teleinziehmieter" 
+               style="min-width: 1px;" placeholder="Telefon">`;
+
+        emailCell.innerHTML = `
+        <input type="email" id="${emailId}" class="mails autoscale maileinziehmieter" 
+               style="min-width: 1px;" placeholder="E-Mail">`;
+
+        newRow.appendChild(nameCell);
+        newRow.appendChild(vornameCell);
+        newRow.appendChild(telefonCell);
+        newRow.appendChild(emailCell);
+
+
+        // Zeile am ENDE der Tabelle einfügen
+        table.querySelector('tbody').appendChild(newRow);
+
+
+
+        // Signatur-Container erstellen
+        const signatureContainer = document.createElement('div');
+        signatureContainer.classList.add('signature-container');
+        signatureContainer.id = `signature-container-einziehender-mieter-${counter1}`;
+
+        const signatureBox = document.createElement('div');
+        signatureBox.classList.add('signature-box');
+
+        const clearButton = document.createElement('button');
+        clearButton.type = 'button';
+        clearButton.classList.add('signature-clear-btn');
+        clearButton.textContent = 'x';
+        clearButton.onclick = () => clearSignature(`einziehender-mieter-signature-${counter1}`);
+        signatureBox.appendChild(clearButton);
+
+        const canvas = document.createElement('canvas');
+        canvas.id = `einziehender-mieter-signature-${counter1}`;
+        canvas.classList.add('signature-canvas3');
+        signatureBox.appendChild(canvas);
+
+        signatureContainer.appendChild(signatureBox);
+
+        const mieterInfo = document.createElement('div');
+        mieterInfo.id = `einziehender-mieter-info-${counter1}`;
+        mieterInfo.style.marginTop = '-10px';
+        mieterInfo.style.marginLeft = '11px';
+        mieterInfo.style.fontWeight = 'bold';
+        mieterInfo.style.textAlign = 'left';
+        mieterInfo.innerHTML = `einziehender Mieter: <span id="einziehender-mieter-fullname-${counter1}"></span>`;
+
+        signatureContainer.appendChild(mieterInfo);
+
+        // Signatur-Container einfügen
+        const signatureContent = document.querySelector('.signature-content');
+        if (signatureContent) {
+            signatureContent.appendChild(signatureContainer);
+        }
+
+        // Signatur-Canvas initialisieren
+        initSignatureCanvas(`einziehender-mieter-signature-${counter1}`);
+
+        // Event-Listener für Namensaktualisierung
+        const nameInput = document.getElementById(nameId);
+        const vornameInput = document.getElementById(vornameId);
+        const fullNameSpan = document.getElementById(`einziehender-mieter-fullname-${counter1}`);
+
+        nameInput.addEventListener('input', () => {
+            updateFullName(fullNameSpan, nameInput.value, vornameInput.value);
+        });
+
+        vornameInput.addEventListener('input', () => {
+            updateFullName(fullNameSpan, nameInput.value, vornameInput.value);
+        });
+
+        counterEinziehender++;
+    });
+
+    // Hilfsfunktion für Namen unter Unterschrift
+    function updateFullName(fullNameSpan, lastName, firstName) {
+        fullNameSpan.textContent = `${firstName || ''} ${lastName || ''}`.trim();
     }
 });
-
 
 
 /* Button ausziehender Mieter hinzufügen (inkl. Unterschriftenfeld für ausziehenden Mieter)... */
 /* Button ausziehender Mieter hinzufügen (inkl. Unterschriftenfeld für ausziehenden Mieter)... */
 /* Button ausziehender Mieter hinzufügen (inkl. Unterschriftenfeld für ausziehenden Mieter)... */
 document.addEventListener("DOMContentLoaded", function () {
-    let counter = 1;
+    let counterAusziehender = 1;
 
     document.getElementById('addausziehenderMieter').addEventListener('click', function () {
         let table = document.getElementById('auszugmieterTable');
@@ -175,9 +265,6 @@ document.addEventListener("DOMContentLoaded", function () {
             headers.forEach(headerText => {
                 const th = document.createElement('th');
                 th.textContent = headerText;
-                if (headerText === 'E-Mail') {
-                    th.style.width = '118px';
-                }
                 headerRow.appendChild(th);
             });
 
@@ -197,40 +284,36 @@ document.addEventListener("DOMContentLoaded", function () {
         const plzOrtCell = document.createElement('td');
         const emailCell = document.createElement('td');
 
-        const counter = document.querySelectorAll('.signature-container').length + 1;
-        const nameId = `NameAus${counter.toString().padStart(2, '0')}`;
+        const suffix2 = counterAusziehender.toString().padStart(2, '0');
+        const nameId = `NameAus${suffix2}`;
+        const strasseId = `StrasseAus${suffix2}`;
+        const plzOrtId = `PLZOrtAus${suffix2}`;
+        const emailId = `MailAus${suffix2}`;
 
         nameCell.innerHTML = `
-            <div class="input-container">
-                <input type="text" id="${nameId}" class="autoscale" style="width: 220px;" placeholder="Vor- und Nachname ausziehender Mieter">
+            <input type="text" id="${nameId}" class="autoscale" placeholder="Vor- und Nachname ausziehender Mieter">`;
 
-            </div>`;
         strasseCell.innerHTML = `
-            <div class="input-container">
-                <input type="text" class="newstreets autoscale" style="width: 220px;" placeholder="neue Straße">
+            <input type="text" id="${strasseId}" class="newstreets autoscale" placeholder="neue Straße">`;
 
-            </div>`;
         plzOrtCell.innerHTML = `
-            <div class="input-container">
-                <input type="text" class="plzauszug autoscale" style="width: 230px;" placeholder="PLZ / Ort">
+            <input type="text" id="${plzOrtId}" class="plzauszug autoscale" placeholder="PLZ / Ort">`;
 
-            </div>`;
         emailCell.innerHTML = `
-            <div class="input-container">
-                <input type="email" class="mails2 autoscale" style="width: 160px;" placeholder="E-Mail">
-
-            </div>`;
+            <input type="email" id="${emailId}" style="width: 11px;" class="mails2 autoscale" placeholder="E-Mail">`;
 
         newRow.appendChild(nameCell);
         newRow.appendChild(strasseCell);
         newRow.appendChild(plzOrtCell);
         newRow.appendChild(emailCell);
-
         table.querySelector('tbody').appendChild(newRow);
 
+
+
+        // Signatur-Container
         const signatureContainer = document.createElement('div');
         signatureContainer.classList.add('signature-container');
-        signatureContainer.id = `signature-container-ausziehender-mieter-${counter}`;
+        signatureContainer.id = `signature-container-ausziehender-mieter-${counterAusziehender}`;
 
         const signatureBox = document.createElement('div');
         signatureBox.classList.add('signature-box');
@@ -239,67 +322,67 @@ document.addEventListener("DOMContentLoaded", function () {
         clearButton.type = 'button';
         clearButton.classList.add('signature-clear-btn');
         clearButton.textContent = 'x';
-        clearButton.onclick = () => clearSignature(`ausziehender-mieter-signature-${counter}`);
+        // Neuer Event-Handler:
+        clearButton.onclick = function () {
+            const canvas = this.parentElement.querySelector('canvas');
+            if (canvas) {
+                const context = canvas.getContext('2d');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                localStorage.removeItem(`signature_${canvas.id}`);
+            }
+        };
+
+
+
+
+
         signatureBox.appendChild(clearButton);
 
         const canvas = document.createElement('canvas');
-        canvas.id = `ausziehender-mieter-signature-${counter}`;
+        canvas.id = `ausziehender-mieter-signature-${counterAusziehender}`;
         canvas.classList.add('signature-canvas');
         signatureBox.appendChild(canvas);
 
         signatureContainer.appendChild(signatureBox);
 
         const mieterInfo = document.createElement('div');
-        mieterInfo.id = `ausziehender-mieter-info-${counter}`;
+        mieterInfo.id = `ausziehender-mieter-info-${counterAusziehender}`;
         mieterInfo.style.marginTop = '-10px';
         mieterInfo.style.marginLeft = '1px';
         mieterInfo.style.fontWeight = 'bold';
         mieterInfo.style.textAlign = 'left';
-        mieterInfo.innerHTML = `ausziehender Mieter: <span id="ausziehender-mieter-fullname-${counter}"></span>`;
-
+        mieterInfo.innerHTML = `ausziehender Mieter: <span id="ausziehender-mieter-fullname-${counterAusziehender}"></span>`;
         signatureContainer.appendChild(mieterInfo);
 
         const signatureContent = document.querySelector('.signature-content');
         if (signatureContent) {
             signatureContent.appendChild(signatureContainer);
-        } else {
-            console.error("Container mit der Klasse '.signature-content' nicht gefunden!");
         }
 
-        initSignatureCanvas(`ausziehender-mieter-signature-${counter}`);
+        initSignatureCanvas(`ausziehender-mieter-signature-${counterAusziehender}`);
 
         const nameInput = document.getElementById(nameId);
-        const fullNameSpan = document.getElementById(`ausziehender-mieter-fullname-${counter}`);
+        const fullNameSpan = document.getElementById(`ausziehender-mieter-fullname-${counterAusziehender}`);
 
         nameInput.addEventListener('input', () => {
             const fullName = nameInput.value;
             updateFullName(fullNameSpan, fullName);
         });
 
-        const inputContainers = signatureContainer.querySelectorAll('.input-container');
-        inputContainers.forEach(container => {
-            const input = container.querySelector('input');
-            const plusButton = container.querySelector('.font-plus');
-            const minusButton = container.querySelector('.font-minus');
-            initFontControls(input, plusButton, minusButton);
-        });
-
-        counter++;
+        counterAusziehender++;
     });
 
-    // Funktion, um den Namen unter der Unterschrift anzuzeigen
     function updateFullName(fullNameSpan, fullName) {
-        // Trenne den Namen in "Name" und "Vorname" basierend auf dem Komma
         const [name, vorname] = fullName.split(',').map(part => part.trim());
-
-        // Setze den Namen im Format "Vorname Name"
-        if (vorname && name) {
-            fullNameSpan.textContent = `${vorname} ${name}`;
-        } else {
-            // Falls kein Komma vorhanden ist, zeige den gesamten Namen an
-            fullNameSpan.textContent = fullName;
-        }
+        fullNameSpan.textContent = vorname && name ? `${vorname} ${name}` : fullName;
     }
+
+
+
+
+
+
+
 
     // Funktion zur Initialisierung der Schriftgrößen-Steuerung
     function initFontControls(input, plusButton, minusButton) {
@@ -490,13 +573,13 @@ function initSignatureCanvas(canvasId) {
 }
 
 // Funktion zum Löschen der Unterschrift
-function clearSignature(canvasId) {
+/* function clearSignature(canvasId) {
     const canvas = document.getElementById(canvasId);
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     localStorage.removeItem(`signature_${canvasId}`);
 }
-
+ */
 
 // Unterschriften Canvas-Größe dynamisch an Container anpassen
 // Unterschriften Canvas-Größe dynamisch an Container anpassen
@@ -512,7 +595,7 @@ function resizeCanvas(canvas) {
 // Button Unterschriften löschen
 // Button Unterschriften löschen
 // Button Unterschriften löschen
-function clearSignature(canvasId) {
+/* function clearSignature(canvasId) {
     const canvas = document.getElementById(canvasId);
     if (canvas) {
         const context = canvas.getContext('2d');
@@ -522,7 +605,22 @@ function clearSignature(canvasId) {
     } else {
         console.error(`Canvas mit der ID ${canvasId} wurde nicht gefunden.`);
     }
+} */
+
+
+function clearSignature(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (canvas) {
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        localStorage.removeItem(`signature_${canvasId}`);
+    }
 }
+
+
+
+
+
 
 
 // Unterschriftenfeld für Vermieter
@@ -539,7 +637,7 @@ window.onload = function () {
 /* Bemerkungszeile duplizieren */
 /* Bemerkungszeile duplizieren */
 
-function duplicateRow(button) {
+/* function duplicateRow(button) {
     const row = button.closest('tr');
 
     const newRow = row.cloneNode(true);
@@ -555,6 +653,39 @@ function duplicateRow(button) {
     // Füge die neue Zeile nach der aktuellen Zeile ein
     row.parentNode.insertBefore(newRow, row.nextSibling);
 }
+ */
+
+function duplicateRow(button) {
+    const row = button.closest('tr');
+    const newRow = row.cloneNode(true);
+    const inputField = newRow.querySelector('input.dupli');
+
+    if (inputField) {
+        inputField.value = '';
+
+        // Raum-Container ermitteln (z. B. div id="jueche")
+        const roomContainer = button.closest('div.rooms') || button.closest('div[id^="j"]');
+        if (!roomContainer) {
+            console.warn("Raum nicht gefunden – ID kann nicht gesetzt werden.");
+            return;
+        }
+
+        const roomId = roomContainer.id; // z. B. "jueche"
+        const prefix = 'dupli' + roomId.replace(/^j/, ''); // z. B. "duplikueche"
+
+        // Zähle vorhandene IDs in diesem Raum, die mit dem Prefix beginnen
+        const existingInputs = roomContainer.querySelectorAll(`input.dupli[id^="${prefix}"]`);
+        const count = existingInputs.length + 1; // neue Nummer
+
+        // ID setzen (zweistellig, z. B. "duplikuech01")
+        const newId = `${prefix}${count.toString().padStart(2, '0')}`;
+        inputField.id = newId;
+    }
+
+    newRow.classList.remove('original-row');
+    row.parentNode.insertBefore(newRow, row.nextSibling);
+}
+
 
 
 // Funktion zum Löschen einer Zeile
@@ -600,8 +731,8 @@ function setupImageUpload(uploadButton) {
                     let ctx = canvas.getContext("2d");
 
                     // Zielgröße für die Skalierung
-                    const maxWidth = 2500;
-                    const maxHeight = 2500;
+                    const maxWidth = 3000;
+                    const maxHeight = 3000;
                     let width = img.width;
                     let height = img.height;
 
@@ -658,9 +789,9 @@ function setupImageUpload(uploadButton) {
 
                         // Löschen-Funktion
                         deleteButton.addEventListener("click", function () {
-                            imgWrapper.remove(); 
-                            highResWrapper.remove(); 
-                            URL.revokeObjectURL(scaledImageSrc); 
+                            imgWrapper.remove();
+                            highResWrapper.remove();
+                            URL.revokeObjectURL(scaledImageSrc);
 
                             // Entferne das Bild aus localStorage
                             storedImages = storedImages.filter(img => img.imageUrl !== scaledImageSrc);
@@ -715,7 +846,7 @@ function setupImageUpload(uploadButton) {
                         highResWrapper.appendChild(imgHighRes);
                         highResWrapper.appendChild(deleteButtonHighRes);
                         signContainer.appendChild(highResWrapper);
-                    }, 'image/jpeg', 0.6); // Qualität auf 75% setzen
+                    }, 'image/jpeg', 0.7);
                 };
             };
 
@@ -728,7 +859,6 @@ function setupImageUpload(uploadButton) {
 }
 
 document.querySelectorAll('input[class^="imageUpload"]').forEach(setupImageUpload);
-
 
 
 
@@ -850,8 +980,8 @@ document.addEventListener("DOMContentLoaded", function () {
         updateSignFields();
 
         // Fallback: Regelmäßige Überprüfung (falls nötig)
-        setInterval(updateSignFields, 2000);
-    }, 100);
+        setInterval(updateSignFields, 60000);
+    }, 60000);
 });
 
 
@@ -989,11 +1119,7 @@ window.addEventListener('beforeunload', function (event) {
         return confirmationMessage;
     }
 });
-document.getElementById('newTabButton').addEventListener('click', function () {
-    allowUnload = true;
-    window.open('https://www.google.com', '_blank');
-    setTimeout(() => { allowUnload = false; }, 1000);
-});
+
 window.addEventListener('beforeunload', function (event) {
     const confirmationMessage = 'Möchten Sie die Seite wirklich verlassen? Alle Eingaben gehen dadurch verloren.';
     event.returnValue = confirmationMessage;
@@ -1021,7 +1147,6 @@ function updateFullName(fullNameSpan, fullName) {
 /* Button Schlüssel hinzufügen */
 document.getElementById('addKeyButton').addEventListener('click', function () {
     const tableContainer = document.getElementById('schluesselTableContainer');
-
     let table = document.getElementById('schluesselTable');
 
     if (!table) {
@@ -1032,85 +1157,84 @@ document.getElementById('addKeyButton').addEventListener('click', function () {
         style.textContent = `
             #schluesselTable {
                 width: 100%;
-                   border-collapse: collapse;
-             
+                border-collapse: collapse;
             }
             #schluesselTable th, #schluesselTable td {
                 padding: 8px;
-                padding-top:0px;
-                padding-bottom:0px;
-               
+                padding-top: 0px;
+                padding-bottom: 0px;
             }
             #schluesselTable th:nth-child(1), #schluesselTable td:nth-child(1) {
-                width: 300px; /* Schlüsselbezeichnung */
+                width: 300px;
             }
             #schluesselTable th:nth-child(2), #schluesselTable td:nth-child(2) {
-                width: 90px; /* Anzahl */
-                border:none;
+                width: 90px;
+                border: none;
             }
             #schluesselTable th:nth-child(3), #schluesselTable td:nth-child(3) {
-                width: auto; /* Bezeichnung (nimmt den Rest der Breite ein) */
-                border:none;
+                width: auto;
+                border: none;
             }
         `;
         document.head.appendChild(style);
 
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
-
         const headers = ['Schlüsselbezeichnung', 'Anzahl', 'Schlüsselnummer / Bemerkung'];
         headers.forEach(headerText => {
             const th = document.createElement('th');
             th.textContent = headerText;
             headerRow.appendChild(th);
         });
-
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
         const tbody = document.createElement('tbody');
         table.appendChild(tbody);
-
-        // Die Tabelle in den DOM einfügen
         tableContainer.appendChild(table);
     }
 
-    // Neue Zeile in den Tabellenkörper hinzufügen
+    const counter3 = table.querySelectorAll('tbody tr').length + 1;
+    const suffix3 = counter3.toString().padStart(2, '0');
+
+    const idBezeichnung = `SchluesselArt${suffix3}`;
+    const idAnzahl = `SchluesselAnz${suffix3}`;
+    const idBemerkung = `SchluesselBem${suffix3}`;
+
     const newRow = document.createElement('tr');
 
     const bezeichnungCell = document.createElement('td');
     bezeichnungCell.innerHTML = `
-        <select style="width: 100%;">
-                        <option value="leer"></option>
-                        <option value="haustuer">Haustür</option>
-                        <option value="wohnung">Wohnungstür</option>
-                        <option value="wohnunghaustuer">Haustür inkl. Wohnungstür</option>
-                        <option value="briefkasten">Briefkasten</option>
-                        <option value="keller">Keller</option>
-                        <option value="dachboden">Dachboden</option>
-                        <option value="garage">Garage</option>
-                        <option value="garage">Doppelparkanlage</option>
-                        <option value="fahrradbereich">Fahrradbereich</option>
-                        <option value="abstellraum">Abstellraum</option>
-                        <option value="buero">Büro</option>
-                        <option value="lagerraum">Lagerraum</option>
-                        <option value="muellraum">Müllraum</option>
-                        <option value="sonstige">Sonstige</option>
-            
+        <select id="${idBezeichnung}" style="width: 100%;">
+            <option value="leer"></option>
+            <option value="haustuer">Haustür</option>
+            <option value="wohnung">Wohnungstür</option>
+            <option value="wohnunghaustuer">Haustür inkl. Wohnungstür</option>
+            <option value="briefkasten">Briefkasten</option>
+            <option value="keller">Keller</option>
+            <option value="dachboden">Dachboden</option>
+            <option value="garage">Garage</option>
+            <option value="doppelparkanlage">Doppelparkanlage</option>
+            <option value="fahrradbereich">Fahrradbereich</option>
+            <option value="abstellraum">Abstellraum</option>
+            <option value="laden">Laden</option>
+            <option value="buero">Büro</option>
+            <option value="lagerraum">Lagerraum</option>
+            <option value="muellraum">Müllraum</option>
+            <option value="sonstige">Sonstige</option>
         </select>`;
 
     const anzahlCell = document.createElement('td');
-    anzahlCell.innerHTML = '<input type="number" placeholder="" style="width: 100%;">';
+    anzahlCell.innerHTML = `<input type="number" id="${idAnzahl}" placeholder="" style="width: 100%;">`;
 
     const schluesselnummerCell = document.createElement('td');
-    schluesselnummerCell.innerHTML = '<input type="text" placeholder="" class="autoscale" style="width: 100%;">';
+    schluesselnummerCell.innerHTML = `<input type="text" id="${idBemerkung}" placeholder="" class="autoscale" style="width: 100%;">`;
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(anzahlCell);
     newRow.appendChild(schluesselnummerCell);
 
-    const tbody = table.querySelector('tbody');
-    tbody.appendChild(newRow);
+    table.querySelector('tbody').appendChild(newRow);
 });
 
 
@@ -1121,7 +1245,6 @@ document.getElementById('addKeyButton').addEventListener('click', function () {
 /* Button Zähler hinzufügen */
 document.getElementById('addZaehlerButton').addEventListener('click', function () {
     const tableContainer = document.getElementById('zaehlerTableContainer');
-
     let table = document.getElementById('zaehlerTable');
 
     if (!table) {
@@ -1155,11 +1278,21 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
         tableContainer.appendChild(table);
     }
 
+    // Zähler für eindeutige ID
+    const counter4 = table.querySelectorAll('tbody tr').length + 1;
+    const suffix4 = counter4.toString().padStart(2, '0');
+
+    // Eindeutige IDs
+    const idBezeichnung = `ZaehlerArt${suffix4}`;
+    const idNummer = `ZaehlerNummer${suffix4}`;
+    const idEinbau = `Einbaulage${suffix4}`;
+    const idStand = `Zaehlerstand${suffix4}`;
+
     const newRow = document.createElement('tr');
 
     const bezeichnungCell = document.createElement('td');
     bezeichnungCell.innerHTML = `
-        <select style="width:230px;">
+        <select id="${idBezeichnung}" style="width:230px;">
             <option value="leer"></option>
             <option value="gaszaehler">Gaszähler</option>
             <option value="stromzaehler">Stromzähler</option>
@@ -1170,21 +1303,20 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
         </select>`;
 
     const zaehlernummerCell = document.createElement('td');
-    zaehlernummerCell.innerHTML = '<input type="text" placeholder="" class="metercounter autoscale" style="width:250px;">';
+    zaehlernummerCell.innerHTML = `<input type="text" id="${idNummer}" class="metercounter autoscale" style="width:250px;">`;
 
     const einbaulageCell = document.createElement('td');
-    einbaulageCell.innerHTML = '<input type="text" placeholder="" class="autoscale" style="width: 100%;">';
+    einbaulageCell.innerHTML = `<input type="text" id="${idEinbau}" class="autoscale" style="width: 100%;">`;
 
     const zaehlerstandCell = document.createElement('td');
-    zaehlerstandCell.innerHTML = '<input type="text" placeholder="" class="meterstand autoscale" style="width:166px;">';
+    zaehlerstandCell.innerHTML = `<input type="number" id="${idStand}" class="meterstand autoscale" style="width:166px;">`;
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(zaehlernummerCell);
     newRow.appendChild(einbaulageCell);
     newRow.appendChild(zaehlerstandCell);
 
-    const tbody = table.querySelector('tbody');
-    tbody.appendChild(newRow);
+    table.querySelector('tbody').appendChild(newRow);
 });
 
 
@@ -1239,21 +1371,21 @@ document.addEventListener("DOMContentLoaded", function () {
             let arrow = header.querySelector("span.arrows00"); // Suche nach einem span mit der Klasse arrows00
             if (!arrow) {
                 arrow = document.createElement("span");
-                arrow.textContent = " ▼";
-                arrow.classList.add("arrows00"); // Füge die Klasse arrows00 hinzu
-                arrow.style.transition = "transform 0.3s ease";
-                header.appendChild(arrow);
+                /* arrow.textContent = " ▼"; */
+                /* arrow.classList.add("arrows00"); */
+                /* arrow.style.transition = "transform 0.3s ease"; */
+                /* header.appendChild(arrow); */
             }
 
             content.style.display = "table"; // Räume sollen offen sein
-            header.style.cursor = "pointer";
-            header.style.display = "flex";
-            header.style.justifyContent = "space-between";
-            header.style.alignItems = "center";
+            /* header.style.cursor = "pointer"; */
+            /*             header.style.display = "flex";
+                        header.style.justifyContent = "space-between";
+                        header.style.alignItems = "center"; */
 
-            header.addEventListener("click", function () {
-                toggleRoom(header, content, arrow);
-            });
+            /*   header.addEventListener("click", function () {
+                  toggleRoom(header, content, arrow);
+              }); */
         }
     }
 
@@ -1270,22 +1402,24 @@ document.addEventListener("DOMContentLoaded", function () {
 /* versehentlich geklickte Radiobutton wieder deaktivieren */
 /* versehentlich geklickte Radiobutton wieder deaktivieren */
 /* versehentlich geklickte Radiobutton wieder deaktivieren */
-document.addEventListener("DOMContentLoaded", function () {
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
+document.addEventListener("click", function (event) {
+    const target = event.target;
 
-    radioButtons.forEach(radio => {
-        radio.addEventListener("click", function () {
-            if (this.checked && this.dataset.previouslyChecked) {
-                // Wenn der Radio-Button bereits ausgewählt war, deaktiviere ihn
-                this.checked = false;
-                this.dataset.previouslyChecked = "";
-            } else {
-                // Markiere den Radio-Button als zuvor ausgewählt
-                this.dataset.previouslyChecked = "true";
-            }
-        });
-    });
+    if (target && target.matches('input[type="radio"]')) {
+        if (target.checked && target.dataset.previouslyChecked === "true") {
+            target.checked = false;
+            target.dataset.previouslyChecked = "";
+        } else {
+            // Alle anderen Radios mit dem gleichen Namen zurücksetzen
+            const radiosSameName = document.querySelectorAll(`input[name="${target.name}"]`);
+            radiosSameName.forEach(r => r.dataset.previouslyChecked = "");
+
+            // Diesen markieren
+            target.dataset.previouslyChecked = "true";
+        }
+    }
 });
+
 
 
 // Vorname und Nachname unter die Unterschriftenfelder setzen xxx
@@ -1297,103 +1431,84 @@ function updateFullName(fullNameSpan, name, vorname) {
 
 
 
-/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
-/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
-/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
+/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
+/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
+/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
 document.addEventListener("DOMContentLoaded", function () {
-    // Allgemeine Funktion zur Überprüfung und Aktualisierung von Überschriften
-    function checkAndUpdateHeading(tableId, headingText, notGivenText) {
-        let table = document.getElementById(tableId);
-
-        document.querySelectorAll("h3").forEach(function (h3) {
-            let text = h3.textContent.trim();
-
-            if (table) {
-                if (text === notGivenText) {
-                    h3.textContent = headingText;
-                    h3.style.color = "black";
-                    h3.style.borderBottom = "0px solid black";
-                    h3.style.paddingBottom = "0px";
+    const icons = {
+        schluessel: '<i class="fas fa-key" aria-hidden="true"></i>',
+        zaehler: '<i class="fas fa-tachometer-alt" aria-hidden="true"></i>',
+        mieter: '<i class="fas fa-user" aria-hidden="true"></i>'
+    };
+    function checkSection(sectionId, defaultText, activeText, icon) {
+        const section = document.getElementById(sectionId);
+        const hasContent = section && (
+            section.querySelector('input') ||
+            section.querySelector('select') ||
+            section.querySelector('tbody tr:not(#addausziehenderMieterRow)')
+        );
+        const headers = document.querySelectorAll('h3');
+        headers.forEach(header => {
+            const baseText = header.textContent.replace(icons.schluessel, '').replace(icons.zaehler, '').trim();
+            
+            if (baseText.includes(defaultText)) {  
+                if (hasContent) {
+                    header.innerHTML = `${icon} ${activeText}`;
+                    header.style.color = "black";
+                    header.style.borderBottom = "0px solid black";
+                    header.style.paddingBottom = "0px";
                 }
-            } else {
-                if (text === headingText) {
-                    h3.textContent = notGivenText;
-                    h3.style.color = "#c80000";
-                    h3.style.borderBottom = "1px solid black";
-                    h3.style.paddingBottom = "5px";
-                }
-            }
-        });
-    }
-
-    function checkAndUpdateEinziehenderMieter() {
-        let found = false;
-
-        for (let i = 1; i <= 99; i++) {
-            let element = document.getElementById("NameEin" + String(i).padStart(2, "0"));
-            if (element) {
-                found = true;
-                break;
-            }
-        }
-
-        document.querySelectorAll("h3").forEach(function (h3) {
-            let text = h3.textContent.trim();
-
-            if (found) {
-                if (text === "einziehender Mieter (nicht zutreffend)") {
-                    h3.textContent = "einziehender Mieter";
-                    h3.style.color = "black";
-                    h3.style.borderBottom = "0px solid black";
-                    h3.style.paddingBottom = "0px";
-                }
-            } else {
-                if (text === "einziehender Mieter") {
-                    h3.textContent = "einziehender Mieter (nicht zutreffend)";
-                    h3.style.color = "#c80000";
-                    h3.style.borderBottom = "1px solid black";
-                    h3.style.paddingBottom = "5px";
+            } else if (baseText.includes(activeText)) {
+                if (!hasContent) {
+                    header.innerHTML = `${icon} ${defaultText}`;
+                    header.style.color = "#c80000";
+                    header.style.borderBottom = "1px solid black";
+                    header.style.paddingBottom = "5px";
                 }
             }
         });
     }
-
-    checkAndUpdateHeading("schluesselTable", "Schlüssel", "Schlüssel (nicht angegeben)");
-    checkAndUpdateHeading("auszugmieterTable", "ausziehender Mieter", "ausziehender Mieter (nicht zutreffend)");
-    checkAndUpdateHeading("zaehlerTable", "Zähler", "Zähler (nicht angegeben)");
-    checkAndUpdateEinziehenderMieter();
-
-    document.getElementById('addKeyButton').addEventListener('click', function () {
-        setTimeout(function () {
-            checkAndUpdateHeading("schluesselTable", "Schlüssel", "Schlüssel (nicht angegeben)");
-            checkAndUpdateHeading("auszugmieterTable", "ausziehender Mieter", "ausziehender Mieter (nicht zutreffend)");
-            checkAndUpdateEinziehenderMieter();
-        }, 100);
-    });
-
-    document.getElementById('addausziehenderMieter').addEventListener('click', function () {
-        setTimeout(function () {
-            checkAndUpdateHeading("auszugmieterTable", "ausziehender Mieter", "ausziehender Mieter (nicht zutreffend)");
-            checkAndUpdateEinziehenderMieter();
-            checkAndUpdateHeading("schluesselTable", "Schlüssel", "Schlüssel (nicht angegeben)");
-        }, 100);
-    });
-
-    document.getElementById('addeinziehenderMieter').addEventListener('click', function () {
-        setTimeout(function () {
-            checkAndUpdateHeading("auszugmieterTable", "ausziehender Mieter", "ausziehender Mieter (nicht zutreffend)");
-            checkAndUpdateEinziehenderMieter();
-            checkAndUpdateHeading("schluesselTable", "Schlüssel", "Schlüssel (nicht angegeben)");
-        }, 100);
-    });
-
-    document.getElementById('addZaehlerButton').addEventListener('click', function () {
-        setTimeout(function () {
-            checkAndUpdateHeading("zaehlerTable", "Zähler", "Zähler (nicht angegeben)");
-        }, 100);
+    function initialCheck() {
+        checkSection('schluesselTable', 'Schlüssel (nicht angegeben)', 'Schlüssel', icons.schluessel);
+        checkSection('zaehlerTable', 'Zähler (nicht angegeben)', 'Zähler', icons.zaehler);
+    }
+    function setupEventListeners() {
+        document.getElementById('addKeyButton')?.addEventListener('click', () => {
+            setTimeout(() => checkSection('schluesselTable', 'Schlüssel (nicht angegeben)', 'Schlüssel', icons.schluessel), 50);
+        });
+        document.getElementById('addZaehlerButton')?.addEventListener('click', () => {
+            setTimeout(() => checkSection('zaehlerTable', 'Zähler (nicht angegeben)', 'Zähler', icons.zaehler), 50);
+        });
+    }
+    if (!document.getElementById('dynamic-icons-style')) {
+        const style = document.createElement('style');
+        style.id = 'dynamic-icons-style';
+        style.textContent = `
+            h3 i.fas {
+                margin-right: 8px;
+                color: #4a6fa5;
+                font-size: 0.9em;
+            }
+            h3[style*="color: #c80000"] i.fas {
+                color: #c80000 !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    initialCheck();
+    setupEventListeners();
+    const observer = new MutationObserver(initialCheck);
+    const containers = [
+        document.getElementById('schluesselTable'),
+        document.getElementById('zaehlerTable')
+    ].filter(Boolean);
+    containers.forEach(container => {
+        observer.observe(container, {
+            childList: true,
+            subtree: true
+        });
     });
 });
-
 
 
 
