@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
-// stylesprint.css
-// Version 3.25_beta */
+stylesprint.css
+Version 3.34_beta */
 
 body {
     font-family: Arial, sans-serif;
@@ -27,8 +27,6 @@ table {
 
 th,
 td {
-    /*     border: 0px solid #ddd;
-    border-bottom: 1px solid #ddd; */
 
     padding: 1px;
     text-align: left;
@@ -46,8 +44,7 @@ textarea,
 select {
     width: 97%;
     padding: 0px;
-    /*     margin-top:5px;
-    margin-bottom:5px; */
+
     background-color: #ffffff;
     color: #333;
     border: 1px solid #ccc;
@@ -55,11 +52,9 @@ select {
     padding-left: 5px;
     padding-bottom: 0px;
     line-height: 1.11;
-    /* Erhöht die Textzeilenhöhe */
+
     height: 1.11;
-    /* Falls eine feste Höhe das Problem verursacht */
-    /*  min-height: 24px; */
-    /* Setzt eine Mindesthöhe, um Platz zu schaffen */
+
     font-size: 16px;
     background-color: #fcfcfc;
 }
@@ -79,7 +74,6 @@ input[type="radio"] {
     margin-top: 5px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .radio-label::before,
@@ -94,7 +88,6 @@ input[type="radio"] {
     border: 1px solid #8d8d8d;
     border-radius: 4px;
     transform: translate(-50%, -50%);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .radio-label::after,
@@ -106,13 +99,12 @@ input[type="radio"] {
     color: transparent;
     font-size: 15px;
     transform: translate(-50%, -50%);
-    transition: color 0.3s ease;
 }
 
 input[type="radio"]:checked+.radio-label::before,
 input[type="checkbox"]:checked+.checkbox-label::before {
     background-color: #fff;
-    /*  border-color: #000000; */
+
 }
 
 input[type="radio"]:checked+.radio-label::after,
@@ -137,13 +129,6 @@ h3 {
     font-weight: 200;
 }
 
-/* .bilderzimmer img {
-    min-width: 800px;
-    height: auto;
-    max-height:900px;
-}
- */
-
 h2 {
     margin-bottom: 25px;
 }
@@ -155,8 +140,6 @@ h2 {
     padding: 10px;
     border: none;
 }
-
-
 
 .allgemein {
 
@@ -170,35 +153,22 @@ h2 {
     border-radius: 10px;
 }
 
-
-
-
-
-
-
-
-
-/* Sticky Buttons */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     height: 200vh;
-    /* Für Scroll-Test */
+
 }
 
 .sticky-container {
     position: sticky;
     top: 10px;
-    /* Abstand vom oberen Rand */
     background: white;
-    /* Hintergrund setzen */
     padding: 10px;
     z-index: 1000;
-    /* Über anderen Elementen */
     display: flex;
     gap: 10px;
-    /* Abstand zwischen Buttons */
 }
 
 button {
@@ -219,15 +189,10 @@ button {
     color: white;
 }
 
-
-/* neu sytle */
-
 .erstezeilekueche {
     border-top: 25px solid rgb(255, 255, 255);
     border-bottom: 0px solid rgb(201, 210, 24);
 }
-
-
 
 .uberschrift2 {
     background-color: #c8d8e7;
@@ -242,8 +207,6 @@ button {
     font-size: 24px;
 }
 
-
-/* Allgemeine Stile für Inputs, Textarea und Select */
 input[type="text"],
 textarea,
 select {
@@ -260,18 +223,16 @@ select {
     padding-left: 5px;
     padding-bottom: 0px;
     line-height: 1.11;
-    /*    height: auto; */
-    /*    min-height: 24px; */
+
     font-size: 16px;
     background-color: #fcfcfc;
     margin-right: 5px;
     margin-left: 5px;
 }
 
-
 select {
     line-height: 1.11;
-    /* min-height: 34px; */
+
     padding-top: 3px;
     padding-bottom: 3px;
 
@@ -294,8 +255,7 @@ input[type="text"] {
     color: #333;
     border: 1px solid #ccc;
     padding-left: 5px;
-    /*   height: auto; */
-    /*     min-height: 24px; */
+
     font-size: 16px;
 }
 
@@ -303,33 +263,29 @@ textarea {
     font-family: arial;
     font-size: 18px;
     white-space: pre-wrap;
-    /* Erhält Leerzeichen und Zeilenumbrüche */
+
     overflow-wrap: break-word;
     background-color: #e9f1cd;
-    /*     height: auto; */
-    /*     min-height: 333px; */
 
 }
 
 .dupli {
     width: 100%;
-    /* Volle Breite des Containers */
+
     max-width: 100%;
-    /* Maximale Breite */
+
     font-size: 16px !important;
     border: 0px;
 }
 
-/* Stil für das Input-Feld mit der Klasse "dupli" */
 input.dupli {
     background-color: #fcfcfc !important;
     border: none !important;
-    /* Gelber Hintergrund */
+
     margin: 0 !important;
     padding-top: 2px;
     padding-bottom: 2px;
 }
-
 
 .signature-canvas,
 #vermieter-signature {
@@ -338,7 +294,6 @@ input.dupli {
     width: 500px;
     height: 150px;
 }
-
 
 #vermieter-signature {
     margin-bottom: 25px;
@@ -352,28 +307,19 @@ input.dupli {
     font-size: 22px;
 }
 
-/*   .allgemein00 > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) {
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-  } */
-
-
-/* Stil für den Bild-Container */
 .image-container {
     display: flex;
     justify-content: center;
-    /* Zentriert das Bild horizontal */
+
     margin: 20px 0;
-    /* Optional: Abstand nach oben und unten */
+
 }
 
-/* Stil für das Bild selbst */
 .image-container img {
     max-width: 100%;
-    /* Bild passt sich der Container-Breite an */
+
     height: auto;
-    /* Behält das Seitenverhältnis bei */
+
 }
 
 .room-container {
@@ -385,18 +331,18 @@ input.dupli {
 
 }
 
-/* .imagePreview {
-    display:none;
-}
- */
-
 .remark-row {
     background-color: #fff;
     margin-left: 0px;
     padding-left: 12px;
+    padding-bottom: 5px;
 }
 
-#einziehender-mieter-signature-1,
+.dupli-container {
+    margin-bottom: 5px;
+}
+
+/* #einziehender-mieter-signature-1,
 #einziehender-mieter-signature-2,
 #einziehender-mieter-signature-3,
 #einziehender-mieter-signature-4,
@@ -406,9 +352,14 @@ input.dupli {
 #einziehender-mieter-signature-8 {
     Background-color: rgb(255, 255, 255);
     border: 2px solid green;
+} */
+
+[id^="einziehender-mieter-signature-"] {
+    background-color: #fff;
+    border: 2px solid green;
 }
 
-#einziehender-mieter-info-1,
+/* #einziehender-mieter-info-1,
 #einziehender-mieter-info-2,
 #einziehender-mieter-info-3,
 #einziehender-mieter-info-4,
@@ -423,7 +374,6 @@ input.dupli {
     margin-bottom: 25px;
 }
 
-
 #ausziehender-mieter-info-1,
 #ausziehender-mieter-info-2,
 #ausziehender-mieter-info-3,
@@ -435,7 +385,6 @@ input.dupli {
     margin-bottom: 25px;
     margin-top: 25px;
 }
-
 
 #ausziehender-mieter-signature-1,
 #ausziehender-mieter-signature-2,
@@ -449,9 +398,6 @@ input.dupli {
     margin-bottom: 1px;
 }
 
-
-
-
 #ausziehender-mieter-signature-1,
 #ausziehender-mieter-signature-2,
 #ausziehender-mieter-signature-3,
@@ -464,12 +410,33 @@ input.dupli {
     Background-color: rgb(255, 255, 255);
     border: 2px solid rgb(132, 14, 14);
 }
+ */
+
+[id^="ausziehender-mieter-info-"],
+#einziehender-mieter-info-8 {
+    margin: 25px 0;
+}
+
+[id^="ausziehender-mieter-signature-"] {
+    margin-bottom: 1px;
+    background-color: #fff;
+    border: 2px solid rgb(132, 14, 14);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 .signature-content>div:nth-child(2)>label:nth-child(1) {
     font-weight: 600;
 }
-
 
 .image-preview,
 .large-preview {
@@ -509,19 +476,14 @@ input.dupli {
     margin-top: 35px;
 }
 
-
 #hauptBemerkungenContainer {
     margin-top: 35px;
 }
 
 #zzzallgemein {
     padding: 22px;
-    /* 
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-top: 1px solid black; */
-}
 
+}
 
 .mails,
 .mails2 {
@@ -544,8 +506,7 @@ input.dupli {
     width: 250px !important;
 }
 
-
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2)>input:nth-child(1),
+/* #schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2)>input:nth-child(1),
@@ -565,7 +526,23 @@ input.dupli {
     padding-bottom: 1px;
     padding-left: 10px;
     font-size: 16px;
+} */
+
+#schluesselTable>tbody:nth-child(2)>tr>td:nth-child(2)>input:first-child {
+    width: 100%;
+    background: #f3f8ff;
+    border: none;
+    border-radius: 5px;
+    line-height: 1.11;
+    padding: 11px 0 1px 10px;
+    font-size: 16px;
 }
+
+.separator {
+    width: 80px;
+}
+
+
 
 #schluesselTable th,
 #schluesselTable td {
@@ -579,7 +556,7 @@ input.dupli {
     padding-left: 1px !important;
 }
 
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1),
+/* #schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(1),
@@ -591,9 +568,14 @@ input.dupli {
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(10)>td:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(1) {
     padding-left: 0px !important;
+} */
+
+#schluesselTable>tbody:nth-child(2)>tr>td:nth-child(1) {
+    padding-left: 0 !important;
 }
 
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2)>input:nth-child(1),
+
+/* #schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2)>input:nth-child(1),
@@ -606,7 +588,10 @@ input.dupli {
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(2)>input:nth-child(1) {
     text-align: center;
 }
-
+ */
+#schluesselTable>tbody:nth-child(2)>tr>td:nth-child(2)>input:first-child {
+    text-align: center;
+}
 
 
 .sign02 {
@@ -621,7 +606,8 @@ input.dupli {
 }
 
 .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.6);
+    /* border: 4px solid rgba(255, 255, 255, 0.6); */
+    border: 4px solid rgba(255, 255, 255);
     border-radius: 50%;
     border-top: 4px solid #ffffff;
     width: 40px;
@@ -630,7 +616,7 @@ input.dupli {
     margin: 0 auto 10px auto;
 }
 
-@keyframes spin {
+/* @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
@@ -638,25 +624,7 @@ input.dupli {
     100% {
         transform: rotate(360deg);
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} */
 
 .input-euro-container {
     display: flex;
@@ -665,7 +633,6 @@ input.dupli {
     gap: 5px;
     width: 117%;
 
-    /* Nimmt die volle Breite der Tabellenzelle ein */
 }
 
 .elegant-number-input {
@@ -677,16 +644,14 @@ input.dupli {
     line-height: 1.11;
 }
 
-
 .euro-symbol {
     font-size: 18px;
     opacity: 1 !important;
 }
 
-/* Tabellenzelle anpassen, damit das Feld genug Platz hat */
 td.no-border-right.text-right {
     min-width: 130px;
-    /* Mindestbreite für genug Platz */
+
 }
 
 #weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(3),
@@ -694,7 +659,6 @@ td.no-border-right.text-right {
 #weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(7) {
     background-color: #fff;
 }
-
 
 #weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(4) {
     background-color: #f1f1f1;
@@ -708,32 +672,31 @@ td.no-border-right.text-right {
     width: 100%;
 }
 
-
-
-
-
-
-/* Hintergrund für das Ladeoverlay */
-/* Hintergrund für das Ladeoverlay */
-/* Hintergrund für das Ladeoverlay */
-/* Hintergrund für das Ladeoverlay */
-/* Hintergrund für das Ladeoverlay */
-#loadingOverlay {
+/* #loadingOverlay {
     display: none;
-    /* Standardmäßig ausgeblendet */
     position: fixed;
     top: 0;
     left: 0;
     width: 90%;
-    /* 90% der Bildschirmbreite */
     height: 100vh;
-    /* Volle Höhe des Bildschirms */
     background-color: rgba(0, 0, 0, 0.8);
-    /* Dunkler Hintergrund */
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* Sicherstellen, dass es über anderen Elementen liegt */
+} */
+
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 #loadingOverlay .loading-content {
@@ -742,9 +705,9 @@ td.no-border-right.text-right {
     border-radius: 10px;
     text-align: center;
     width: 90%;
-    /* Breite des Inhalts innerhalb der Loading-Box */
+
     max-width: 800px;
-    /* Maximale Breite des Inhalts */
+
 }
 
 #progressBar {
@@ -757,11 +720,11 @@ td.no-border-right.text-right {
 
 #progressBar .progress {
     height: 200%;
-    /* background-color: #76c7c0; */
+
     background-color: #ff2797;
     border-radius: 10px;
     width: 0%;
-    /* Startwert */
+
 }
 
 #closeLoadingOverlay {
@@ -774,7 +737,6 @@ td.no-border-right.text-right {
     cursor: pointer;
     font-size: 24px;
 }
-
 
 .customUploadButton,
 .imageUpload,
@@ -793,34 +755,21 @@ td.no-border-right.text-right {
 }
 
 .stammdupli {
-    /*     position: relative;
-    top:-115px !important; */
-    margin-top: 1px !important;
     margin-bottom: 1px !important;
     Font-size: 18px !important;
     line-height: 1.1 !important;
-    margin-left: 15px !important;
-    padding-left: 18px !important;
-}
-
-/* Container für die Werte */
-/* Container für die Werte */
-.stammdupli {
+    padding-left: 16px !important;
     margin-top: 10px !important;
-    /* Optional: Abstand nach oben */
+    margin-left: 0 !important;
 }
 
-/* Überschrift */
 .stammdupli>div[style*="font-weight:bold"] {
     font-weight: bold !important;
     font-size: 20px !important;
     text-decoration: underline !important;
     display: block !important;
-    /* Überschrift als Blockelement */
     margin-bottom: 10px !important;
-    /* Abstand zur nächsten Zeile (Werte) */
 }
-
 
 #strasseeinzugsign,
 #plzeinzugsign,
@@ -829,14 +778,12 @@ td.no-border-right.text-right {
 #mieteridsign {
     display: inline-block !important;
     margin-right: 10px !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
 }
-
 
 .sign02 {
     margin-bottom: 1px !important;
 }
-
 
 .signature-container {
     margin-left: 15px;
@@ -849,7 +796,7 @@ span {
 #toggleDiv>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(1) {
     width: 350px;
     text-align: left;
-    /*! padding:10px; */
+
 }
 
 #toggleDiv>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(4)>input:nth-child(1) {
@@ -864,21 +811,6 @@ span {
 }
 
 
-#loadingOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Dunkler Hintergrund mit Transparenz */
-    backdrop-filter: blur(5px);
-    /* Hintergrund verwischen */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
 
 .loading-content {
     background-color: white;
@@ -888,17 +820,13 @@ span {
     position: relative;
 }
 
-
-
-
 input[type="text"],
 textarea,
 select {
     margin-left: 0px;
 }
 
-
-#zaehlerTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(3)>input:nth-child(1),
+/* #zaehlerTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(3)>input:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(3)>input:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(3)>input:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(3)>input:nth-child(1),
@@ -911,15 +839,17 @@ select {
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(3)>input:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(12)>td:nth-child(3)>input:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(13)>td:nth-child(3)>input:nth-child(1) {
-    width: 344px !important;
-}
+    width: 314px !important;
+} */
 
+#zaehlerTable>tbody:nth-child(2)>tr>td:nth-child(3)>input:first-child {
+    width: 314px !important;
+}
 
 
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(3)>input:nth-child(1) {
     width: 266px;
 }
-
 
 .fortsetzung {
     display: block;
@@ -930,17 +860,14 @@ select {
 
 input {
     height: 30px !important;
-    /* Höhe des Input-Feldes */
-    padding: 3px 0px 3px 3px !important;
-    /* Oben und unten 10px, links und rechts 12px */
-    box-sizing: border-box !important;
-    /* Stellt sicher, dass das Padding in der Höhe enthalten ist */
-    line-height: 25px !important;
-    /* Normaler Wert für die Zeilenhöhe */
-    /*   font-size:16px !important; */
-    /*   margin-top: 12px !important; */
-}
 
+    padding: 3px 0px 3px 3px !important;
+
+    box-sizing: border-box !important;
+
+    line-height: 25px !important;
+
+}
 
 #weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(2),
 #weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(4),
@@ -958,23 +885,22 @@ select {
     padding-left: 6px !important;
 }
 
-
 input[type="text"] {
     font-size: 16px !important;
 }
 
 input[type="number"] {
     border: 1px solid #ccc !important;
-    /* Schwarzer Rahmen */
+
     box-sizing: border-box !important;
-    /* Stellt sicher, dass Padding und Rahmen in der Breite enthalten sind */
+
 }
 
 #schluesselTable>thead:nth-child(1)>tr:nth-child(1)>th:nth-child(2) {
     text-align: center;
 }
 
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(3),
+/* #schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(3),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(3),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(3),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(3),
@@ -989,7 +915,6 @@ input[type="number"] {
     padding-left: 0 !important;
 }
 
-
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(2),
@@ -1001,14 +926,20 @@ input[type="number"] {
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(9)>td:nth-child(2),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(10)>td:nth-child(2) {
     padding-left: 0px !important;
+} */
+
+
+
+
+/* [id^="SchluesselBem"] {
+    margin-left: 3px !important;
 }
+ */
 
 .hidden {
     display: none;
 }
 
-
-/* Stil für das E-Mail-Menü */
 #emailMenu {
     position: fixed;
     top: 50%;
@@ -1017,7 +948,6 @@ input[type="number"] {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     width: 90%;
     max-width: 400px;
@@ -1057,7 +987,6 @@ input[type="number"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 #emailMenu button:hover {
@@ -1072,7 +1001,6 @@ input[type="number"] {
     background-color: #e53935;
 }
 
-/* Overlay für das Menü */
 #emailMenuOverlay {
     position: fixed;
     top: 0;
@@ -1083,49 +1011,23 @@ input[type="number"] {
     z-index: 999;
 }
 
-
-/* #ausziehender-mieter-info-1,
-#ausziehender-mieter-info-2,
-#ausziehender-mieter-info-3,
-#ausziehender-mieter-info-4 {
-    position: relative !important;
-    top:-52px !important;
-
-} */
-
-
-/* #ausziehender-mieter-signature-1,
-#ausziehender-mieter-signature-2,
-#ausziehender-mieter-signature-3,
-#ausziehender-mieter-signature-4 {
-    margin-top: 22px !important;
-} */
-
-
 .signature-content>div:nth-child(1)>table:nth-child(4) {
     left: -13px !important;
 }
 
-/* Stil für das Logo-Container-Div */
-/* Stil für das Logo-Container-Div */
 #logo-container {
     display: flex;
-    /* Aktiviert Flexbox */
     align-items: center;
-    /* Zentriert die Elemente vertikal */
     gap: 20px;
-    /* Abstand zwischen den Elementen */
     justify-content: space-between;
 }
 
 #logo-container img {
     width: 220px;
-    /* Breite des Logos anpassen */
     height: auto;
-    /* Höhe automatisch anpassen */
 }
 
-#zaehlerTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(3),
+/* #zaehlerTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(3),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(3),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(3),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(3),
@@ -1135,6 +1037,10 @@ input[type="number"] {
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(8)>td:nth-child(3),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(9)>td:nth-child(3),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(10)>td:nth-child(3) {
+    padding-right: 10px;
+}
+ */
+#zaehlerTable>tbody:nth-child(2)>tr>td:nth-child(3) {
     padding-right: 10px;
 }
 
@@ -1180,7 +1086,6 @@ select {
     padding-left: 0px;
     margin-top: 0;
     margin-bottom: 0;
-    background-color: #ffffff;
     color: #333;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -1190,47 +1095,21 @@ select {
     height: auto;
     min-height: 24px;
     font-size: 16px;
-    background-color: #f3f8ff;
     margin-right: 5px;
     margin-left: 5px;
     background-color: #f3f8ff !important;
 
 }
 
-/* .commentshead {
-    margin-bottom: 115px !important;
-
-} */
-
 #zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(31)>td:nth-child(1) {
     font-weight: 600;
 }
 
-
 #zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(31)>td:nth-child(1) {
     padding-top: 25px;
-    padding-bottom: 10px;
 }
 
-
-/* 
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(5)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(6)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(7)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(8)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(9)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(10)>td:nth-child(1)>select:nth-child(1),
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(1)>select:nth-child(1)
- {
-    padding: 3px !important;
-} */
-
-
-#zaehlerTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1)>select:nth-child(1),
+/* #zaehlerTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1)>select:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(1)>select:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(1)>select:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(1)>select:nth-child(1),
@@ -1243,6 +1122,10 @@ select {
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(1)>select:nth-child(1),
 #zaehlerTable>tbody:nth-child(2)>tr:nth-child(12)>td:nth-child(1)>select:nth-child(1) {
     padding: 3px !important;
+} */
+
+#zaehlerTable>tbody:nth-child(2)>tr>td:nth-child(1)>select {
+    padding: 3px !important;
 }
 
 
@@ -1252,10 +1135,6 @@ select {
     padding: 10px;
     margin-left: 22px;
 }
-
-/*   .objekt{
-    margin-left: 1px !important;
-  } */
 
 #toggleDiv>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(1) {
     padding: 2px !important;
@@ -1270,7 +1149,6 @@ select {
     height: 25px !important;
 }
 
-
 .container {
     width: 1000px !important;
 
@@ -1280,16 +1158,16 @@ select {
     width: 100% !important;
     table-layout: fixed !important;
     border-collapse: separate !important;
-    /* Separate borders für Abstände */
+
     border-spacing: 0 !important;
-    /* Kein zusätzlicher Abstand */
+
 }
 
 #einzugmieterTable th,
 #einzugmieterTable td {
     box-sizing: border-box !important;
     padding: 0 3px !important;
-    /* Horizontaler Abstand zwischen Spalten */
+
     text-align: left !important;
 }
 
@@ -1318,9 +1196,9 @@ select {
     box-sizing: border-box !important;
     font-size: 16px !important;
     padding: 3px 5px 0px 5px !important;
-    /* padding-bottom: 11px */
+
     margin: 3px 0 !important;
-    /* margin-top und margin-bottom: 3px */
+
 }
 
 #addeinziehenderMieterRow td {
@@ -1352,14 +1230,6 @@ table {
     padding-bottom: 10px;
 }
 
-
-
-
-/*ausziehender*/
-/*ausziehender*/
-/*ausziehender*/
-
-/* Allgemeine Stile für die Tabelle der ausziehenden Mieter */
 #auszugmieterTable {
     width: 100% !important;
     table-layout: fixed !important;
@@ -1367,8 +1237,6 @@ table {
     border-spacing: 0 !important;
     border-left: 0px solid rgb(255, 255, 255) !important;
 }
-
-
 
 #auszugmieterTable>thead:nth-child(1) {
     height: 25px !important;
@@ -1378,32 +1246,32 @@ table {
 #auszugmieterTable td {
     box-sizing: border-box !important;
     padding: 0 3px !important;
-    /* Horizontaler Abstand zwischen Spalten */
+
     text-align: left !important;
 }
 
 #auszugmieterTable th:nth-child(1),
 #auszugmieterTable td:nth-child(1) {
     width: 25% !important;
-    /* Name, Vorname */
+
 }
 
 #auszugmieterTable th:nth-child(2),
 #auszugmieterTable td:nth-child(2) {
     width: 25% !important;
-    /* Neue Straße */
+
 }
 
 #auszugmieterTable th:nth-child(3),
 #auszugmieterTable td:nth-child(3) {
     width: 20% !important;
-    /* PLZ / Ort */
+
 }
 
 #auszugmieterTable th:nth-child(4),
 #auszugmieterTable td:nth-child(4) {
     width: 30% !important;
-    /* E-Mail */
+
 }
 
 #auszugmieterTable input {
@@ -1411,54 +1279,46 @@ table {
     box-sizing: border-box !important;
     font-size: 16px !important;
     padding: 3px 5px 0px 5px !important;
-    /* padding: oben rechts unten links */
+
     margin: 3px 0 !important;
-    /* margin-top und margin-bottom: 3px */
+
 }
 
 #auszugmieterTable .input-container {
     display: flex !important;
     align-items: center !important;
     gap: 0px !important;
-    /* Abstand zwischen Input und Buttons */
+
 }
 
 #auszugmieterTable .size-controls {
     display: flex !important;
     gap: 5px !important;
-    /* Abstand zwischen den Buttons */
+
 }
 
 #auszugmieterTable .size-controls button {
     font-size: 12px !important;
     padding: 2px 5px !important;
-    /* Button-Padding */
+
     margin: 0 !important;
     cursor: pointer !important;
 }
 
-/* Stile für den "ausziehenden Mieter hinzufügen"-Button */
 #addausziehenderMieter {
     margin-top: 10px !important;
-    /* Abstand nach oben */
+
     padding: 5px 10px !important;
-    /* Button-Padding */
+
     font-size: 14px !important;
     cursor: pointer !important;
 }
 
-/* Stile für die Zeile des Buttons */
 #addausziehenderMieterRow td {
     text-align: right !important;
     background-color: white !important;
 }
 
-
-/* Schlüssel */
-/* Schlüssel */
-/* Schlüssel */
-
-/* Allgemeine Stile für die Schlüsselausgabe-Tabelle */
 #schluesselTable {
     width: 100% !important;
     table-layout: fixed !important;
@@ -1474,27 +1334,27 @@ table {
 #schluesselTable td {
     box-sizing: border-box !important;
     padding: 0 3px !important;
-    /* Horizontaler Abstand zwischen Spalten */
+
     text-align: left !important;
 }
 
 #schluesselTable th:nth-child(1),
 #schluesselTable td:nth-child(1) {
     width: 30% !important;
-    /* Schlüsselbezeichnung */
+
 }
 
 #schluesselTable th:nth-child(2),
 #schluesselTable td:nth-child(2) {
     width: 10% !important;
-    /* Anzahl */
+
     text-align: center !important;
 }
 
 #schluesselTable th:nth-child(3),
 #schluesselTable td:nth-child(3) {
     width: 60% !important;
-    /* Schlüsselnummer / Bemerkung */
+
 }
 
 #schluesselTable select,
@@ -1504,34 +1364,40 @@ table {
     box-sizing: border-box !important;
     font-size: 16px !important;
     padding: 3px 5px !important;
-    /* padding: oben/rechts/unten/links */
     margin: 3px 0 !important;
-    /* margin-top und margin-bottom: 3px */
 }
+
+
+#schluesselTable input[type="text"] {
+    margin-left: 2px !important;
+
+}
+
+
+
 
 #schluesselTable .input-container {
     display: flex !important;
     align-items: center !important;
     gap: 0px !important;
-    /* Abstand zwischen Input und Buttons */
+
 }
 
 #schluesselTable .size-controls {
     display: flex !important;
     gap: 5px !important;
-    /* Abstand zwischen den Buttons */
+
 }
 
 #schluesselTable .size-controls button {
     font-size: 12px !important;
     padding: 2px 5px !important;
-    /* Button-Padding */
+
     margin: 0 !important;
     cursor: pointer !important;
 }
 
-
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1)>select:nth-child(1),
+/* #schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1)>select:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(1)>select:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(1)>select:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(1)>select:nth-child(1),
@@ -1544,10 +1410,14 @@ table {
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(1)>select:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(12)>td:nth-child(1)>select:nth-child(1) {
     padding-left: 5px !important;
+} */
+
+#schluesselTable>tbody:nth-child(2)>tr>td:nth-child(1)>select {
+    padding-left: 5px !important;
 }
 
 
-#schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2)>input:nth-child(1),
+/* #schluesselTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2)>input:nth-child(1),
@@ -1560,32 +1430,19 @@ table {
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(2)>input:nth-child(1) {
     background: #f3f8ff;
 
-}
+} */
 
+#schluesselTable>tbody:nth-child(2)>tr>td:nth-child(2)>input {
+    background: #f3f8ff;
+}
 
 
 #schluesselTable th,
 #schluesselTable td {
     padding: 0 6px !important;
-    /* Horizontaler Abstand zwischen Spalten */
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* Zähler
-Zähler
-Zähler */
-
-/* Allgemeine Stile für die Zähler-Tabelle */
 #zaehlerTable {
     width: 100% !important;
     table-layout: fixed !important;
@@ -1601,34 +1458,34 @@ Zähler */
 #zaehlerTable td {
     box-sizing: border-box !important;
     padding: 0 3px !important;
-    /* Horizontaler Abstand zwischen Spalten */
+
     text-align: left !important;
 }
 
 #zaehlerTable th:nth-child(1),
 #zaehlerTable td:nth-child(1) {
     width: 230px !important;
-    /* Bezeichnung */
+
 }
 
 #zaehlerTable th:nth-child(2),
 #zaehlerTable td:nth-child(2) {
     width: 170px !important;
-    /* Zählernummer */
+
     text-align: center !important;
-    /* Text mittig ausrichten */
+
 }
 
 #zaehlerTable th:nth-child(3),
 #zaehlerTable td:nth-child(3) {
     width: 290px !important;
-    /* Einbaulage */
+
 }
 
 #zaehlerTable th:nth-child(4),
 #zaehlerTable td:nth-child(4) {
     width: 166px !important;
-    /* Zählerstand */
+
 }
 
 #zaehlerTable select,
@@ -1637,33 +1494,32 @@ Zähler */
     box-sizing: border-box !important;
     font-size: 16px !important;
     padding: 3px 5px !important;
-    /* padding: oben/rechts/unten/links */
+
     margin: 3px 0 !important;
-    /* margin-top und margin-bottom: 3px */
+
 }
 
 #zaehlerTable .input-container {
     display: flex !important;
     align-items: center !important;
     gap: 0px !important;
-    /* Abstand zwischen Input und Buttons */
+
 }
 
 #zaehlerTable .size-controls {
     display: flex !important;
     gap: 5px !important;
-    /* Abstand zwischen den Buttons */
+
 }
 
 #zaehlerTable .size-controls button {
     font-size: 12px !important;
     padding: 2px 5px !important;
-    /* Button-Padding */
+
     margin: 0 !important;
     cursor: pointer !important;
 }
 
-/* Padding für Select-Elemente in der Zähler-Tabelle */
 #zaehlerTable>tbody:nth-child(2)>tr>td:nth-child(1)>select {
     padding-left: 5px !important;
 }
@@ -1671,15 +1527,10 @@ Zähler */
 #zaehlerTable th:nth-child(2),
 #zaehlerTable td:nth-child(2) {
     width: 170px !important;
-    /* Zählernummer */
+
     text-align: left !important;
-    /* Text mittig ausrichten */
+
 }
-
-
-
-
-
 
 #zzzkueche>table:nth-child(2)>tbody:nth-child(1),
 #zzzbad>table:nth-child(2)>tbody:nth-child(1),
@@ -1692,38 +1543,102 @@ Zähler */
     border-left: 10px solid #fff;
 }
 
-
 .arrows00 {
     display: none !important;
 }
 
-
-
-
-
-#farbeInput1,
+/* #farbeInput1,
 #farbeInput2,
 #farbeInput3,
 #farbeInput4,
 #farbeInput5,
 #farbeInput6,
-#farbeInput7 {
+#farbeInput7,
+#farbeInput8,
+#farbeInput9,
+#farbeInput10,
+#farbeInput11,
+#farbeInput12,
+#farbeInput13,
+#farbeInput14 {
     margin-left: 0px !important;
-    width: 98% !important;
+    width: 25% !important;
+    background-color: #fff !important;
+    border: none !important;
+    padding-left: 2px !important;
+} */
+
+[id^="farbeInput"] {
+    margin-left: 0 !important;
+    width: 25% !important;
+    background-color: #fff !important;
+    border: none !important;
+    padding-left: 2px !important;
 }
 
-#fussbodenInput1,
+/* #fussbodenInput1,
 #fussbodenInput2,
 #fussbodenInput3,
 #fussbodenInput4,
 #fussbodenInput5,
 #fussbodenInput6,
-#fussbodenInput7 {
+#fussbodenInput7,
+#fussbodenInput8,
+#fussbodenInput9,
+#fussbodenInput10,
+#fussbodenInput11,
+#fussbodenInput12,
+#fussbodenInput13,
+#fussbodenInput14 {
     margin-left: 0px !important;
-    width: 98% !important;
+    width: 25% !important;
+    background-color: #fff !important;
+    border: none !important;
+    padding-left: 2px !important;
+} */
+
+[id^="fussbodenInput"] {
+    margin-left: 0 !important;
+    width: 25% !important;
+    background-color: #fff !important;
+    border: none !important;
+    padding-left: 2px !important;
 }
 
-#fussbodenFarbeInput1,
+#farbeInput8,
+#farbeInput9,
+#farbeInput10,
+#farbeInput11,
+#farbeInput12,
+#farbeInput13,
+#farbeInput14,
+#fussbodenInput8,
+#fussbodenInput9,
+#fussbodenInput10,
+#fussbodenInput11,
+#fussbodenInput12,
+#fussbodenInput13,
+#fussbodenInput14 {
+    margin-top: 9px !important;
+}
+
+/* #zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm05>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm06>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm07>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm08>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1),
+#zimm09>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1) {
+    margin-top: 9px;
+} */
+
+[id^="zimm"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2)>select:nth-child(1) {
+    margin-top: 9px;
+}
+
+/* #fussbodenFarbeInput1,
 #fussbodenFarbeInput2,
 #fussbodenFarbeInput3,
 #fussbodenFarbeInput4,
@@ -1731,20 +1646,48 @@ Zähler */
 #fussbodenFarbeInput6,
 #fussbodenFarbeInput7 {
     margin-left: 0px !important;
-    width: 98% !important;
+    width: 25% !important;
+    background-color: #fff !important;
+    border: none !important;
+    padding-left: 2px !important;
+} */
+
+[id^="fussbodenFarbeInput"] {
+    margin-left: 0 !important;
+    width: 25% !important;
+    background-color: #fff !important;
+    border: none !important;
+    padding-left: 2px !important;
 }
 
+.dropdown-style {
+    margin-left: 0px !important;
+    width: 98% !important;
+    background-color: #fff !important;
+    border: none !important;
 
+}
 
-#einziehender-mieter-info-2,
+.dropdown-style2 {
+    margin-left: 0px !important;
+    width: 98% !important;
+    background-color: #fff !important;
+    border: none !important;
+    margin-top: 9px !important;
+
+}
+
+/* #einziehender-mieter-info-2,
 #einziehender-mieter-info-3,
 #einziehender-mieter-info-4,
 #einziehender-mieter-info-5,
 #einziehender-mieter-info-6 {
     margin-left: 0px !important;
+} */
 
+[id^="einziehender-mieter-info-"]:not(:first-child) {
+    margin-left: 0 !important;
 }
-
 
 .vermieter {
     margin-bottom: 22px !important;
@@ -1753,16 +1696,19 @@ Zähler */
     font-weight: 600 !important;
 }
 
-
-#einziehender-mieter-signature-1,
+/* #einziehender-mieter-signature-1,
 #einziehender-mieter-signature-2,
 #einziehender-mieter-signature-3,
 #einziehender-mieter-signature-4,
 #einziehender-mieter-signature-5 {
     width: 500px !important;
     height: 150px !important;
-}
+} */
 
+[id^="einziehender-mieter-signature-"] {
+    width: 500px !important;
+    height: 150px !important;
+}
 
 .signature-content>div:nth-child(1)>table:nth-child(4)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
 
@@ -1789,17 +1735,14 @@ Element .signature-content>div:nth-child(1)>table:nth-child(4)>tbody:nth-child(1
 
 .custom-table {
     margin-bottom: 15px !important;
+    margin-left: -12px !important;
 }
-
-
-
 
 #einziehender-mieter-info-2 {
     margin-top: -7px !important;
 }
 
-
-div.remark-row:nth-child(3)>div:nth-child(1)>input:nth-child(1),
+/* div.remark-row:nth-child(3)>div:nth-child(1)>input:nth-child(1),
 div.remark-row:nth-child(4)>div:nth-child(1)>input:nth-child(1),
 div.remark-row:nth-child(5)>div:nth-child(1)>input:nth-child(1),
 div.remark-row:nth-child(6)>div:nth-child(1)>input:nth-child(1),
@@ -1814,9 +1757,14 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     border: 0px solid;
     margin-bottom: 2px;
     margin-left: 0px;
+} */
+
+div.remark-row:nth-child(n+3):nth-child(-n+13)>div:first-child>input:first-child {
+    border: 0;
+    margin: 0 0 2px 0;
 }
 
-#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(22)>td:nth-child(1),
+/* #zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(22)>td:nth-child(1),
 #zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(22)>td:nth-child(1),
 #zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(22)>td:nth-child(1),
 #zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(22)>td:nth-child(1),
@@ -1827,9 +1775,13 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 #zimm09>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(22)>td:nth-child(1),
 #zimm10>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(22)>td:nth-child(1) {
     padding-bottom: 10px;
+} */
+
+[id^="zimm"]>table:nth-child(2) tr:nth-child(22)>td:first-child {
+    padding-bottom: 10px;
 }
 
-#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1),
+/* #zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1),
 #zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1),
 #zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1),
 #zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1),
@@ -1841,11 +1793,12 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 #zimm10>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1) {
     border-bottom: 30px solid rgb(255, 255, 255) !important;
     border-top: 15px solid rgb(255, 255, 255) !important;
+} */
+
+[id^="zimm"]>table:nth-child(2)>tbody>tr:first-child {
+    border-bottom: 30px solid #fff !important;
+    border-top: 15px solid #fff !important;
 }
-
-
-
-
 
 [id^="zimm0"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8),
 [id^="zimm0"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(9),
@@ -1860,8 +1813,6 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 [id^="zimm1"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(19) {
     border-bottom: 15px solid rgb(255, 255, 255) !important;
 }
-
-
 
 [id^="zimm0"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(11),
 [id^="zimm0"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(14),
@@ -1879,7 +1830,6 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     border-bottom: 11px solid rgb(255, 255, 255) !important;
 }
 
-
 [id^="zimm0"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21) {
     border-bottom: 33px solid #ffffff !important;
 }
@@ -1888,7 +1838,6 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     border-bottom: 33px solid #ffffff !important;
 }
 
-
 [id^="farbeInput"],
 [id^="fussbodenInput"],
 [id^="fussbodenFarbeInput"] {
@@ -1896,36 +1845,12 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     width: 98% !important;
 }
 
-
 .signature-content>div:nth-child(1)>table:nth-child(4)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
     position: relative !important;
     left: -12px !important;
 }
 
 /* #progressBar {
-    transition: width 0.3s ease-out, background-color 0.3s ease;
-    will-change: width, background-color;
-}
-
-#progressBar {
-    background-image: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.3) 0%,
-        transparent 20%,
-        transparent 80%,
-        rgba(255, 255, 255, 0.3) 100%
-    );
-    background-size: 200% 100%;
-    animation: progressGlow 2s infinite alternate;
-}
-
-@keyframes progressGlow {
-    0% { background-position: -100% 0; }
-    100% { background-position: 100% 0; }
-}
- */
-
-#progressBar {
     transition:
         width 0.4s cubic-bezier(0.65, 0, 0.35, 1),
         background-color 0.7s ease-out,
@@ -1941,7 +1866,6 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     border-radius: 13px;
 }
 
-/* Natürlicher "Wachstums"-Effekt */
 @keyframes growthPulse {
     0% {
         transform: scaleY(1);
@@ -1961,7 +1885,6 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     transform-origin: center bottom;
 }
 
-/* Blattadern-Effekt (optional) */
 #progressBar::after {
     content: "";
     position: absolute;
@@ -1974,7 +1897,47 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
         linear-gradient(90deg, transparent 45%, rgba(0, 120, 0, 0.1) 50%, transparent 55%);
     opacity: 0.3;
     pointer-events: none;
+} */
+
+
+#progressBar {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: #4CAF50;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: none;
+    background-image: none;
+    background-blend-mode: normal;
+    transition: none;
+    will-change: auto;
 }
+
+
+/* #progressBar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 75%; 
+    background-color: #81C784;
+    border-radius: 10px 0 0 10px;
+} */
+
+/* Entferne alle visuellen Effekte, wenn Klasse "pdf-view" aktiv ist */
+#progressBar.pdf-view,
+#progressBar.pdf-view::before {
+    animation: none !important;
+    transition: none !important;
+    background-image: none !important;
+    background-blend-mode: normal !important;
+    box-shadow: none !important;
+    will-change: auto !important;
+}
+
+
 
 .rwm-label {
     font-size: 16px;
@@ -1988,12 +1951,12 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 .rwm-input {
     width: 20px;
     font-size: 16px;
-    text-align: center;
-
+    text-align: left;
+    margin-left: 3px !important;
 
 }
 
-#rwm-count1,
+/* #rwm-count1,
 #rwm-count2,
 #rwm-count3,
 #rwm-countzimm01,
@@ -2009,6 +1972,13 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 #rwm-countzimm11 {
     width: 30px !important;
     border-radius: 5px;
+    border: none !important;
+} */
+
+[id^="rwm-count"] {
+    width: 30px !important;
+    border-radius: 5px;
+    border: none !important;
 }
 
 .commentshead {
@@ -2017,8 +1987,7 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
     font-weight: 600;
 }
 
-
-#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
+/* #zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
 #zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
 #zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
 #zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
@@ -2031,10 +2000,449 @@ div.remark-row:nth-child(13)>div:nth-child(1)>input:nth-child(1) {
 #zimm11>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1),
 #zimm12>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(1) {
     line-height: 1;
+} */
+
+[id^="zimm"]>table:nth-child(2) tr:nth-child(16)>td:first-child {
+    line-height: 1;
 }
 
-#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1),
+/* #zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1),
 #zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1),
 #zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1) {
     line-height: 1;
+} */
+
+[id^="zimm0"]>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(1) {
+    line-height: 1;
+}
+
+/* #zaehlerTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(5)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(6)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(7)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(8)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(9)>td:nth-child(4)>input:nth-child(1),
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(10)>td:nth-child(4)>input:nth-child(1) {
+    width: 166px;
+    font-size: 16px;
+} */
+
+#zaehlerTable>tbody:nth-child(2)>tr:nth-child(n+1):nth-child(-n+10)>td:nth-child(4)>input:nth-child(1) {
+    width: 166px;
+    font-size: 16px;
+}
+
+.meterstand {
+    background-color: #f3f8ff;
+    border-radius: 5px;
+    width: 178px !important;
+}
+
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(9)>td:nth-child(2)>select:nth-child(1) {
+    padding-left: 2px !important;
+}
+
+.haus {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 8px;
+}
+
+#toggleDiv>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4) {
+    border-top: 4px solid white;
+}
+
+.abort-progress-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    /* Z-index erhöht */
+}
+
+.abort-progress-modal-content {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    max-width: 90%;
+}
+
+.zentral-container {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Innere Tabelle */
+.zentral-inner-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+/* Heizung Label-Zelle */
+.label-cellheiz {
+    width: 10%;
+    padding: 8px 15px 8px 5px;
+    text-align: right;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Heizung Input-Zelle */
+.input-cellheizinput {
+    width: 40%;
+    padding: 5px 10px;
+    padding-top: 22px;
+}
+
+/* Warmwasser Label-Zelle */
+.label-cellwarm {
+    width: 10%;
+    padding: 8px 15px 8px 5px;
+    text-align: right;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #333;
+    padding-left: 50px;
+}
+
+/* Warmwasser Input-Zelle */
+.input-cellwarminput {
+    width: 40%;
+    padding: 5px 10px;
+    /* padding-top: 5px; */
+}
+
+.input-cellheizinput,
+.input-cellwarminput {
+    padding-top: 10px !important;
+
+}
+
+#protokollart2,
+#protokollart3 {
+    background-color: #f3f8ff !important;
+    padding: 5px !important;
+    border: 1px solid rgb(176, 176, 176) !important;
+    padding-left: 5px !important;
+
+}
+
+.fa-fire,
+.fa-faucet {
+    margin-right: 10px;
+}
+
+#zentral11 {
+    margin-bottom: 0;
+}
+
+td.label-cellheiz1:nth-child(1)>h3:nth-child(1),
+td.label-cellheiz1:nth-child(3)>h3:nth-child(1) {
+    margin-bottom: 1px !important;
+    margin-top: 15px !important;
+}
+
+
+
+.sticky-container {
+    position: fixed;
+
+    z-index: 999;
+
+    width: 500px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+
+    transition:
+        max-height 0.4s ease-out,
+        opacity 0.3s ease 0.1s,
+        padding 0.3s ease;
+    margin-bottom: 35px;
+    top: 68px;
+    left: 24px;
+}
+
+
+
+
+
+.sticky-container[data-state="open"] {
+    max-height: 700px;
+    opacity: 1;
+    padding: 15px;
+}
+
+/* BUTTONS & SELECTS */
+.sticky-container button,
+.sticky-container select {
+    min-width: 100px;
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease;
+}
+
+.sticky-container button:hover,
+#pictopdfButton:hover {
+    background-color: #466ec3;
+}
+
+/* BUTTON-GRUPPEN */
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    .sticky-container {
+        width: calc(100% - 30px);
+        left: 15px;
+        right: 15px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #loadSelect,
+    .pdf-button,
+    #pictopdfButton,
+    #savePdfButton {
+        width: 100%;
+        margin: 4px 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .sticky-container {
+        flex-direction: row;
+    }
+
+    #loadSelect {
+        min-width: 120px;
+        margin-right: 8px;
+    }
+}
+
+/* #toggleStickyBtn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    padding: 10px 20px;
+    background-color: #4a6fa5;
+    color: #f4f4f4;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+#toggleStickyBtn:hover {
+    background-color: #4a6fa5;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+#toggleStickyBtn::after {
+    content: "❯";
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+#toggleStickyBtn[data-state="closed"]::after {
+    transform: rotate(90deg);
+}
+
+#toggleStickyBtn[data-state="open"]::after {
+    transform: rotate(270deg);
+}
+
+#toggleStickyBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+#toggleStickyBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+
+    padding: 10px 16px;
+    background-color: #4a6fa5;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover-Zustand */
+#toggleStickyBtn:hover {
+    background-color: #3b5d87;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+}
+
+/* Pfeil rechts oder runter */
+#toggleStickyBtn::after {
+    content: "❯";
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+#toggleStickyBtn[data-state="closed"]::after {
+    transform: rotate(90deg);
+    /* zeigt nach unten */
+}
+
+#toggleStickyBtn[data-state="open"]::after {
+    transform: rotate(270deg);
+    /* zeigt nach oben */
+}
+
+/* Tablet & PC – zusätzliche Anpassungen */
+@media (max-width: 768px) {
+    #toggleStickyBtn {
+        left: 10px;
+        top: 10px;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+#connection-status {
+    top: 585px !important;
+    left: 502px !important;
+}
+
+
+#schluesselTable>tbody:nth-child(2)>tr>td:nth-child(2),
+#schluesselTable>tbody:nth-child(2)>tr>td:nth-child(3) {
+    padding-left: 0 !important;
+    padding-right: 3px !important;
+}
+
+
+#duplizimm01-zeile1,
+#duplizimm02-zeile1,
+#duplizimm03-zeile1,
+#duplizimm04-zeile1,
+#duplizimm05-zeile1,
+#duplizimm06-zeile1,
+#duplizimm07-zeile1,
+#duplizimm08-zeile1,
+#duplizimm09-zeile1 {
+    left: -5px !important;
+    position: relative !important;
+    border: none;
+}
+
+#duplimaengelbeseit {
+    width: 97% !important;
+}
+
+#duplihauptBemerkungen01 {
+    font-size: 18px;
+    height: 24px;
+    width: 97% !important;
+}
+
+
+h3 i.fas {
+    margin-left: 15px !important;
+}
+
+.fa-fire {
+    margin-left: 1px !important;
+}
+
+.burger-menu-icon {
+    display: inline-block;
+    width: 25px;
+    height: 15px;
+    position: relative;
+}
+
+.burger-menu-icon::before,
+.burger-menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+}
+
+.burger-menu-icon::before {
+    top: 0;
+}
+
+.burger-menu-icon::after {
+    bottom: 0;
+}
+
+.burger-menu-icon {
+    background: linear-gradient(to bottom,
+            transparent 6px,
+            currentColor 6px,
+            currentColor 9px,
+            transparent 9px);
+}
+
+/* Optional: Animation beim Hover */
+.pdf-button:hover .burger-menu-icon {
+    opacity: 0.8;
 }
