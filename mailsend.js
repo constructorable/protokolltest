@@ -1,28 +1,31 @@
-// Copyright - Oliver Acker, acker_oliver@yahoo.de
-// mailsend.js
-// Version 3.25_beta
-
+/* Copyright - Oliver Acker, acker_oliver@yahoo.de
+mailsend.js
+Version 3.34_beta */
 
 function sendEmail(fileName, emails, client) {
-  
+
     const objekt = document.getElementById('strasseeinzug').value;
     const lage = document.getElementById('lageeinzug2').value;
     const plzOrt = document.getElementById('plzeinzug').value;
     const datum = document.getElementById('datum').value;
     const mietid = document.getElementById('mieterid').value;
 
-    const abnahmeCheckbox = document.getElementById('abnahme').checked ? "Abnahmeprotokoll" : "";
-    const uebergabeCheckbox = document.getElementById('uebergabe').checked ? "Übergabeprotokoll" : "";
+    const protokollSelect = document.getElementById('protokollart1');
+    let protokollTyp = "";
 
 
-     let protokollTyp = "";
-
-    
-    if (abnahmeCheckbox && uebergabeCheckbox) {
-        protokollTyp = "Abnahme- und Übergabeprotokoll";
-    } else {
-  
-        protokollTyp = `${abnahmeCheckbox} ${uebergabeCheckbox}`.trim();
+    switch(protokollSelect.value) {
+        case "Abnahmeprotokoll (Mieterauszug)":
+            protokollTyp = "Abnahmeprotokoll";
+            break;
+        case "Übergabeprotokoll (Mieterinzug)":
+            protokollTyp = "Übergabeprotokoll";
+            break;
+        case "Abnahme- & Übergabeprotokoll (Ein- und Auszug)":
+            protokollTyp = "Abnahme- und Übergabeprotokoll";
+            break;
+        default:
+            protokollTyp = "Protokoll"; // Fallback für Option "-"
     }
 
 
@@ -30,8 +33,8 @@ function sendEmail(fileName, emails, client) {
         `${objekt}, ${lage} - ${protokollTyp} / ${mietid}`
     );
 
-   
-  
+
+
     const body = encodeURIComponent(
         `Sehr geehrte Damen und Herren,\n` +
         `anbei erhalten Sie das erstellte Dokument (${protokollTyp}).\n\n` +
@@ -46,32 +49,26 @@ function sendEmail(fileName, emails, client) {
         `90402 Nürnberg\n\n` +
         `Tel.: 0911 / 21491-0\n\n` +
         `E-Mail: hausverwaltung@sauer-immobilien.de`
-
     );
 
- 
+
     const emailList = emails.join(',');
     const ccEmail = "hausverwaltung@sauer-immobilien.de";
-    const bccEmail = "info@sauer-immobilien.de";
 
     let mailtoLink;
     switch (client) {
         case 'gmail':
-            mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailList}&cc=${ccEmail}&bcc=${bccEmail}&su=${subject}&body=${body}`;
-            break;
-        case 'outlook':
-            mailtoLink = `https://outlook.live.com/owa/?path=/mail/action/compose&to=${emailList}&cc=${ccEmail}&bcc=${bccEmail}&subject=${subject}&body=${body}`;
-            break;
-        case 'yahoo':
-            mailtoLink = `https://compose.mail.yahoo.com/?to=${emailList}&cc=${ccEmail}&bcc=${bccEmail}&subject=${subject}&body=${body}`;
+            mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailList}&cc=${ccEmail}&su=${subject}&body=${body}`;
             break;
         default:
-            mailtoLink = `mailto:${emailList}?cc=${ccEmail}&bcc=${bccEmail}&subject=${subject}&body=${body}`;
+            mailtoLink = `mailto:${emailList}?cc=${ccEmail}&subject=${subject}&body=${body}`;
             break;
     }
 
 
     window.open(mailtoLink, '_blank');
+
+
 
 
     if (navigator.clipboard) {
@@ -89,21 +86,7 @@ function sendEmail(fileName, emails, client) {
 function showEmailMenu(fileName) {
     let validEmails = findValidEmails();
 
-    if (validEmails.length === 0) {
-        const userResponse = confirm("Keine gültigen E-Mail-Adressen gefunden. Möchten Sie eine E-Mail-Adresse eingeben?");
-        if (userResponse) {
-            const emailInput = prompt("Bitte geben Sie eine gültige E-Mail-Adresse ein:");
-            if (emailInput && validateEmail(emailInput)) {
-                validEmails.push(emailInput);
-            } else {
-                alert("Die eingegebene E-Mail-Adresse ist ungültig.");
-                return;
-            }
-        } else {
-            return;
-        }
-    }
-
+    // E-Mail-Menü direkt anzeigen ohne Validierung
     const overlay = document.createElement('div');
     overlay.id = 'emailMenuOverlay';
     document.body.appendChild(overlay);
@@ -111,16 +94,16 @@ function showEmailMenu(fileName) {
     const emailMenu = document.createElement('div');
     emailMenu.id = 'emailMenu';
     emailMenu.innerHTML = `
-        <h3>Gültige E-Mail-Adressen:</h3>
+        <h3>E-Mail-Adressen:</h3>
         <ul>
             ${validEmails.map(email => `<li>${email}</li>`).join('')}
         </ul>
-        <h3>Wählen Sie ein E-Mail-Programm:</h3>
-        <button id="defaultMailClient">Standard-E-Mail-Client</button>
-        <button id="gmail">Gmail</button>
-        <button id="outlook">Outlook</button>
-        <button id="yahoo">Yahoo Mail</button>
-        <button id="cancel">Abbrechen</button>
+        <button id="defaultMailClient">Standard-E-Mail-Client öffnen</button>
+        <button id="gmail">Gmail öffnen</button>
+        <div class="pdf-hinweis">
+            Hinweis:<br><br> Bitte PDF-Datei manuell im E-Mail-Client anhängen
+        </div>
+        <button id="cancel">← zurück</button>
     `;
 
     document.body.appendChild(emailMenu);
@@ -132,16 +115,6 @@ function showEmailMenu(fileName) {
 
     document.getElementById('gmail').addEventListener('click', () => {
         sendEmail(fileName, validEmails, 'gmail');
-        closeEmailMenu();
-    });
-
-    document.getElementById('outlook').addEventListener('click', () => {
-        sendEmail(fileName, validEmails, 'outlook');
-        closeEmailMenu();
-    });
-
-    document.getElementById('yahoo').addEventListener('click', () => {
-        sendEmail(fileName, validEmails, 'yahoo');
         closeEmailMenu();
     });
 
@@ -180,6 +153,6 @@ function findValidEmails() {
 }
 
 document.getElementById('sendEmailButton').addEventListener('click', function () {
-    const fileName = localStorage.getItem('lastGeneratedPdfName'); 
+    const fileName = localStorage.getItem('lastGeneratedPdfName');
     showEmailMenu(fileName);
 });
