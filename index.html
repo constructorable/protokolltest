@@ -170,19 +170,18 @@ Version 3.34_beta -->
                             <tr>
                                 <td style="width: 370px; text-align: left;">Mieternummer</td>
 
-                                
-                                  <!--                                 <td colspan="5">
+                                <!-- <td colspan="5">
                                     <input type="text" id="mieterid" name="bemerkungen"
                                         class="testeinzeilig langes-input autoscale suggestion-input"
                                         style="width: 370px; margin-right:0px;">
                                 </td> -->
-
 
                                 <td colspan="5">
                                     <div style="position: relative; display: inline-block;">
                                         <input type="text" id="mieterid" name="bemerkungen"
                                             class="testeinzeilig langes-input autoscale suggestion-input"
                                             style="width: 370px; margin-right: 0px; padding-right: 30px;">
+
                                         <button type="button" onclick="this.previousElementSibling.value = '';"
                                             style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); 
                                                    background: none; border: none; cursor: pointer; padding: 0; margin: 0;" title="Eingabe löschen">
@@ -192,27 +191,61 @@ Version 3.34_beta -->
                                                     stroke-linecap="round" />
                                             </svg>
                                         </button>
+
+
                                     </div>
                                 </td>
 
-                                
+
+
+
+
                                 <td style="text-align: right; padding-right: 10px; width: 240px;">Lage / Stockwerk</td>
+                                
                                 <td colspan="5" style="position: relative;">
+                                    <div style="position: relative; display: inline-block;">
                                     <input id="lageeinzug2" type="text" name="bemerkungen"
                                         class="testeinzeilig langes-input autoscale suggestion-input"
                                         style="width: 240px; margin-right:11px;" data-type="stockwerk"
                                         data-suggestion-list="stockwerkSuggestions2">
+
+                                        <button type="button" onclick="this.previousElementSibling.value = '';"
+                                        style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); 
+                                               background: none; border: none; cursor: pointer; padding: 0; margin: 0;" title="Eingabe löschen">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" style="color: #999;">
+                                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </button>
+
                                     <div id="stockwerkSuggestions2" class="suggestion-list" style="display: none;">
                                     </div>
+                                </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width: 370px;" class="objekt">PLZ / Ort</td>
                                 <td colspan="5">
+                                    <div style="position: relative; display: inline-block;">
                                     <input type="text" id="plzeinzug" name="bemerkungen"
                                         class="testeinzeilig langes-input autoscale"
                                         style="width: 370px; margin-right:10px;">
-                                </td>
+                                        <button type="button" onclick="this.previousElementSibling.value = '';"
+                                        style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); 
+                                               background: none; border: none; cursor: pointer; padding: 0; margin: 0;" title="Eingabe löschen">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" style="color: #999;">
+                                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </button>
+                                    </div>
+                                
+                                    </td>
+
+
+
                                 <td style="text-align: right; padding-right: 10px; width: 240px;">Datum</td>
                                 <td colspan="5">
                                     <input id="datum" type="date" name="bemerkungen" class="testeinzeilig langes-input"
@@ -222,10 +255,22 @@ Version 3.34_beta -->
                             <tr>
                                 <td style="text-align: left; width: 380px; padding-right:10px;">Objekt / Straße</td>
                                 <td colspan="5">
+                                    <div style="position: relative; display: inline-block;">
                                     <input id="strasseeinzug" type="text" name="bemerkungen"
                                         class="testeinzeilig langes-input autoscale suggestion-input"
                                         style="width: 370px;">
+                                        <button type="button" onclick="this.previousElementSibling.value = '';"
+                                        style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); 
+                                               background: none; border: none; cursor: pointer; padding: 0; margin: 0;" title="Eingabe löschen">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" style="color: #999;">
+                                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </button>
+                                </div>
                                     <div id="suggestionList" style="display: none;"></div>
+                                
                                 </td>
                             </tr>
                         </tbody>
@@ -3448,14 +3493,27 @@ Version 3.34_beta -->
                                     <td class="label-cell">
                                         Protokoll ausgefüllt von:
                                     </td>
+
+
                                     <td class="input-cell">
+                                        <div style="position: relative; display: inline-block;">
                                         <div class="input-container">
                                             <input id="suggestionname1" type="text" name="bemerkungen"
                                                 class="testeinzeilig langes-input autoscale suggestion-input"
                                                 data-type="mitarbeiter" data-suggestion-list="suggestionmitarbeiter1">
+                                                <button type="button" onclick="this.previousElementSibling.value = '';"
+                                                style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); 
+                                                       background: none; border: none; cursor: pointer; padding: 0; margin: 0;" title="Eingabe löschen">
+                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" style="color: #999;">
+                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                                        stroke-linecap="round" />
+                                                </svg>
+                                            </button>
                                         </div>
                                         <div id="suggestionmitarbeiter1" class="suggestion-list" style="display: none;">
                                         </div>
+                                    </div>
                                     </td>
                                     <td class="label-cell text-right">
                                         Firma:
@@ -3486,7 +3544,7 @@ Version 3.34_beta -->
         <div id="large-images-container"></div>
 
     </div>
-<script src="script.js"></script>
+    <script src="script.js"></script>
     <script src="immo.js"></script>
     <script src="headline.js"></script>
     <script src="suggestion.js"></script>
