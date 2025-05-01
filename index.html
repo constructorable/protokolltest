@@ -169,11 +169,33 @@ Version 3.34_beta -->
                             </tr>
                             <tr>
                                 <td style="width: 370px; text-align: left;">Mieternummer</td>
-                                <td colspan="5">
+
+                                
+                                  <!--                                 <td colspan="5">
                                     <input type="text" id="mieterid" name="bemerkungen"
                                         class="testeinzeilig langes-input autoscale suggestion-input"
                                         style="width: 370px; margin-right:0px;">
+                                </td> -->
+
+
+                                <td colspan="5">
+                                    <div style="position: relative; display: inline-block;">
+                                        <input type="text" id="mieterid" name="bemerkungen"
+                                            class="testeinzeilig langes-input autoscale suggestion-input"
+                                            style="width: 370px; margin-right: 0px; padding-right: 30px;">
+                                        <button type="button" onclick="this.previousElementSibling.value = '';"
+                                            style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); 
+                                                   background: none; border: none; cursor: pointer; padding: 0; margin: 0;" title="Eingabe löschen">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg" style="color: #999;">
+                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </td>
+
+                                
                                 <td style="text-align: right; padding-right: 10px; width: 240px;">Lage / Stockwerk</td>
                                 <td colspan="5" style="position: relative;">
                                     <input id="lageeinzug2" type="text" name="bemerkungen"
