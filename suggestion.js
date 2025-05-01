@@ -1,86 +1,77 @@
-// Copyright - Oliver Acker, acker_oliver@yahoo.de
-// suggestion.js
-// Version 3.25_beta
+/* Copyright - Oliver Acker, acker_oliver@yahoo.de
+suggestion.js
+Version 3.35_beta */
 
-// suggestion.js
-
-// Definiere das Array mit den Mitarbeiternamen
 const mitarbeiternamen = [
     "Christian Adler",
     "Oliver Acker",
     "Manfred Launicke",
     "Claus Zechmeister",
     "Marli Smith",
-    "Darius Andörfer"
+    "Darius Andörfer",
+    "Stefanie Muscat"
 ];
 
-// Definiere das Array mit den Farben
 const farben = [
 
     "weiß",
     "beige",
-    "grau",        // Wird unten erweitert
-    "hellgrau",    // Wird unten erweitert
+    "grau",        
+    "hellgrau",    
     "anthrazit",
     "creme",
+    "creme-weiß",
     "elfenbein",
     "taubenblau",
     "hellblau",
     "dunkelblau",
-    "mintgrün",    // Wird unten ergänzt
-    "pastellrosa", // Wird unten ergänzt
+    "mintgrün",    
+    "pastellrosa", 
     "sand",
     "terrakotta",
-    "olivgrün",    // Wird unten ergänzt
+    "olivgrün",    
     "taupe",
     "vanille",
     "himmelblau",
-    "lachs",       // Wird unten ergänzt
-    "moosgrün",    // Wird unten ergänzt
-    "zitronengelb",// Wird unten ergänzt
+    "lachs",       
+    "moosgrün",    
+    "zitronengelb",
     "sonstige",
 
-    // Rot
     "rot",
     "hellrot",
     "dunkelrot",
     "karminrot",
     "weinrot",
-    
-    // Grün
+
     "grün",
     "hellgrün",
     "dunkelgrün",
     "waldgrün",
     "apfelgrün",
-    
-    // Braun
+
     "braun",
     "hellbraun",
     "dunkelbraun",
     "kakao",
     "mahagoni",
-    
-    // Grau (Ergänzung zu vorhandenen)
+
     "mittelgrau",
     "steingrau",
     "silbergrau",
-    
-    // Lila
+
     "lila",
     "helllila",
     "dunkellila",
     "flieder",
     "lavendel",
-    
-    // Rosa
+
     "rosa",
     "hellrosa",
     "dunkelrosa",
     "puderrosa",
     "altrosa",
-    
-    // Gelb
+
     "gelb",
     "hellgelb",
     "dunkelgelb",
@@ -88,7 +79,6 @@ const farben = [
     "goldgelb"
 ];
 
-// Definiere das Array mit den Fußbodenmaterialien
 const fussbodenMaterialien = [
     "Holz - Parkett",
     "Holz - Parkett, Eiche",
@@ -121,6 +111,11 @@ const fussbodenMaterialien = [
     "Fliesen - grün",
     "Fliesen - terrakotta",
     "Teppich",
+    "Teppich - grau",
+    "Teppich - blau",
+    "Teppich - beige",
+    "Teppich - schwarz",
+    "Teppich - gemustert",
     "Vinyl",
     "Vinyl - Optik Buche",
     "Vinyl - Optik Esche",
@@ -147,8 +142,6 @@ const fussbodenMaterialien = [
     "Terrazzo",
     "Zement",
     "Kunststoff",
-    "Gummi",
-    "Keramik",
     "sonstiger Bodenbelag"
 ];
 
@@ -169,9 +162,8 @@ const fussbodenFarben = [
     "sonstige"
 ];
 
-// Warte, bis das DOM vollständig geladen ist
 document.addEventListener("DOMContentLoaded", function () {
-    // Funktion zum Aktualisieren der Signaturfelder
+
     function updateSignFields() {
         document.getElementById("strasseeinzugsign").textContent = document.getElementById("strasseeinzug").value;
         document.getElementById("lageeinzugsign").textContent = document.getElementById("lageeinzug2").value;
@@ -179,18 +171,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("datumsign").textContent = document.getElementById("datum").value;
     }
 
-
-    // Funktion, um Vorschläge basierend auf der Benutzereingabe anzuzeigen
     function showSuggestions(input, suggestionsArray, suggestionList) {
         const inputValue = input.value.toLowerCase();
-        
-        // Suche nach Teilstrings in allen Einträgen
-        const suggestions = suggestionsArray.filter(item => 
+
+        const suggestions = suggestionsArray.filter(item =>
             item.toLowerCase().includes(inputValue)
         );
-    
+
         suggestionList.innerHTML = "";
-    
+
         suggestions.forEach(item => {
             const option = document.createElement("div");
             option.textContent = item;
@@ -202,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             suggestionList.appendChild(option);
         });
-    
+
         if (suggestions.length > 0) {
             suggestionList.style.display = "block";
         } else {
@@ -210,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Funktion, um alle Vorschläge anzuzeigen (beim Fokus auf das Input-Feld)
     function showAllSuggestions(inputField, suggestionsArray, suggestionList) {
         suggestionList.innerHTML = "";
 
@@ -219,9 +207,9 @@ document.addEventListener("DOMContentLoaded", function () {
             option.textContent = item;
             option.classList.add("suggestion-item");
             option.addEventListener("click", () => {
-                inputField.value = item; // Setze den ausgewählten Wert in das Input-Feld
-                suggestionList.innerHTML = ""; // Leere die Vorschlagsliste
-                updateSignFields(); // Aktualisiere die Signaturfelder SOFORT
+                inputField.value = item; 
+                suggestionList.innerHTML = ""; 
+                updateSignFields(); 
             });
             suggestionList.appendChild(option);
         });
@@ -229,55 +217,77 @@ document.addEventListener("DOMContentLoaded", function () {
         suggestionList.style.display = "block";
     }
 
-    // Funktion, um Event-Listener für Input-Felder zu registrieren
     function setupInputField(inputField, suggestionsArray, suggestionListId) {
         const suggestionList = document.getElementById(suggestionListId);
 
-        // Zeige alle Vorschläge an, wenn das Input-Feld den Fokus erhält
         inputField.addEventListener("focus", function () {
             showAllSuggestions(inputField, suggestionsArray, suggestionList);
         });
 
-        // Zeige gefilterte Vorschläge an, während der Benutzer tippt
         inputField.addEventListener("input", function (event) {
             showSuggestions(event.target, suggestionsArray, suggestionList);
         });
     }
 
-    // Event-Listener für alle Input-Felder mit der Klasse "suggestion-input"
     document.addEventListener("input", function (event) {
-        const target = event.target;
-        if (target.classList.contains("suggestion-input")) {
-            const suggestionListId = target.getAttribute("data-suggestion-list");
-            const suggestionList = document.getElementById(suggestionListId);
-            const dataType = target.getAttribute("data-type");
-
-            let suggestionsArray = [];
-            switch (dataType) {
-                case "farbe":
-                    suggestionsArray = farben;
-                    break;
-                case "mitarbeiter":
-                    suggestionsArray = mitarbeiternamen;
-                    break;
-                case "fussboden":
-                    suggestionsArray = fussbodenMaterialien;
-                    break;
-                case "fussboden-farbe":
-                    suggestionsArray = fussbodenFarben;
-                    break;
-/*                 case "stockwerk":
-                    suggestionsArray = stockwerke;
-                    break; */
-                default:
-                    console.warn(`Unbekannter Datentyp: ${dataType}`);
-                    return;
+        try {
+            // 1. Sicherstellen, dass target ein gültiges DOM-Element mit classList ist
+            const target = event.target;
+            if (!target || typeof target.classList === 'undefined' || !target.classList.contains) {
+                return;
             }
-
-            showSuggestions(target, suggestionsArray, suggestionList);
+    
+            // 2. Nur für Elemente mit Klasse 'suggestion-input' ausführen
+            if (target.classList.contains("suggestion-input")) {
+                // 3. Sicherstellen, dass benötigte Attribute existieren
+                const suggestionListId = target.getAttribute("data-suggestion-list");
+                const dataType = target.getAttribute("data-type");
+                
+                if (!suggestionListId || !dataType) {
+                    console.warn("Fehlende erforderliche Attribute:", { suggestionListId, dataType });
+                    return;
+                }
+    
+                // 4. Suggestion-Liste finden
+                const suggestionList = document.getElementById(suggestionListId);
+                if (!suggestionList) {
+                    console.warn("Suggestion-Liste nicht gefunden:", suggestionListId);
+                    return;
+                }
+    
+                // 5. Passendes Array basierend auf dataType auswählen
+                let suggestionsArray = [];
+                switch (dataType) {
+                    case "farbe":
+                        suggestionsArray = farben;
+                        break;
+                    case "mitarbeiter":
+                        suggestionsArray = mitarbeiternamen;
+                        break;
+                    case "fussboden":
+                        suggestionsArray = fussbodenMaterialien;
+                        break;
+                    case "fussboden-farbe":
+                        suggestionsArray = fussbodenFarben;
+                        break;
+                    default:
+                        console.warn(`Unbekannter Datentyp: ${dataType}`);
+                        return;
+                }
+    
+                // 6. Suggestions anzeigen (mit zusätzlicher Prüfung)
+                if (Array.isArray(suggestionsArray)) {
+                    showSuggestions(target, suggestionsArray, suggestionList);
+                } else {
+                    console.warn("SuggestionsArray ist kein Array:", suggestionsArray);
+                }
+            }
+        } catch (error) {
+            console.debug("Fehler im input-Event-Listener:", error);
+            // Optional: Fehler an einen Error-Service melden
+            // trackError(error);
         }
     });
-
 
     document.addEventListener("focus", function (event) {
         const target = event.target;
@@ -312,46 +322,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }, true);
 
-
     document.addEventListener("click", function (event) {
-        const target = event.target;
-        // Prüfe, ob target ein Element ist und classList hat
-        if (target && target.classList && !target.classList.contains("suggestion-input")) {
-            document.querySelectorAll(".suggestion-list").forEach(list => {
-                list.style.display = "none";
-            });
+        try {
+            const target = event.target;
+            // Sicherheitsprüfung für target und classList
+            if (!target || typeof target.classList === 'undefined' || !target.classList.contains) {
+                return;
+            }
+            
+            if (!target.classList.contains("suggestion-input")) {
+                document.querySelectorAll(".suggestion-list").forEach(list => {
+                    list.style.display = "none";
+                });
+            }
+        } catch (error) {
+            console.debug("Klick auf nicht-DOM-Element ignoriert:", error); // Optional: Fehler loggen
         }
     });
 
-    // Initialisiere die Signaturfelder beim Laden der Seite
     updateSignFields();
 });
 
+document.addEventListener('DOMContentLoaded', function () {
 
-
-
-
-
-
-
-
-
-
-// Autovervollständigung für Lage der Zimmer
-// Autovervollständigung für Lage der Zimmer
-// Autovervollständigung für Lage der Zimmer
-// suggestion.js - mit Teilstring-Matching
-document.addEventListener('DOMContentLoaded', function() {
-    // Observer für dynamisch hinzugefügte Elemente
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            mutation.addedNodes.forEach(function(node) {
-                if (node.nodeType === 1) { // Nur Elementknoten prüfen
-                    const inputs = node.querySelectorAll ? 
+    const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            mutation.addedNodes.forEach(function (node) {
+                if (node.nodeType === 1) { 
+                    const inputs = node.querySelectorAll ?
                         node.querySelectorAll('input[name="bezeich-lage"]') : [];
                     inputs.forEach(initAutocomplete);
-                    
-                    // Falls das Input-Feld selbst hinzugefügt wurde
+
                     if (node.tagName === 'INPUT' && node.name === 'bezeich-lage') {
                         initAutocomplete(node);
                     }
@@ -360,180 +361,201 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Observer für das gesamte Dokument starten
     observer.observe(document.body, {
         childList: true,
         subtree: true
     });
 
-    // Bereits vorhandene Input-Felder initialisieren
     document.querySelectorAll('input[name="bezeich-lage"]').forEach(initAutocomplete);
 });
 
 function initAutocomplete(input) {
-    // Vermeide doppelte Initialisierung
-    if (input.dataset.autocompleteInit) return;
-    input.dataset.autocompleteInit = 'true';
+    try {
+        // 1. Input-Validierung
+        if (!input || !input.dataset) return;
+        if (input.dataset.autocompleteInit) return;
+        input.dataset.autocompleteInit = 'true';
 
-    /* const suggestions = ['links', 'rechts', 'hinten']; */
-    const suggestions = [
-        'links',
-        'rechts',
-        'hinten',
-        'vorne',
-        'mitte',
-        'links (hofseitig)',
-        'rechts (hofseitig)',
-        'vorne (hofseitig)',
-        'hinten (hofseitig)',
-        'mitte (hofseitig)',
-        'links (straßenseitig)',
-        'rechts (straßenseitig)',
-        'vorne (straßenseitig)',
-        'hinten (straßenseitig)',
-        'mitte (straßenseitig)',
-        'Wohnzimmer',
-        'Arbeitszimmer',
-        'Kinderzimmer',
-        'Schlafzimmer',
-        'Abstellraum',
-        'Esszimmer',
-        'Hobbyraum'  
-    ];
+        // 2. Suggestions-Array
+        const suggestions = [
+            'links', 'rechts', 'hinten', 'vorne', 'mitte',
+            'links (hofseitig)', 'rechts (hofseitig)',
+            'vorne (hofseitig)', 'hinten (hofseitig)', 'mitte (hofseitig)',
+            'links (straßenseitig)', 'rechts (straßenseitig)',
+            'vorne (straßenseitig)', 'hinten (straßenseitig)', 'mitte (straßenseitig)',
+            'straßenseitig', 'hofseitig',
+            'Wohnzimmer', 'Arbeitszimmer', 'Kinderzimmer',
+            'Schlafzimmer', 'Abstellraum', 'Esszimmer', 'Hobbyraum'
+        ];
 
-    let activeIndex = -1;
-    let currentSuggestions = [];
+        // 3. Variablen initialisieren
+        let activeIndex = -1;
+        let currentSuggestions = [];
+        const dropdown = document.createElement('div');
+        dropdown.className = 'suggestion-dropdown';
+        dropdown.style.display = 'none';
 
-    // Erstelle Dropdown-Container
-    const dropdown = document.createElement('div');
-    dropdown.className = 'suggestion-dropdown';
-    dropdown.style.display = 'none';
-    
-    // Positionierung relativ zum Input-Feld
-    function positionDropdown() {
-        const rect = input.getBoundingClientRect();
-        dropdown.style.position = 'absolute';
-        dropdown.style.left = `${rect.left + window.scrollX}px`;
-        dropdown.style.top = `${rect.bottom + window.scrollY}px`;
-        dropdown.style.width = `${rect.width}px`;
-    }
-    
-    document.body.appendChild(dropdown);
+        // 4. Hilfsfunktionen
+        const positionDropdown = () => {
+            try {
+                const rect = input.getBoundingClientRect();
+                dropdown.style.position = 'absolute';
+                dropdown.style.left = `${rect.left + window.scrollX}px`;
+                dropdown.style.top = `${rect.bottom + window.scrollY}px`;
+                dropdown.style.width = `${rect.width}px`;
+            } catch (error) {
+                console.debug('Positionierung fehlgeschlagen:', error);
+            }
+        };
 
-    // Input Event Handler mit Teilstring-Suche
-    input.addEventListener('input', function(e) {
-        const value = e.target.value.toLowerCase();
-        dropdown.innerHTML = '';
-        activeIndex = -1;
-        
-        if (value.length === 0) {
-            dropdown.style.display = 'none';
-            return;
-        }
-
-        // Angepasste Filterung für Teilstrings
-        currentSuggestions = suggestions.filter(item => 
-            item.toLowerCase().includes(value)
-        );
-
-        if (currentSuggestions.length > 0) {
-            positionDropdown();
-            
-            // Sortierung: Begriffe die mit dem Suchtext beginnen kommen zuerst
-            currentSuggestions.sort((a, b) => {
-                const aStartsWith = a.toLowerCase().startsWith(value) ? 0 : 1;
-                const bStartsWith = b.toLowerCase().startsWith(value) ? 0 : 1;
-                return aStartsWith - bStartsWith;
-            });
-
-            currentSuggestions.forEach((item, index) => {
-                const suggestionItem = document.createElement('div');
-                
-                // Markiere den gefundenen Teilstring im Vorschlag
-                const matchIndex = item.toLowerCase().indexOf(value);
-                if (matchIndex >= 0) {
-                    const before = item.substring(0, matchIndex);
-                    const match = item.substring(matchIndex, matchIndex + value.length);
-                    const after = item.substring(matchIndex + value.length);
-                    
-                    suggestionItem.innerHTML = `${before}${match}${after}`;
-                } else {
-                    suggestionItem.textContent = item;
+        const highlightItem = (items, index) => {
+            try {
+                items.forEach(item => item.classList.remove('highlighted'));
+                if (index >= 0 && items[index]) {
+                    items[index].classList.add('highlighted');
+                    items[index].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
                 }
-                
-                suggestionItem.className = 'suggestion-item';
-                suggestionItem.addEventListener('click', () => {
-                    input.value = item;
+            } catch (error) {
+                console.debug('Highlight fehlgeschlagen:', error);
+            }
+        };
+
+        // 5. Dropdown zum DOM hinzufügen
+        document.body.appendChild(dropdown);
+
+        // 6. Event-Listener
+        input.addEventListener('input', function(e) {
+            try {
+                const value = e.target.value.toLowerCase();
+                dropdown.innerHTML = '';
+                activeIndex = -1;
+
+                if (!value) {
                     dropdown.style.display = 'none';
-                });
-                dropdown.appendChild(suggestionItem);
-            });
-            dropdown.style.display = 'block';
-        } else {
-            dropdown.style.display = 'none';
-        }
-    });
+                    return;
+                }
 
-    // Tastatursteuerung (wie zuvor)
-    input.addEventListener('keydown', function(e) {
-        const items = dropdown.querySelectorAll('.suggestion-item');
-        
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            activeIndex = (activeIndex + 1) % currentSuggestions.length;
-            highlightItem(items, activeIndex);
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            activeIndex = (activeIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
-            highlightItem(items, activeIndex);
-        } else if (e.key === 'Enter' && activeIndex >= 0) {
-            e.preventDefault();
-            input.value = currentSuggestions[activeIndex];
-            dropdown.style.display = 'none';
-        } else if (e.key === 'Escape') {
-            dropdown.style.display = 'none';
-        }
-    });
+                currentSuggestions = suggestions.filter(item => 
+                    item.toLowerCase().includes(value)
+                );
 
-    function highlightItem(items, index) {
-        items.forEach(item => item.classList.remove('highlighted'));
-        if (index >= 0 && items[index]) {
-            items[index].classList.add('highlighted');
-            items[index].scrollIntoView({ block: 'nearest' });
-        }
-    }
+                if (currentSuggestions.length > 0) {
+                    positionDropdown();
+                    currentSuggestions.sort((a, b) => 
+                        a.toLowerCase().startsWith(value) ? 0 : 1 - 
+                        (b.toLowerCase().startsWith(value) ? 0 : 1)
+                    );
 
-    // Verstecke Dropdown bei Klick außerhalb oder Blur
-    input.addEventListener('blur', function() {
-        setTimeout(() => {
-            if (!dropdown.contains(document.activeElement)) {
+                    currentSuggestions.forEach((item, index) => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.className = 'suggestion-item';
+                        
+                        const matchIndex = item.toLowerCase().indexOf(value);
+                        if (matchIndex >= 0) {
+                            const before = item.substring(0, matchIndex);
+                            const match = item.substring(matchIndex, matchIndex + value.length);
+                            const after = item.substring(matchIndex + value.length);
+                            suggestionItem.innerHTML = `${before}<strong>${match}</strong>${after}`;
+                        } else {
+                            suggestionItem.textContent = item;
+                        }
+
+                        suggestionItem.addEventListener('click', () => {
+                            input.value = item;
+                            dropdown.style.display = 'none';
+                        });
+                        dropdown.appendChild(suggestionItem);
+                    });
+                    dropdown.style.display = 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            } catch (error) {
+                console.debug('Input-Event fehlgeschlagen:', error);
                 dropdown.style.display = 'none';
             }
-        }, 200);
-    });
+        });
 
-    // CSS (wie zuvor)
-    if (!document.getElementById('suggestion-styles')) {
-        const style = document.createElement('style');
-        style.id = 'suggestion-styles';
-        style.textContent = `
-            .suggestion-dropdown {
-                border: 1px solid #ddd;
-                background: white;
-                z-index: 1000;
-                max-height: 150px;
-                overflow-y: auto;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        input.addEventListener('keydown', function(e) {
+            try {
+                const items = dropdown.querySelectorAll('.suggestion-item');
+                
+                switch(e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        activeIndex = (activeIndex + 1) % currentSuggestions.length;
+                        highlightItem(items, activeIndex);
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        activeIndex = (activeIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
+                        highlightItem(items, activeIndex);
+                        break;
+                    case 'Enter':
+                        if (activeIndex >= 0) {
+                            e.preventDefault();
+                            input.value = currentSuggestions[activeIndex];
+                            dropdown.style.display = 'none';
+                        }
+                        break;
+                    case 'Escape':
+                        dropdown.style.display = 'none';
+                        break;
+                }
+            } catch (error) {
+                console.debug('Tastatureingabe fehlgeschlagen:', error);
             }
-            .suggestion-item {
-                padding: 8px 12px;
-                cursor: pointer;
-            }
-            .suggestion-item:hover, .suggestion-item.highlighted {
-                background-color: #f0f0f0;
-            }
+        });
 
-        `;
-        document.head.appendChild(style);
+        input.addEventListener('blur', function() {
+            setTimeout(() => {
+                try {
+                    if (!dropdown.contains(document.activeElement)) {
+                        dropdown.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.debug('Blur-Event fehlgeschlagen:', error);
+                }
+            }, 200);
+        });
+
+        // 7. Styles hinzufügen
+        if (!document.getElementById('suggestion-styles')) {
+            try {
+                const style = document.createElement('style');
+                style.id = 'suggestion-styles';
+                style.textContent = `
+                    .suggestion-dropdown {
+                        border: 1px solid #ddd;
+                        background: white;
+                        z-index: 1000;
+                        max-height: 200px;
+                        overflow-y: auto;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        border-radius: 4px;
+                        margin-top: 2px;
+                    }
+                    .suggestion-item {
+                        padding: 8px 12px;
+                        cursor: pointer;
+                        transition: background-color 0.2s;
+                    }
+                    .suggestion-item:hover, 
+                    .suggestion-item.highlighted {
+                        background-color: #f0f7ff;
+                    }
+                    .suggestion-item strong {
+                        font-weight: bold;
+                        color: #0066cc;
+                    }
+                `;
+                document.head.appendChild(style);
+            } catch (error) {
+                console.debug('Style-Erstellung fehlgeschlagen:', error);
+            }
+        }
+
+    } catch (error) {
+        console.error('Autocomplete-Initialisierung fehlgeschlagen:', error);
     }
 }
