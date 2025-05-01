@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
-// stylestablet.css
-// Version 3.25_beta */
+stylestablet.css
+Version 3.34_beta */
 
 body {
     font-family: Arial, sans-serif;
@@ -28,7 +28,6 @@ table {
     border: none;
 }
 
-
 p {
     margin-bottom: 1px;
 }
@@ -45,12 +44,6 @@ td {
     line-height: 1.1;
     border: none;
 }
-
-/* td {
-    padding: 10px;
-    text-align: left;
-} */
-
 
 .rooms td:nth-child(even),
 .room-container td:nth-child(even) {
@@ -82,7 +75,6 @@ select {
     border-radius: 5px;
     padding-left: 5px;
     padding-bottom: 0px;
-
 
     height: auto;
 
@@ -211,12 +203,14 @@ h2 {
 }
 
 .sign {
-    background-color: #ffd7d7;
     border-radius: 11px;
     padding-right: 5px;
     padding-left: 5px;
-    background-color: rgb(246, 246, 246);
-    border: 7px solid rgb(255, 228, 228);
+    border: 7px solid #fff1a5;
+    border-top-width: 7px;
+    border-top-style: solid;
+    border-top-color: rgb(255, 241, 165);
+    border-top: none;
 }
 
 .signature-canvas {
@@ -287,28 +281,13 @@ h2 {
 
 }
 
-/* .mails {
-    padding: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    background-color: #ffffff;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding-left: 5px;
-    padding-bottom: 0px;
-    height: auto;
-    min-height: 24px;
-    font-size: 22px;
-} */
-
 #savePdfButton,
 .signature-clear-btn,
 #uploadImageButton,
 #sendEmailButton,
-#zwischensavefButton {
+#zwischensavefButton,
+#pictopdfButton,
+.pdf-button {
     padding: 10px 20px;
     background-color: #ceebd1;
     color: #202020;
@@ -327,12 +306,23 @@ h2 {
 #savePdfButton,
 #sendEmailButton,
 .signature-clear-btn,
-#zwischensavefButton {
-
+#zwischensavefButton,
+#pictopdfButton {
     background-color: #ced9eb;
-
     font-size: 20px;
+}
 
+#savePdfButton,
+#toggleModeButton,
+#sendEmailButton,
+#uploadImageButton,
+#zwischensafebutton,
+#newTabButton,
+#pictopdfButton,
+.pdf-button,
+#saveasText {
+    background-color: rgb(105, 130, 187);
+    color: #fff;
 }
 
 .signature-container {
@@ -408,25 +398,6 @@ h2 {
 
 }
 
-#zaehlerTable th,
-#zentral td {
-    width: 24%;
-
-    padding: 11px;
-
-    text-align: left;
-
-}
-
-#zentral td {
-    width: 28%;
-
-    padding: 11px;
-
-    text-align: left;
-
-}
-
 #schluesselTable select,
 #schluesselTable input {
     width: 100%;
@@ -437,7 +408,7 @@ h2 {
 
 .sign02 {
     background: transparent;
-    background: #ffe3db;
+    background: #fff1a5;
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 10px;
@@ -452,10 +423,15 @@ h2 {
     padding-left: 3px;
 }
 
+#zzzprint1 {
+    background-color: #fff1a5 !important;
+}
+
 #signtoggle {
     opacity: 1;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    padding-top: 22px;
 }
 
 #signtoggle.visible {
@@ -463,20 +439,31 @@ h2 {
     transform: translateY(0);
 }
 
-#savePdfButton,
-#toggleModeButton,
-#sendEmailButton,
-#uploadImageButton,
-#zwischensafebutton,
-#newTabButton {
-    background-color: rgb(105, 130, 187);
-    color: #fff;
+#stammdupli {
+    padding-left: 15px;
+    font-size: 22px;
+}
 
+.hint {
+    font-size: 22px !important;
+}
+
+.signature-content>div:nth-child(2) {
+    font-size: 22px !important;
+}
+
+td.label-cell:nth-child(1) {
+    padding-left: 0px !important;
+}
+
+.custom-table {
+    margin-top: 60px;
 }
 
 #toggleModeButton,
 #zwischensafebutton,
-#newTabButton {
+#newTabButton,
+#saveasText {
     font-size: 18px;
     border-radius: 7px;
     padding-left: 15px;
@@ -500,6 +487,18 @@ h2 {
     margin-right: 0;
 }
 
+#importPortableBtn,
+#exportPortableBtn {
+    font-size: 20px;
+    width: 100%;
+}
+
+#importPortableBtn:hover,
+#exportPortableBtn:hover {
+    background-color: #d1d1d1;
+}
+
+
 #addeinziehenderMieter,
 #addausziehenderMieter,
 #addKeyButton,
@@ -507,6 +506,14 @@ h2 {
 #duplicateBtn {
     margin-top: 1px;
     margin-bottom: 15px;
+
+}
+
+#addKeyButton,
+#addZaehlerButton,
+#duplicateBtn {
+    padding-right: 15px;
+    padding-left: 15px;
 
 }
 
@@ -526,23 +533,367 @@ h2 {
     border-right: 1px solid #fff;
 }
 
-
-
-.sticky-container {
+/* .sticky-container {
     position: sticky;
     top: 10px;
-
     background: rgb(255, 255, 255);
-
     padding: 10px;
     z-index: 1000;
-
-    display: flex;
+    display: inline-flex;
     gap: 10px;
-
     opacity: 0.9;
     border-radius: 7px;
 }
+
+.sticky-container {
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9;
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5em;
+    border-bottom: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.sticky-container button,
+.sticky-container select {
+
+    min-width: 100px;
+    padding: 0.5em 1em;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease;
+}
+
+.sticky-container button:hover,
+#pictopdfButton:hover {
+    background-color: #466ec3;
+}
+
+.sticky-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px !important;
+    margin-bottom: 35px !important;
+}
+
+@media (min-width: 768px) {
+
+    .sticky-container {
+        flex-direction: row;
+    }
+
+    #loadSelect {
+        min-width: 120px;
+        margin-right: 8px;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .sticky-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #loadSelect,
+    .pdf-button,
+    #pictopdfButton,
+    #savePdfButton {
+        width: 100%;
+        margin: 4px 0;
+    }
+}
+
+.sticky-container {
+    position: fixed;
+    top: 60px;
+    right: 15px;
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        max-height 0.4s ease-out,
+        opacity 0.3s ease 0.1s,
+        padding 0.3s ease;
+    z-index: 999;
+    width: 500px;
+
+}
+
+.sticky-container[data-state="open"] {
+    max-height: 700px;
+    opacity: 1;
+    padding: 15px;
+}
+
+@media (max-width: 768px) {
+    .sticky-container {
+        width: calc(100% - 30px);
+        right: 15px;
+        left: 15px;
+    }
+} */
+
+.sticky-container {
+    position: fixed;
+
+    z-index: 999;
+
+    width: 500px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    background: #f9f9f99c;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+
+    transition:
+        max-height 0.4s ease-out,
+        opacity 0.3s ease 0.1s,
+        padding 0.3s ease;
+    margin-bottom: 35px;
+    top: 68px;
+    left: 24px;
+}
+
+
+
+
+
+.sticky-container[data-state="open"] {
+    max-height: 700px;
+    opacity: 1;
+    padding: 15px;
+}
+
+/* BUTTONS & SELECTS */
+.sticky-container button,
+.sticky-container select {
+    min-width: 100px;
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease;
+}
+
+.sticky-container button:hover,
+#pictopdfButton:hover {
+    background-color: #466ec3;
+}
+
+/* BUTTON-GRUPPEN */
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    .sticky-container {
+        width: calc(100% - 30px);
+        left: 15px;
+        right: 15px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #loadSelect,
+    .pdf-button,
+    #pictopdfButton,
+    #savePdfButton {
+        width: 100%;
+        margin: 4px 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .sticky-container {
+        flex-direction: row;
+    }
+
+    #loadSelect {
+        min-width: 120px;
+        margin-right: 8px;
+    }
+}
+
+/* #toggleStickyBtn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    padding: 10px 20px;
+    background-color: #6b83b2;
+    color: #f4f4f4;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+#toggleStickyBtn:hover {
+    background-color: #6b83b2;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+#toggleStickyBtn::after {
+    content: "❯";
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+#toggleStickyBtn[data-state="closed"]::after {
+    transform: rotate(90deg);
+}
+
+#toggleStickyBtn[data-state="open"]::after {
+    transform: rotate(270deg);
+}
+
+#toggleStickyBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+#toggleStickyBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+
+    padding: 10px 16px;
+    background-color: #6b83b2;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    width: 100px;
+}
+
+
+@media (min-width: 1000px) and (max-width: 1680px) {
+    #toggleStickyBtn {
+        position: sticky;
+        margin: 0 auto;
+        width: 100px;
+        background-color: #4b6ab4d1;
+
+
+    }
+
+    .sticky-container[data-state="closed"] {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0 auto;
+
+    }
+
+    .sticky-container[data-state="open"] {
+        /* position: sticky; */
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 15px auto !important;
+
+    }
+
+}
+
+/* Hover-Zustand */
+#toggleStickyBtn:hover {
+    background-color: #3b5d87;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+}
+
+/* Pfeil rechts oder runter */
+#toggleStickyBtn::after {
+    content: "❯";
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+#toggleStickyBtn[data-state="closed"]::after {
+    transform: rotate(90deg);
+    /* zeigt nach unten */
+}
+
+#toggleStickyBtn[data-state="open"]::after {
+    transform: rotate(270deg);
+    /* zeigt nach oben */
+}
+
+/* Tablet & PC – zusätzliche Anpassungen */
+@media (max-width: 768px) {
+    #toggleStickyBtn {
+        left: 10px;
+        top: 10px;
+        font-size: 14px;
+        padding: 8px 12px;
+        width: 100px;
+    }
+}
+
+#connection-status {
+    top: 585px !important;
+    left: 502px !important;
+}
+
+
 
 .weissezeilemitbutton {
     background-color: rgb(255, 255, 255)
@@ -759,9 +1110,9 @@ h3 {
 
 .large-image-wrapperxxx {
     position: relative;
-    /* Wichtig für %-basierte Positionierung */
+
     min-height: 300px;
-    /* Beispielwert, anpassen */
+
 }
 
 .delete-btn {
@@ -777,30 +1128,20 @@ h3 {
     border-radius: 22px;
 }
 
-
-
 .image-preview .image-container .image-wrapper .delete-btn {
     background-color: #ac1a1a;
     border-radius: 22px;
-    /*     top: -8px;
-    right: -10px; */
-    /*     top: -93% !important;
-    right: -97% !important; */
+
     top: -11% !important;
     right: -6% !important;
 }
 
 [id^="largexxx-wrapperxxx-imgxxx"] {
-    background-color: #eeeeee !important;
+    background-color: #ffffff !important;
     padding: 10px !important;
     margin-bottom: 10px;
     border-radius: 11px;
 }
-
-
-
-
-
 
 #large-images-section {
     margin-top: 40px;
@@ -809,11 +1150,25 @@ h3 {
 }
 
 #large-images-container {
-    background-color: #f0f0f0;
     padding: 15px;
     margin-top: 25px;
     border-radius: 11px;
 }
+
+#toggleModeButton,
+#saveasText {
+    background: #fff;
+    color: #cbcbcb;
+    cursor: pointer;
+}
+
+#toggleModeButton {
+    background: #fff;
+    color: #cbcbcb;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
 
 .add-remark-btn {
     background-color: rgba(15, 122, 27, 0);
@@ -838,7 +1193,6 @@ h3 {
     font-size: 22px;
     height: 40px;
 }
-
 
 .custom-upload-btn {
     background-color: #4CAF50;
@@ -916,8 +1270,6 @@ h3 {
 
 }
 
-
-
 #zzzallgemein>h2:nth-child(1) {
     font-size: 28px;
     padding-left: 7px;
@@ -990,14 +1342,6 @@ td.no-border-right.text-right {
 .remark-row {
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.stammdupli {
-    margin-top: 12px;
-    margin-bottom: 30px;
-    Font-size: 18px;
-    line-height: 1.5;
-    margin-left: 10px;
 }
 
 #hauptBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(3)>label:nth-child(2) {
@@ -1122,11 +1466,10 @@ th {
     background-color: #e9e9e9;
 }
 
-/* Stil für die Vorschlagsliste (Lage/Stockwerk) */
 #stockwerkSuggestions {
     position: absolute;
     top: 100%;
-    /* Direkt unterhalb des Eingabefelds */
+
     left: 0;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -1134,10 +1477,8 @@ th {
     overflow-y: auto;
     z-index: 1000;
     width: 240px;
-    /* Gleiche Breite wie das Eingabefeld */
+
 }
-
-
 
 .error-message {
     color: red;
@@ -1167,19 +1508,20 @@ select option {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
     width: 90%;
-    max-width: 400px;
-    text-align: center;
+    max-width: 500px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 #emailMenu h3 {
     margin: 0 0 15px;
-    font-size: 18px;
+    font-size: 22px;
     color: #333;
 }
 
@@ -1191,14 +1533,13 @@ select option {
 
 #emailMenu ul li {
     padding: 8px;
-    background-color: #4f8842;
-    border: 1px solid #ddd;
+    background-color: #ffffff;
     border-radius: 5px;
     margin-bottom: 5px;
     font-size: 14px;
-    color: #ffffff;
+    color: #343434;
     border-radius: 7px;
-    font-size: 16px;
+    font-size: 22px;
 }
 
 #emailMenu button {
@@ -1206,7 +1547,7 @@ select option {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: bold;
     color: #fff;
     border: none;
@@ -1215,6 +1556,7 @@ select option {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #4c7fb6;
+    min-height: 69px;
 }
 
 #emailMenu button:hover {
@@ -1225,8 +1567,9 @@ select option {
     transform: translateY(0);
 }
 
-
-
+#emailMenu>h3:nth-child(3) {
+    margin-top: 70px !important;
+}
 
 .protart {
     font-size: 1.2em;
@@ -1240,60 +1583,12 @@ input[type="date"] {
     box-sizing: border-box;
 }
 
-@media (max-width: 640px) {
-
-    td[colspan="6"] {
-        display: block;
-        text-align: center;
-        width: 100%;
-    }
-
-
-    tr {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-
-
-    td {
-        display: block;
-        width: 100%;
-        text-align: left;
-        padding: 5px 0;
-    }
-
-
-    input[type="text"],
-    input[type="date"] {
-        width: 100%;
-        margin: 5px 0;
-    }
-
-
-    .checkbox-label {
-        display: block;
-        margin-top: 10px;
-    }
-}
-
-
 #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(4)>input:nth-child(1),
 #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(4)>input:nth-child(1),
 #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(4)>input:nth-child(1),
 #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(4)>input:nth-child(1) {
     width: 100% !important;
 }
-
-
-
-#auszugmieterTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(4)>input:nth-child(1),
-#auszugmieterTable>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(4)>input:nth-child(1),
-#auszugmieterTable>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(4)>input:nth-child(1),
-#auszugmieterTable>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(4)>input:nth-child(1) {
-    width: 204px !important;
-}
-
 
 .input-container {
     position: relative;
@@ -1361,8 +1656,6 @@ input[type="date"] {
     margin-right: 0px !important;
 }
 
-
-
 .remark-row:nth-child(3)>div:nth-child(1),
 .remark-row:nth-child(4)>div:nth-child(1),
 .remark-row:nth-child(5)>div:nth-child(1),
@@ -1390,8 +1683,6 @@ input[type="date"] {
 #zimm12>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2)>div:nth-child(1) {
     width: 47% !important;
 }
-
-
 
 .suggestion-list {
     border: 1px solid #ccc;
@@ -1463,23 +1754,22 @@ input[type="date"] {
     background: #f5f5f5;
 }
 
-/* Stil für das Logo-Container-Div */
 #logo-container {
     display: flex;
-    /* Aktiviert Flexbox */
+
     align-items: center;
-    /* Zentriert die Elemente vertikal */
+
     gap: 20px;
-    /* Abstand zwischen den Elementen */
+
     justify-content: space-between;
     background: rgb(255, 255, 255);
 }
 
 #logo-container img {
     width: 250px;
-    /* Breite des Logos anpassen */
+
     height: auto;
-    /* Höhe automatisch anpassen */
+
 }
 
 #logo-container>h2:nth-child(1) {
@@ -1489,11 +1779,13 @@ input[type="date"] {
 #arbeitsdatum {
     font-size: 20px;
     font-family: arial;
+    border-radius: 5px;
+    border: 1px solid #b3b3b3;
 }
 
 #weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(1) {
     background-color: #f1f1f1;
-    /*     margin-bottom: 11px; */
+
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -1514,6 +1806,9 @@ input[type="date"] {
     padding-bottom: 11px;
 }
 
+#weitereBemerkungen {
+    background: #fd9797;
+}
 
 #toggleDiv>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
 #toggleDiv>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(2)>div:nth-child(1)>div:nth-child(2) {
@@ -1535,12 +1830,10 @@ td.label-cell:nth-child(1) {
     width: 100px !important;
 }
 
-
 .vermieter {
     position: relative !important;
     left: -190px !important;
 }
-
 
 #einziehender-mieter-info-2,
 #einziehender-mieter-info-3,
@@ -1560,11 +1853,6 @@ td.label-cell:nth-child(1) {
     font-size: 22px;
 }
 
-
-
-
-
-/* Grundlegende Stile für die Tabelle */
 #einzugmieterTable {
     width: 100%;
     border-collapse: collapse;
@@ -1574,110 +1862,19 @@ td.label-cell:nth-child(1) {
 #einzugmieterTable td {
     padding: 8px;
     text-align: left;
-    border: 1px solid #ddd;
+    border: none;
 }
 
 #einzugmieterTable th {
     background-color: #f2f2f2;
 }
 
-/* Stile für die Eingabefelder */
 #einzugmieterTable input {
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
 }
 
-/* Media Query für schmale Bildschirme */
-@media screen and (max-width: 1200px) {
-
-    /* Tabelle in ein flexbox-Layout umwandeln */
-    #einzugmieterTable,
-    #einzugmieterTable thead,
-    #einzugmieterTable tbody {
-        display: block;
-    }
-
-    /* Zeilen als flex-container mit wrap */
-    #einzugmieterTable tr {
-        display: flex;
-        flex-wrap: wrap;
-        border: 1px solid #ccc;
-        border-bottom: 11px solid rgb(240, 240, 240);
-        margin-bottom: 10px;
-    }
-
-    /* Zellen auf 50% Breite setzen für 2 pro Zeile */
-    #einzugmieterTable td {
-        flex: 0 0 50%;
-        box-sizing: border-box;
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 1%;
-        padding-right: 1%;
-    }
-
-    /* Überschriften ausblenden */
-    #einzugmieterTable thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-
-    /* Labels anpassen */
-    #einzugmieterTable td:before {
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        content: attr(data-label);
-    }
-
-    /* Inputfelder anpassen */
-    #einzugmieterTable input {
-        width: 100% !important;
-        font-size: 22px;
-    }
-
-    /* Button für das Hinzufügen eines neuen Mieters anpassen */
-    #addeinziehenderMieter {
-        width: 100%;
-        padding: 10px;
-        font-size: 22px;
-    }
-
-    /* Die Zeile mit dem Hinzufügen-Button soll volle Breite haben */
-    #addeinziehenderMieterRow {
-        display: block;
-    }
-
-    #addeinziehenderMieterRow td {
-        flex: 0 0 100%;
-    }
-
-    /* Error-Message anpassen */
-    .error-message {
-        margin-top: 73px;
-    }
-
-    /* Spezifische Styles für die Size-Controls beibehalten */
-    #einzugmieterTable>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
-    #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
-    #einzugmieterTable>tbody:nth-child(3)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
-    #einzugmieterTable>tbody:nth-child(4)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
-    #einzugmieterTable>tbody:nth-child(5)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2) {
-        margin-top: -1px;
-    }
-}
-
-
-
-
-
-/* Grundlegende Stile für die Tabelle */
 #auszugmieterTable,
 #NameAus01,
 #NameAus02,
@@ -1702,7 +1899,6 @@ td.label-cell:nth-child(1) {
     background-color: #f2f2f2;
 }
 
-/* Stile für die Eingabefelder */
 #auszugmieterTable .input-container {
     display: flex;
     align-items: center;
@@ -1749,10 +1945,6 @@ td.label-cell:nth-child(1) {
     opacity: 1;
 }
 
-.newstreets:-ms-input-placeholder {
-    color: red;
-}
-
 .newstreets:-moz-placeholder {
     color: red;
 }
@@ -1779,112 +1971,13 @@ td.label-cell:nth-child(1) {
     color: red;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Media Query für schmale Bildschirme */
-@media screen and (max-width: 1200px) {
-
-    /* Tabelle in ein Block-Layout umwandeln, aber mit flexbox für Zeilen */
-    #auszugmieterTable,
-    #auszugmieterTable thead,
-    #auszugmieterTable tbody {
-        display: block;
-    }
-
-    /* Zeilen als flex-container mit wrap */
-    #auszugmieterTable tr {
-        display: flex;
-        flex-wrap: wrap;
-        border: 0px solid #ccc;
-        margin-bottom: 10px;
-        border-bottom: 11px solid rgb(240, 240, 240);
-    }
-
-    /* Zellen auf 50% Breite setzen für 2 pro Zeile */
-    #auszugmieterTable td {
-        flex: 0 0 50%;
-        box-sizing: border-box;
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 1%;
-        padding-right: 1%;
-    }
-
-    /* Überschriften ausblenden */
-    #auszugmieterTable thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-
-    #auszugmieterTable td:before {
-        /* Bezeichnungen für die Felder hinzufügen */
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 5%;
-        padding-right: 10px;
-        white-space: nowrap;
-        content: attr(data-label);
-    }
-
-    /* Inputfelder anpassen */
-    #auszugmieterTable input {
-        width: 100% !important;
-        font-size: 22px;
-        padding: 5px 5px 5px 5px;
-    }
-
-    /* Spezielle Klassen anpassen */
-    .newstreets,
-    .plzauszug,
-    .mails2 {
-        width: 100% !important;
-    }
-
-    /* Button für das Hinzufügen eines neuen Mieters anpassen */
-    #addausziehenderMieter {
-        width: 100%;
-        padding: 10px;
-        font-size: 22px;
-    }
-
-    /* Die Zeile mit dem Hinzufügen-Button soll volle Breite haben */
-    #addeinziehenderMieterRow {
-        display: block;
-    }
-
-    #addeinziehenderMieterRow td {
-        flex: 0 0 100%;
-    }
-
-    #auszugmieterTable input {
-        padding: 8px 5px 8px 5px;
-    }
-
-    .error-message {
-        position: absolute;
-        top: 1px;
-    }
-
+.meterstand {
+    height: 44px !important;
 }
 
-
+#pauschalbetrag {
+    height: 48px;
+}
 
 .rwm-label {
     font-size: 22px;
@@ -1926,7 +2019,6 @@ td.label-cell:nth-child(1) {
     font-weight: 600;
 }
 
-
 #zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(2),
 #zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(4),
 #zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(6),
@@ -1958,7 +2050,6 @@ td.label-cell:nth-child(1) {
 #zimm06>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(4),
 #zimm07>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(6) {
 
-
     background: #fff;
 }
 
@@ -1968,8 +2059,6 @@ td.label-cell:nth-child(1) {
     background: rgb(255, 255, 255);
 }
 
-
-
 #zzzbad>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3),
 #zzzwc>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3),
 #zzzflur>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3),
@@ -1977,8 +2066,6 @@ td.label-cell:nth-child(1) {
     display: table-row;
     border-bottom: 22px solid white;
 }
-
-
 
 .radio-label[style*="--checked-state: checked"]::before,
 .checkbox-label[style*="--checked-state: checked"]::before {
@@ -1989,4 +2076,859 @@ td.label-cell:nth-child(1) {
 .radio-label[style*="--checked-state: checked"]::after,
 .checkbox-label[style*="--checked-state: checked"]::after {
     color: rgb(33, 33, 33) !important;
+}
+
+#cancel {
+    background-color: rgb(198, 24, 24) !important;
+}
+
+input.input-error {
+    border: 2px solid red !important;
+    background-color: #ffecec;
+}
+
+.pdf-hinweis {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #fff3cd;
+    color: #574100;
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    min-height: 100px;
+    font-size: 24px;
+    padding-top: 11px;
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+
+    td[colspan="6"] {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+
+    tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 5px 0;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .checkbox-label {
+        display: block;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 999px) {
+    #emailMenu {
+        width: 95%;
+        padding: 20px 15px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+
+    #einzugmieterTable,
+    #einzugmieterTable thead,
+    #einzugmieterTable tbody {
+        display: block;
+    }
+
+    #zentral>tbody:nth-child(1)>tr:nth-child(1)>th:nth-child(1) {
+        width: 22% !important;
+    }
+
+    #zentral>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(1) {
+        width: 22% !important;
+    }
+
+    #einzugmieterTable tr {
+        display: flex;
+        flex-wrap: wrap;
+        border: none;
+        border-bottom: 11px solid rgb(240, 240, 240);
+        margin-bottom: 10px;
+    }
+
+    #einzugmieterTable td,
+    #einzugmieterTable th {
+        flex: 0 0 50%;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: none;
+        position: relative;
+        padding-left: 1%;
+        padding-right: 1%;
+        padding-bottom: 1px;
+    }
+
+    #einzugmieterTable thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #einzugmieterTable td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+    }
+
+    #einzugmieterTable input {
+        width: 100% !important;
+        font-size: 22px;
+    }
+
+    #addeinziehenderMieter {
+        width: 100%;
+        padding: 10px;
+        font-size: 22px;
+    }
+
+    #addeinziehenderMieterRow {
+        display: block;
+    }
+
+    #addeinziehenderMieterRow td {
+        flex: 0 0 100%;
+    }
+
+    .error-message {
+        margin-top: 73px;
+    }
+
+    #einzugmieterTable>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
+    #einzugmieterTable>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
+    #einzugmieterTable>tbody:nth-child(3)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
+    #einzugmieterTable>tbody:nth-child(4)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2),
+    #einzugmieterTable>tbody:nth-child(5)>tr:nth-child(1)>td:nth-child(4)>div:nth-child(1)>div:nth-child(2) {
+        margin-top: -1px;
+    }
+
+    #auszugmieterTable,
+    #auszugmieterTable thead,
+    #auszugmieterTable tbody {
+        display: block;
+    }
+
+    #auszugmieterTable tr {
+        display: flex;
+        flex-wrap: wrap;
+        border: 0px solid #ccc;
+        margin-bottom: 10px;
+        border-bottom: 11px solid rgb(240, 240, 240);
+    }
+
+    #auszugmieterTable td {
+        flex: 0 0 50%;
+        box-sizing: border-box;
+        border: none;
+        position: relative;
+        padding-left: 1%;
+        padding-right: 1%;
+        padding-bottom: 1px !important;
+    }
+
+    #auszugmieterTable thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #auszugmieterTable td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 5%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+    }
+
+    #auszugmieterTable input {
+        width: 100% !important;
+        font-size: 22px;
+        padding: 5px 5px 5px 5px;
+    }
+
+    .newstreets,
+    .plzauszug,
+    .mails2 {
+        width: 100% !important;
+    }
+
+    #addausziehenderMieter {
+        width: 100%;
+        padding: 10px;
+        font-size: 22px;
+    }
+
+    #addeinziehenderMieterRow {
+        display: block;
+    }
+
+    #addeinziehenderMieterRow td {
+        flex: 0 0 100%;
+    }
+
+    #auszugmieterTable input {
+        padding: 8px 5px 8px 5px;
+        margin-bottom: 1px;
+    }
+
+    .error-message {
+        position: absolute;
+        top: 1px;
+    }
+
+}
+
+.haus {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 8px;
+}
+
+.haus i {
+    font-size: 28px;
+    color: #4e4e4e;
+
+}
+
+.fa-user:before {
+    content: "\f007";
+    margin-right: 5px !important;
+}
+
+.fa-tachometer-alt,
+.fa-key {
+    margin-right: 5px !important;
+}
+
+.fa-home {
+    font-size: 25px !important;
+}
+
+.fa-door-open {
+    margin-right: 12px !important;
+    margin-top: 15px !important;
+}
+
+.fa-file-pdf:before,
+.fa-mail-bulk:before,
+.fa-images:before {
+    margin-right: 12px !important;
+}
+
+.time-display {
+    color: #666;
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#withImagesBtn {
+    background-color: #6b83b2;
+    color: white;
+}
+
+#withoutImagesBtn {
+    background-color: #8a3636;
+    color: white;
+}
+
+#cancelModalBtn {
+    background-color: #ddd;
+    color: #343434;
+}
+
+
+#close-pdf-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#close-pdf-button:hover {
+    background-color: #d32f2f;
+}
+
+.abort-progress-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+
+}
+
+.abort-progress-modal-content {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    max-width: 90%;
+}
+
+.zentral-container {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.zentral-inner-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.label-cellheiz {
+    width: 10%;
+    padding: 8px 15px 8px 5px;
+    text-align: right;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #333;
+}
+
+.input-cellheizinput {
+    width: 40%;
+    padding: 5px 10px;
+}
+
+.label-cellwarm {
+    width: 10%;
+    padding: 8px 15px 8px 5px;
+    text-align: right;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #333;
+    padding-left: 50px;
+}
+
+.input-cellwarminput {
+    width: 40%;
+    padding: 5px 10px;
+}
+
+.save-load-container {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.save-button,
+.load-button,
+.delete-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+}
+
+.load-button {
+    background-color: #2196F3;
+    color: white;
+}
+
+.load-button:hover {
+    background-color: #0b7dda;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #da190b;
+}
+
+.version-select {
+    padding: 9px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    min-width: 200px;
+}
+
+.draft-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.draft-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.save-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.load-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.notification {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.notification.success {
+    background-color: #4CAF50;
+}
+
+.notification.error {
+    background-color: #f44336;
+}
+
+.notification.fade-out {
+    opacity: 0;
+}
+
+
+
+#pictopdfButton {
+    background-color: rgb(80, 132, 29) !important;
+}
+
+#pictopdfButton:hover {
+    background-color: rgb(66, 108, 23) !important;
+}
+
+#currentSaveName {
+    flex-basis: 100%;
+    text-align: center;
+    margin-top: 0.5em;
+    color: #444;
+    font-size: 20px;
+}
+
+.pdf-button {
+    background-color: rgb(105, 130, 187);
+    color: #fff;
+}
+
+.pdf-button,
+#sendEmailButton,
+#pictopdfButton,
+#savePdfButton {
+    padding: 8px 12px;
+    margin: 4px;
+    background-color: #6b83b2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s;
+    width: 30%;
+}
+
+.pdf-button:hover,
+#sendEmailButton:hover,
+#pictopdfButton:hover,
+#savePdfButton:hover {
+    background-color: #3a5a8a;
+}
+
+
+
+#currentSaveName {
+    margin: 0 8px;
+    font-weight: bold;
+    min-width: 100px;
+    text-align: center;
+    margin-top: 22px;
+    margin-bottom: 22px;
+    font-size: 24px;
+}
+
+#loadSelect {
+    display: none;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#savePdfButton {
+    background-color: #a63636;
+}
+
+#savePdfButton:hover,
+#pictopdfButton:hover,
+#sendEmailButton:hover {
+    background-color: #892828;
+
+}
+
+
+/* Focus: wenn der Button mit Tab ausgewählt oder angeklickt wird */
+#savePdfButton:focus,
+#pictopdfButton:focus,
+#sendEmailButton:focus {
+    background-color: #751f1f;
+    transform: scale(1.2),
+
+}
+
+/* Active: wenn der Button gerade gedrückt wird */
+#savePdfButton:active,
+#pictopdfButton:active,
+#sendEmailButton:active {
+    background-color: #892828;
+    transform: scale(1.2);
+    /* leichte "Drück"-Animation */
+}
+
+
+
+
+
+
+#sendEmailButton {
+    background-color: #d9ad00;
+    color: black;
+}
+
+.button-separator {
+    height: 1px;
+    background-color: #ccc;
+    margin: 15px 1px 15px 1px;
+    width: 100%;
+}
+
+[id^="MailAus"] {
+    width: 100% !important;
+}
+
+#protokollart1 {
+    width: 203%;
+}
+
+
+#dynamic-content {
+    margin-top: 50px;
+}
+
+#imageModal>div:nth-child(1)>p:nth-child(2) {
+    font-size: 22px;
+}
+
+
+#withImagesBtn,
+#withoutImagesBtn,
+#cancelModalBtn {
+    font-size: 22px;
+    margin-bottom:22px;
+    height:3em;
+}
+
+/* Hover – sichtbar bei Maus (z. B. auf Tablets mit Tastatur) */
+#withImagesBtn:hover {
+    background-color: #3b5d87;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Active – wenn gedrückt gehalten wird (z. B. auf Touch-Geräten) */
+#withImagesBtn:active {
+    background-color: #2e4c6f;
+    transform: scale(0.97);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Fokus – für Tastaturbenutzer oder beim Antippen */
+#withImagesBtn:focus {
+    outline: 2px solid #3b5d87;
+    outline-offset: 2px;
+}
+
+/* Hover – für Geräte mit Maus */
+#withoutImagesBtn:hover {
+    background-color: #722c2c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Active – gedrückt halten auf Touch-Geräten */
+#withoutImagesBtn:active {
+    background-color: #5a2121;
+    transform: scale(0.97);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Focus – Tastatur oder Tippen */
+#withoutImagesBtn:focus {
+    outline: 2px solid #722c2c;
+    outline-offset: 2px;
+}
+
+body>div:nth-child(14)>div:nth-child(1) {
+    font-size: 30px;
+}
+
+
+body>div:nth-child(14)>div:nth-child(2)>div:nth-child(1)>label:nth-child(3),
+body>div:nth-child(14)>div:nth-child(2)>div:nth-child(2)>label:nth-child(3),
+body>div:nth-child(14)>div:nth-child(2)>div:nth-child(3)>label:nth-child(3) {
+    font-size: 22px;
+    line-height: 2;
+    text-align: left;
+    margin-left: 15px;
+}
+
+body>div:nth-child(14) {
+    border-radius: 7px;
+    width: 500px;
+}
+
+body>div:nth-child(14)>div:nth-child(3)>button:nth-child(1),
+body>div:nth-child(14)>div:nth-child(3)>button:nth-child(2) {
+    font-size: 22px !important;
+}
+
+h3 i.fas {
+    color: #575757 !important;
+}
+
+td.label-cellheiz1:nth-child(1)>h3:nth-child(1) {
+    margin-left: 0;
+}
+
+#selectAllVersions,
+#cancelDelete,
+#confirmDelete {
+    font-size: 22px !important;
+}
+
+#selectAllVersions {
+    background: rgb(71, 107, 164);
+    color: #fff;
+}
+
+#versionSelection,
+#versionSelection>label,
+#versionSelection input[type="checkbox"] {
+    font-size: 22px !important;
+}
+
+#selectAllVersions:hover,
+#cancelDelete:hover,
+#confirmDelete:hover {
+    opacity: 0.8 !important;
+}
+
+.burger-menu-icon {
+    display: inline-block;
+    width: 25px;
+    height: 15px;
+    position: relative;
+}
+
+.burger-menu-icon::before,
+.burger-menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+}
+
+.burger-menu-icon::before {
+    top: 0;
+}
+
+.burger-menu-icon::after {
+    bottom: 0;
+}
+
+.burger-menu-icon {
+    background: linear-gradient(to bottom,
+            transparent 6px,
+            currentColor 6px,
+            currentColor 9px,
+            transparent 9px);
+}
+
+/* Optional: Animation beim Hover */
+.pdf-button:hover .burger-menu-icon {
+    opacity: 0.8;
+}
+
+
+#sucpdf2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+#sucpdf2 .modal-content {
+    position: relative;
+    background: white;
+    padding: 30px;
+    margin: 300px auto;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#sucpdf2[style*="display: block"] .modal-content {
+    transform: translateY(0);
+}
+
+.modalpic01,
+.modalpic02 {
+    padding: 8px 16px;
+    background-color: rgb(160, 48, 40);
+    font-size: 22px !important;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modalpic02 {
+    background-color: rgb(24, 95, 40);
+}
+
+.modalpic-option {
+    display: flex;
+    font-size: 22px;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: sans-serif;
+    user-select: none;
+    position: relative;
+    background-color: #fff;
+}
+
+/* Dezenter Hover-Effekt */
+.modalpic-option:hover {
+    border-color: #2b55c0;
 }
