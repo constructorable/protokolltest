@@ -8,7 +8,7 @@ function validateStrasseeinzug() {
     // 1. Straßenvalidierung
     const strasseeinzugInput = document.getElementById("strasseeinzug");
     if (!strasseeinzugInput?.value?.trim()) {
-        showModalBox("Eingabe erforderlich", "Objekt / Straße bitte eingeben.", strasseeinzugInput);
+        showModalBox("", "Objekt / Straße bitte eingeben.", strasseeinzugInput);
         return false;
     }
 
