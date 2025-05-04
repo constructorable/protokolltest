@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 saveimportexport.js
-Version 3.34_beta */
+Version 3.36_beta */
 
 
 function getFormData() {
@@ -38,36 +38,6 @@ function getFormData() {
     return data;
 }
 
-/* function exportCurrentSaveAsText() {
-    const select = document.getElementById("loadSelect");
-    const selectedName = select?.value;
-    if (!selectedName) {
-        alert("Bitte zuerst eine gespeicherte Version auswählen.");
-        return;
-    }
-
-    const allSaves = JSON.parse(localStorage.getItem("saves")) || {};
-    const currentData = allSaves[selectedName];
-
-    if (!currentData) {
-        alert("Keine Daten gefunden.");
-        return;
-    }
-
-    const jsonText = JSON.stringify(currentData, null, 2);
-    const blob = new Blob([jsonText], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${selectedName}_daten.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-} */
-
-
 const saveAsTextBtn = document.getElementById("saveasText");
 if (saveAsTextBtn) {
     saveAsTextBtn.addEventListener("click", exportCurrentSaveAsText);
@@ -77,137 +47,155 @@ if (saveAsTextBtn) {
 
 // Gespeicherte Daten wieder ins Formular einsetzen
 function setFormData(data) {
+    // Helper function to set element value
+    const setElementValue = (el, value) => {
+        if (el.type === 'radio' || el.type === 'checkbox') {
+            el.checked = value;
+        } else {
+            el.value = value ?? ''; // Fallback for null/undefined
+        }
+    };
 
-    /*     data['remarks'] = [];
-    document.querySelectorAll('.dupli-container input.dupli.autoscale').forEach(input => {
-        data['remarks'].push(input.value);
-    }); */
-
+    // Process regular fields
     Object.keys(data).forEach(key => {
-        const el = document.getElementById(key);
-        if (el && el.classList.contains("dupli") && el.classList.contains("autoscale")) {
-            el.value = data[key];
+        // First try elements with class "dupli autoscale"
+        const dupliEl = document.getElementById(key);
+        if (dupliEl && dupliEl.classList.contains("dupli") && dupliEl.classList.contains("autoscale")) {
+            setElementValue(dupliEl, data[key]);
+            return;
+        }
+
+        // Fallback to any matching element
+        const el = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
+        if (el) {
+            setElementValue(el, data[key]);
         }
     });
 
-    if (data['signatureFullnames']) {
-        Object.entries(data['signatureFullnames']).forEach(([id, value]) => {
+    // Process signature fields
+    if (data.signatureFullnames) {
+        Object.entries(data.signatureFullnames).forEach(([id, value]) => {
             const span = document.getElementById(id);
-            if (span) {
-                span.textContent = value;
-            }
+            if (span) span.textContent = value;
         });
     }
 
-
-    // Bemerkungen zurück in dynamische Felder einfügen
-    if (Array.isArray(data['remarks'])) {
-        // Vorherige Bemerkungen entfernen, bis auf eine (die Originalzeile)
+    // Process remarks
+    if (Array.isArray(data.remarks)) {
         const originalRow = document.querySelector('tr.original-row');
-        const dupliTable = originalRow?.parentElement;
+        if (!originalRow) return;
 
-        if (dupliTable) {
-            // Alle außer Original löschen
-            dupliTable.querySelectorAll('tr:not(.original-row)').forEach(row => row.remove());
+        const dupliTable = originalRow.parentElement;
+        const firstInput = originalRow.querySelector('input.dupli.autoscale');
 
-            // Erste Zeile setzen
-            const firstInput = originalRow.querySelector('input.dupli.autoscale');
-            if (firstInput) firstInput.value = data['remarks'][0] || '';
+        // Clear existing rows except original
+        dupliTable.querySelectorAll('tr:not(.original-row)').forEach(row => row.remove());
 
-            // Restliche dynamisch erzeugen
-            for (let i = 1; i < data['remarks'].length; i++) {
-                const newRow = originalRow.cloneNode(true);
-                newRow.classList.remove('original-row');
-                newRow.querySelector('input.dupli.autoscale').value = data['remarks'][i];
+        // Set first remark
+        if (firstInput) firstInput.value = data.remarks[0] ?? '';
 
-                dupliTable.appendChild(newRow);
-            }
-        }
+        // Add additional remarks
+        data.remarks.slice(1).forEach(remark => {
+            const newRow = originalRow.cloneNode(true);
+            newRow.classList.remove('original-row');
+            const input = newRow.querySelector('input.dupli.autoscale');
+            if (input) input.value = remark;
+            dupliTable.appendChild(newRow);
+        });
     }
-
-
-    Object.keys(data).forEach(key => {
-        const el = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
-
-        if (el) {
-            if (el.type === 'radio' || el.type === 'checkbox') {
-                el.checked = data[key];
-            } else {
-                el.value = data[key];
-            }
-        }
-    });
 }
 
-// Speichern unter einem Namen
-/* function saveData() {
-    const name = prompt("Bitte Namen für die Speicherung eingeben:");
-    if (!name) return;
+let autoBackupInterval;
+let initialBackupTimeout;
 
+function startAutoBackup() {
+    // Clear any existing intervals/timeouts
+    if (autoBackupInterval) clearInterval(autoBackupInterval);
+    if (initialBackupTimeout) clearTimeout(initialBackupTimeout);
+
+    // Schedule first backup after 5 minutes (300,000 milliseconds)
+    initialBackupTimeout = setTimeout(() => {
+        performAutoBackup();
+
+        // Then set regular interval for every 10 minutes (600,000 milliseconds)
+        autoBackupInterval = setInterval(performAutoBackup, 1200000);
+    }, 300000);
+
+    console.log("Auto-Backup geplant: Erstes Backup in 5 Minuten, dann alle 10 Minuten");
+}
+
+function stopAutoBackup() {
+    if (autoBackupInterval) clearInterval(autoBackupInterval);
+    if (initialBackupTimeout) clearTimeout(initialBackupTimeout);
+    console.log("Auto-Backup gestoppt");
+}
+
+
+function formatGermanDateTime(date) {
+    const pad = num => num.toString().padStart(2, '0');
+
+    // Get Berlin time
+    const berlinDate = new Date(date.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+
+    // Format as YYYY-MM-DD_HH:MM:SS
+    return [
+        berlinDate.getFullYear(),
+        pad(berlinDate.getMonth() + 1),
+        pad(berlinDate.getDate())
+    ].join('-') + '_' + [
+        pad(berlinDate.getHours()),
+        pad(berlinDate.getMinutes()),
+        pad(berlinDate.getSeconds())
+    ].join(':');
+}
+
+function performAutoBackup() {
+    const timestamp = formatGermanDateTime(new Date());
+    const backupName = `Autosave_${timestamp}`;
+
+    // Save data
     const allSaves = JSON.parse(localStorage.getItem("saves")) || {};
-    allSaves[name] = getFormData();
+    allSaves[backupName] = getFormData();
     localStorage.setItem("saves", JSON.stringify(allSaves));
 
+    // Update UI
     updateSaveList();
+    localStorage.setItem('lastBackupTime', timestamp);
 
-    // Nach dem Speichern auch den Namen als geladen anzeigen
-    const nameDisplay = document.getElementById("currentSaveName");
-    if (nameDisplay) {
-        nameDisplay.textContent = `Aktuell geladene Version: ${name}`;
-    }
+    console.log(`Automatisch gesichert als: ${backupName} (${new Date().toLocaleTimeString()})`);
 }
- */
+
 
 function saveData() {
-    // Modal für Namenseingabe erstellen
+    // Create modal
     const inputModal = document.createElement("div");
     inputModal.id = "saveNameModal";
     inputModal.innerHTML = `
-        <div style="
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            width: 400px;
-            max-width: 90%;
-            animation: fadeInUp 0.4s ease;
-        ">
-            <h2 style="margin-bottom: 20px; color:rgb(90, 94, 103); font-size: 26px;">Name eingeben</h2>
-            <input type="text" id="saveNameInput" placeholder="" style="
-                width: 100%;
-                padding: 12px;
-                margin-bottom: 20px;
-                border: 2px solid #ddd;
-                border-radius: 6px;
-                font-size: 22px;
-                box-sizing: border-box;
-            ">
-            <div style="display: flex; justify-content: center; gap: 15px;">
-                <button id="confirmSaveBtn" style="
-                    background-color:rgb(40, 118, 43);
-                    color: white;
-                    padding: 10px 25px;
-                    border: none;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-size: 20px;
-                    transition: background-color 0.3s;
-                ">Speichern</button>
-                <button id="cancelSaveBtn" style="
-                    background-color:rgb(57, 103, 176);
-                    color: white;
-                    padding: 10px 25px;
-                    border: none;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-size: 20px;
-                    transition: background-color 0.3s;
-                ">Abbrechen</button>
+        <div class="modal-content" style="position: relative;">
+            <!-- Close Button -->
+            <button id="modalCloseBtn" style="
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #888;
+                padding: 5px 10px;
+                line-height: 1;
+            ">×</button>
+            
+            <h2>Name eingeben</h2>
+            <input type="text" id="saveNameInput" placeholder="">
+            <div class="button-group">
+                <button id="cancelSaveBtn">Abbrechen</button>
+                <button id="confirmSaveBtn">Speichern</button>
             </div>
         </div>
     `;
 
+    // Apply styles (consider moving to CSS)
     Object.assign(inputModal.style, {
         position: "fixed",
         top: "0",
@@ -224,61 +212,109 @@ function saveData() {
         transition: "opacity 0.3s ease"
     });
 
+    const modalContent = inputModal.querySelector('.modal-content');
+    Object.assign(modalContent.style, {
+        background: "#ffffff",
+        padding: "30px",
+        borderRadius: "12px",
+        textAlign: "center",
+        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)",
+        width: "400px",
+        maxWidth: "90%",
+        animation: "fadeInUp 0.4s ease",
+        position: "relative" // Wichtig für den Close-Button
+    });
+
+    // Input field styles
+    const inputField = inputModal.querySelector('#saveNameInput');
+    Object.assign(inputField.style, {
+        width: "100%",
+        padding: "12px",
+        marginBottom: "25px",
+        border: "2px solid #ddd",
+        borderRadius: "6px",
+        fontSize: "16px",
+        boxSizing: "border-box"
+    });
+
+    // Button group styles
+    const buttonGroup = inputModal.querySelector('.button-group');
+    Object.assign(buttonGroup.style, {
+        display: "flex",
+        justifyContent: "space-between",
+        gap: "15px"
+    });
+
+    // Button styles
+    const buttons = inputModal.querySelectorAll('.button-group button');
+    buttons.forEach(button => {
+        Object.assign(button.style, {
+            flex: "1",
+            padding: "10px",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontSize: "16px",
+            transition: "background-color 0.3s"
+        });
+    });
+
+    // Cancel button specific style
+    Object.assign(buttons[0].style, {
+        backgroundColor: "rgb(176, 57, 57)",
+        color: "white"
+    });
+
+    // Confirm button specific style
+    Object.assign(buttons[1].style, {
+        backgroundColor: "rgb(40, 118, 43)",
+        color: "white"
+    });
+
     document.body.appendChild(inputModal);
 
-    // Modal sofort anzeigen
+    // Show modal
     setTimeout(() => {
         inputModal.style.opacity = "1";
         inputModal.style.pointerEvents = "auto";
         document.getElementById("saveNameInput").focus();
     }, 10);
 
-    // Event-Handler für Speichern-Button
-    document.getElementById("confirmSaveBtn").addEventListener("click", () => {
+    // Event handlers
+    const confirmSave = () => {
         const name = document.getElementById("saveNameInput").value.trim();
         if (!name) {
             alert("Bitte geben Sie einen Namen ein!");
             return;
         }
 
-        // Daten speichern
+        // Save data
         const allSaves = JSON.parse(localStorage.getItem("saves")) || {};
         allSaves[name] = getFormData();
         localStorage.setItem("saves", JSON.stringify(allSaves));
 
         updateSaveList();
 
-        // Nach dem Speichern den Namen als geladen anzeigen
+        // Update current save name display
         const nameDisplay = document.getElementById("currentSaveName");
-        if (nameDisplay) {
-            nameDisplay.textContent = `Aktuell geladene Version: ${name}`;
-        }
+        if (nameDisplay) nameDisplay.textContent = `Aktuell geladene Version: ${name}`;
 
-        // Modal schließen
-        inputModal.style.opacity = "0";
-        inputModal.style.pointerEvents = "none";
-        setTimeout(() => {
-            document.body.removeChild(inputModal);
-        }, 100);
-
-        // Erfolgsmeldung anzeigen
+        closeModal();
         showSuccessModal(`Name: "${name}"`);
-    });
+    };
 
-    // Event-Handler für Abbrechen-Button
-    document.getElementById("cancelSaveBtn").addEventListener("click", () => {
+    const closeModal = () => {
         inputModal.style.opacity = "0";
         inputModal.style.pointerEvents = "none";
-        setTimeout(() => {
-            document.body.removeChild(inputModal);
-        }, 100);
-    });
+        setTimeout(() => document.body.removeChild(inputModal), 100);
+    };
 
-    // Enter-Taste abfangen
+    // Event listeners
+    document.getElementById("confirmSaveBtn").addEventListener("click", confirmSave);
+    document.getElementById("cancelSaveBtn").addEventListener("click", closeModal);
+    document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
     document.getElementById("saveNameInput").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-            document.getElementById("confirmSaveBtn").click();
-        }
+        if (e.key === "Enter") confirmSave();
     });
 }
 
@@ -406,121 +442,11 @@ function updateSaveList() {
     }
 }
 
-// Gewählte Speicherung laden
-/* function loadSelectedSave() {
-    const select = document.getElementById("loadSelect");
-    const selectedName = select.value;
-    if (!selectedName) return;
+document.addEventListener('DOMContentLoaded', function () {
+    startAutoBackup();
+});
 
-    const allSaves = JSON.parse(localStorage.getItem("saves")) || {};
-    if (allSaves[selectedName]) {
-        setFormData(allSaves[selectedName]);
 
-        // Name der aktuellen Version anzeigen
-        const nameDisplay = document.getElementById("currentSaveName");
-        if (nameDisplay) {
-            nameDisplay.textContent = `Aktuell geladene Version: ${selectedName}`;
-        }
-    }
-} */
-
-/*      function loadSelectedSave() {
-        const select = document.getElementById("loadSelect");
-        const selectedName = select.value;
-        if (!selectedName) return;
-    
-        const allSaves = JSON.parse(localStorage.getItem("saves")) || {};
-        if (allSaves[selectedName]) {
-            setFormData(allSaves[selectedName]);
-    
-            // Name der aktuellen Version anzeigen
-            const nameDisplay = document.getElementById("currentSaveName");
-            if (nameDisplay) {
-                nameDisplay.textContent = `Aktuell geladene Version: ${selectedName}`;
-            }
-    
-            // Erfolgs-Modal erstellen
-            const modal = document.createElement("div");
-            modal.id = "loadSuccessModal";
-            modal.innerHTML = `
-                <div style="
-                    background: #ffffff;
-                    padding: 30px;
-                    border-radius: 12px;
-                    text-align: center;
-                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-                    animation: fadeInUp 0.4s ease;
-                ">
-                    <h2 style="margin-bottom: 10px; color: #4CAF50; font-size: 26px;">Laden erfolgreich!</h2>
-                    <p style="margin-bottom: 20px; font-size: 22px;">(Name: "${selectedName}")</p>
-                    <button id="closeLoadModalBtn" style="
-                        background-color: #4CAF50;
-                        color: white;
-                        padding: 10px 20px;
-                        border: none;
-                        border-radius: 6px;
-                        cursor: pointer;
-                        font-size: 16px;
-                        transition: background-color 0.3s;
-                    ">OK</button>
-                </div>
-            `;
-            Object.assign(modal.style, {
-                position: "fixed",
-                top: "0",
-                left: "0",
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                opacity: "0",
-                pointerEvents: "none",
-                transition: "opacity 0.3s ease",
-                zIndex: "9999"
-            });
-            document.body.appendChild(modal);
-    
-            // Modal nach 1500ms sichtbar machen
-            setTimeout(() => {
-                modal.style.opacity = "1";
-                modal.style.pointerEvents = "auto";
-            }, 50);
-    
-            // Button schließen
-            document.getElementById("closeLoadModalBtn").addEventListener("click", () => {
-                modal.style.opacity = "0";
-                modal.style.pointerEvents = "none";
-
-            });
-    
-            // CSS-Animation falls noch nicht vorhanden
-            if (!document.getElementById('modalStyles')) {
-                const style = document.createElement('style');
-                style.id = 'modalStyles';
-                style.innerHTML = `
-                    @keyframes fadeInUp {
-                        from {
-                            transform: translateY(20px);
-                            opacity: 0;
-                        }
-                        to {
-                            transform: translateY(0);
-                            opacity: 1;
-                        }
-                    }
-                    #closeLoadModalBtn:hover {
-                        background-color: #45a049;
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        } else {
-            // Optional: Fehler-Modal falls gewünscht
-            console.error("Ausgewählte Version nicht gefunden");
-        }
-    } */
 
 
 function loadSelectedSave() {
@@ -535,56 +461,72 @@ function loadSelectedSave() {
     ).join('');
 
     loadModal.innerHTML = `
-                <div style="
-                    background: #ffffff;
-                    padding: 30px;
-                    border-radius: 12px;
-                    text-align: center;
-                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-                    width: 500px;
-                    max-width: 90%;
-                    animation: fadeInUp 0.4s ease;
-                ">
-                    <h2 style="margin-bottom: 20px; color: rgb(90, 94, 103); font-size: 26px;">Version laden</h2>
-                    
-                    <select id="modalLoadSelect" style="
-                        width: 100%;
-                        padding: 12px;
-                        margin-bottom: 25px;
-                        border: 2px solid #ddd;
-                        border-radius: 6px;
-                        font-size: 26px;
-                        box-sizing: border-box;
-                        height: 70px;
-                    ">
-                        <option style="font-size:22px;" value="">-- Bitte auswählen --</option>
-                        ${saveOptions}
-                    </select>
-                    
-                    <div style="display: flex; justify-content: center; gap: 15px;">
-                        <button id="confirmLoadBtn" style="
-                            background-color: rgb(40, 118, 43);
-                            color: white;
-                            padding: 10px 25px;
-                            border: none;
-                            border-radius: 6px;
-                            cursor: pointer;
-                            font-size: 22px;
-                            transition: background-color 0.3s;
-                        ">Laden</button>
-                        <button id="cancelLoadBtn" style="
-                            background-color: rgb(57, 103, 176);
-                            color: white;
-                            padding: 10px 25px;
-                            border: none;
-                            border-radius: 6px;
-                            cursor: pointer;
-                            font-size: 22px;
-                            transition: background-color 0.3s;
-                        ">Abbrechen</button>
-                    </div>
-                </div>
-            `;
+        <div style="
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            width: 500px;
+            max-width: 90%;
+            animation: fadeInUp 0.4s ease;
+            position: relative;
+        ">
+            <!-- Close Button -->
+            <button id="modalCloseBtn" style="
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #888;
+                padding: 5px 10px;
+                line-height: 1;
+            ">×</button>
+            
+            <h2 style="margin-bottom: 20px; color: rgb(90, 94, 103); font-size: 26px;">Version laden</h2>
+            
+            <select id="modalLoadSelect" style="
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 25px;
+                border: 2px solid #ddd;
+                border-radius: 6px;
+                font-size: 26px;
+                box-sizing: border-box;
+                height: 70px;
+            ">
+                <option style="font-size:22px;" value="">-- Bitte auswählen --</option>
+                ${saveOptions}
+            </select>
+            
+            <div style="display: flex; justify-content: center; gap: 15px;">
+                <button id="cancelLoadBtn" style="
+                    background-color: rgb(176, 57, 57);
+                    color: white;
+                    padding: 10px 25px;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 22px;
+                    transition: background-color 0.3s;
+                ">Abbrechen</button>
+                
+                <button id="confirmLoadBtn" style="
+                    background-color: rgb(40, 118, 43);
+                    color: white;
+                    padding: 10px 25px;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 22px;
+                    transition: background-color 0.3s;
+                ">Laden</button>
+            </div>
+        </div>
+    `;
 
     Object.assign(loadModal.style, {
         position: "fixed",
@@ -610,6 +552,15 @@ function loadSelectedSave() {
         loadModal.style.pointerEvents = "auto";
         document.getElementById("modalLoadSelect").focus();
     }, 10);
+
+    // Event-Handler für Close-Button
+    document.getElementById("modalCloseBtn").addEventListener("click", () => {
+        loadModal.style.opacity = "0";
+        loadModal.style.pointerEvents = "none";
+        setTimeout(() => {
+            document.body.removeChild(loadModal);
+        }, 100);
+    });
 
     // Event-Handler für Laden-Button
     document.getElementById("confirmLoadBtn").addEventListener("click", () => {
@@ -669,28 +620,28 @@ function loadSelectedSave() {
             const modal = document.createElement("div");
             modal.id = "loadSuccessModal";
             modal.innerHTML = `
-                        <div style="
-                            background: #ffffff;
-                            padding: 30px;
-                            border-radius: 12px;
-                            text-align: center;
-                            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-                            animation: fadeInUp 0.4s ease;
-                        ">
-                            <h2 style="margin-bottom: 10px; color: rgb(40, 118, 43); font-size: 26px;">Laden erfolgreich!</h2>
-                            <p style="margin-bottom: 20px; font-size: 22px;">Name: ${selectedName}</p>
-                            <button id="closeLoadModalBtn" style="
-                                background-color: rgb(40, 118, 43);
-                                color: white;
-                                padding: 10px 20px;
-                                border: none;
-                                border-radius: 6px;
-                                cursor: pointer;
-                                font-size: 22px;
-                                transition: background-color 0.3s;
-                            ">OK</button>
-                        </div>
-                    `;
+                <div style="
+                    background: #ffffff;
+                    padding: 30px;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+                    animation: fadeInUp 0.4s ease;
+                ">
+                    <h2 style="margin-bottom: 10px; color: rgb(40, 118, 43); font-size: 26px;">Laden erfolgreich!</h2>
+                    <p style="margin-bottom: 20px; font-size: 22px;">Name: ${selectedName}</p>
+                    <button id="closeLoadModalBtn" style="
+                        background-color: rgb(40, 118, 43);
+                        color: white;
+                        padding: 10px 20px;
+                        border: none;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        font-size: 22px;
+                        transition: background-color 0.3s;
+                    ">OK</button>
+                </div>
+            `;
             Object.assign(modal.style, {
                 position: "fixed",
                 top: "0",
@@ -727,6 +678,9 @@ function loadSelectedSave() {
         }
     }
 }
+
+
+
 
 // CSS-Animationen sicherstellen
 if (!document.getElementById('modalStyles')) {
@@ -887,7 +841,22 @@ function deleteSelectedSave() {
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             max-height: 80vh;
             overflow-y: auto;
+            position: relative;
         ">
+            <!-- Close Button -->
+            <button id="modalCloseBtn" style="
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #888;
+                padding: 5px 10px;
+                line-height: 1;
+            ">×</button>
+            
             <h3 style="margin-top: 0; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">
                 Versionen zum Löschen auswählen
             </h3>
@@ -911,17 +880,7 @@ function deleteSelectedSave() {
                     margin-right:11px;
                     ">Alle auswählen</button>
 
-                                        <button id="confirmDelete" style="
-                        padding: 8px 16px;
-                        background: #e74c3c;
-                        color: white;
-                        border: none;
-                        border-radius: 4px;
-                        cursor: pointer;
-                    ">Ausgewählte löschen</button>
-
-                
-                <div style="display: flex; gap: 10px;">
+                                    <div style="display: flex; gap: 10px;">
                     <button id="cancelDelete" style="
                         padding: 8px 16px;
                         background:rgb(179, 179, 179);
@@ -930,9 +889,18 @@ function deleteSelectedSave() {
                         cursor: pointer;
                         margin-left:11px;
                     ">Abbrechen</button>
-                    
-
                 </div>
+
+                <button id="confirmDelete" style="
+                    padding: 8px 16px;
+                    background: #e74c3c;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                ">Ausgewählte löschen</button>
+                
+
             </div>
         </div>
     `;
@@ -954,9 +922,12 @@ function deleteSelectedSave() {
     document.body.appendChild(deleteModal);
 
     // Event Listener für Buttons
-    document.getElementById('cancelDelete').addEventListener('click', () => {
+    const closeModal = () => {
         document.body.removeChild(deleteModal);
-    });
+    };
+
+    document.getElementById('cancelDelete').addEventListener('click', closeModal);
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
 
     document.getElementById('selectAllVersions').addEventListener('click', () => {
         const checkboxes = document.querySelectorAll('input[name="versionToDelete"]');
@@ -977,18 +948,6 @@ function deleteSelectedSave() {
             return;
         }
 
-
-
-
-
-        /*         const confirmationMessage = selectedVersions.length === Object.keys(allSaves).length
-                    ? "Wirklich ALLE gespeicherten Versionen löschen?"
-                    : `Wirklich ${selectedVersions.length} ausgewählte Version${selectedVersions.length > 1 ? 'en' : ''} löschen?`; */
-
-
-
-
-
         if (confirm(`Wirklich ${selectedVersions.length} Version${selectedVersions.length > 1 ? 'en' : ''} löschen?`)) {
             // Lösche die ausgewählten Versionen
             selectedVersions.forEach(version => {
@@ -1001,7 +960,7 @@ function deleteSelectedSave() {
             updateSaveList();
 
             // Schließe das Modal
-            document.body.removeChild(deleteModal);
+            closeModal();
 
             // Zeige Erfolgsmeldung
             ModalHelper.showSuccessModal(
@@ -1078,35 +1037,6 @@ function saveMieterDaten() {
     // Optional: Abspeichern in localStorage
     localStorage.setItem("einziehendeMieter", JSON.stringify(mieterdaten));
 }
-
-/* function exportPortableSave() {
-    const data = getFormData();
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const fileName = `Protokoll_${timestamp}.protokoll`;
-    
-    // Metadaten hinzufügen
-    const portableData = {
-        version: 1,
-        created: new Date().toISOString(),
-        browser: navigator.userAgent,
-        data: data
-    };
-
-    const jsonText = JSON.stringify(portableData, null, 2);
-    const blob = new Blob([jsonText], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
-} */
-
-
 
 
 function exportPortableSave() {
@@ -1255,129 +1185,129 @@ function exportPortableSave() {
     reader.readAsText(file);
 } */
 
-    function importPortableSave(file) {
-        const reader = new FileReader();
-    
-        // Modal erstellen
-        const modal = document.createElement('div');
-        modal.style.position = 'fixed';
-        modal.style.top = '0';
-        modal.style.left = '0';
-        modal.style.width = '100%';
-        modal.style.height = '100%';
-        modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
-        modal.style.display = 'flex';
-        modal.style.justifyContent = 'center';
-        modal.style.alignItems = 'center';
-        modal.style.zIndex = '1000';
+function importPortableSave(file) {
+    const reader = new FileReader();
+
+    // Modal erstellen
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+    modal.style.display = 'flex';
+    modal.style.justifyContent = 'center';
+    modal.style.alignItems = 'center';
+    modal.style.zIndex = '1000';
+    modal.style.opacity = '0';
+    modal.style.transition = 'opacity 0.3s ease';
+    modal.style.pointerEvents = 'none';
+
+    // Modal-Inhalt
+    const modalContent = document.createElement('div');
+    modalContent.style.backgroundColor = 'white';
+    modalContent.style.padding = '2rem';
+    modalContent.style.borderRadius = '8px';
+    modalContent.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+    modalContent.style.maxWidth = '400px';
+    modalContent.style.textAlign = 'center';
+    modalContent.style.transform = 'translateY(-20px)';
+    modalContent.style.transition = 'transform 0.3s ease';
+
+    const modalTitle = document.createElement('h3');
+    modalTitle.style.marginTop = '0';
+    modalTitle.style.color = '#4CAF50';
+
+    const modalMessage = document.createElement('p');
+    modalMessage.style.marginBottom = '1.5rem';
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.padding = '0.5rem 1.5rem';
+    closeButton.style.backgroundColor = '#4CAF50';
+    closeButton.style.color = 'white';
+    closeButton.style.border = 'none';
+    closeButton.style.borderRadius = '4px';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.fontSize = '1rem';
+
+    closeButton.addEventListener('click', () => {
         modal.style.opacity = '0';
-        modal.style.transition = 'opacity 0.3s ease';
-        modal.style.pointerEvents = 'none';
-    
-        // Modal-Inhalt
-        const modalContent = document.createElement('div');
-        modalContent.style.backgroundColor = 'white';
-        modalContent.style.padding = '2rem';
-        modalContent.style.borderRadius = '8px';
-        modalContent.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-        modalContent.style.maxWidth = '400px';
-        modalContent.style.textAlign = 'center';
-        modalContent.style.transform = 'translateY(-20px)';
-        modalContent.style.transition = 'transform 0.3s ease';
-    
-        const modalTitle = document.createElement('h3');
-        modalTitle.style.marginTop = '0';
-        modalTitle.style.color = '#4CAF50';
-        
-        const modalMessage = document.createElement('p');
-        modalMessage.style.marginBottom = '1.5rem';
-        
-        const closeButton = document.createElement('button');
-        closeButton.textContent = 'OK';
-        closeButton.style.padding = '0.5rem 1.5rem';
-        closeButton.style.backgroundColor = '#4CAF50';
-        closeButton.style.color = 'white';
-        closeButton.style.border = 'none';
-        closeButton.style.borderRadius = '4px';
-        closeButton.style.cursor = 'pointer';
-        closeButton.style.fontSize = '1rem';
-        
-        closeButton.addEventListener('click', () => {
-            modal.style.opacity = '0';
-            setTimeout(() => {
-                document.body.removeChild(modal);
-            }, 300);
-        });
-    
-        modalContent.appendChild(modalTitle);
-        modalContent.appendChild(modalMessage);
-        modalContent.appendChild(closeButton);
-        modal.appendChild(modalContent);
-        
-        reader.onload = function (e) {
-            try {
-                const portableData = JSON.parse(e.target.result);
-    
-                // Version prüfen
-                if (!portableData.version || portableData.version > 1) {
-                    throw new Error("Nicht unterstütztes Dateiformat");
-                }
-    
-                // Daten ins Formular laden
-                setFormData(portableData.data);
-    
-                // Erfolgsmeldung im Modal anzeigen
-                modalTitle.textContent = 'Erfolg!';
-                modalMessage.textContent = 'Protokoll erfolgreich importiert!';
-                
-                document.body.appendChild(modal);
-                
-                // Animation auslösen
-                setTimeout(() => {
-                    modal.style.opacity = '1';
-                    modal.style.pointerEvents = 'auto';
-                    modalContent.style.transform = 'translateY(0)';
-                }, 10);
-    
-            } catch (error) {
-                console.error("Import fehlgeschlagen:", error);
-                
-                // Fehlermeldung im Modal anzeigen
-                modalTitle.textContent = 'Fehler!';
-                modalTitle.style.color = '#F44336';
-                modalMessage.textContent = 'Fehler beim Import: ' + error.message;
-                closeButton.style.backgroundColor = '#F44336';
-                
-                document.body.appendChild(modal);
-                
-                // Animation auslösen
-                setTimeout(() => {
-                    modal.style.opacity = '1';
-                    modal.style.pointerEvents = 'auto';
-                    modalContent.style.transform = 'translateY(0)';
-                }, 10);
+        setTimeout(() => {
+            document.body.removeChild(modal);
+        }, 300);
+    });
+
+    modalContent.appendChild(modalTitle);
+    modalContent.appendChild(modalMessage);
+    modalContent.appendChild(closeButton);
+    modal.appendChild(modalContent);
+
+    reader.onload = function (e) {
+        try {
+            const portableData = JSON.parse(e.target.result);
+
+            // Version prüfen
+            if (!portableData.version || portableData.version > 1) {
+                throw new Error("Nicht unterstütztes Dateiformat");
             }
-        };
-    
-        reader.onerror = function () {
-            // Fehlermeldung im Modal anzeigen
-            modalTitle.textContent = 'Fehler!';
-            modalTitle.style.color = '#F44336';
-            modalMessage.textContent = 'Fehler beim Lesen der Datei';
-            closeButton.style.backgroundColor = '#F44336';
-            
+
+            // Daten ins Formular laden
+            setFormData(portableData.data);
+
+            // Erfolgsmeldung im Modal anzeigen
+            modalTitle.textContent = 'Erfolg!';
+            modalMessage.textContent = 'Protokoll erfolgreich importiert!';
+
             document.body.appendChild(modal);
-            
+
             // Animation auslösen
             setTimeout(() => {
                 modal.style.opacity = '1';
                 modal.style.pointerEvents = 'auto';
                 modalContent.style.transform = 'translateY(0)';
             }, 10);
-        };
-    
-        reader.readAsText(file);
-    }
+
+        } catch (error) {
+            console.error("Import fehlgeschlagen:", error);
+
+            // Fehlermeldung im Modal anzeigen
+            modalTitle.textContent = 'Fehler!';
+            modalTitle.style.color = '#F44336';
+            modalMessage.textContent = 'Fehler beim Import: ' + error.message;
+            closeButton.style.backgroundColor = '#F44336';
+
+            document.body.appendChild(modal);
+
+            // Animation auslösen
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+                modalContent.style.transform = 'translateY(0)';
+            }, 10);
+        }
+    };
+
+    reader.onerror = function () {
+        // Fehlermeldung im Modal anzeigen
+        modalTitle.textContent = 'Fehler!';
+        modalTitle.style.color = '#F44336';
+        modalMessage.textContent = 'Fehler beim Lesen der Datei';
+        closeButton.style.backgroundColor = '#F44336';
+
+        document.body.appendChild(modal);
+
+        // Animation auslösen
+        setTimeout(() => {
+            modal.style.opacity = '1';
+            modal.style.pointerEvents = 'auto';
+            modalContent.style.transform = 'translateY(0)';
+        }, 10);
+    };
+
+    reader.readAsText(file);
+}
 
 
 
