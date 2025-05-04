@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 printjs.js
-Version 3.35_beta */
+Version 3.36_beta */
 
 document.addEventListener('DOMContentLoaded', function () {
 });
