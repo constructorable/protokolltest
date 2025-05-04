@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 script.js
-Version 3.34_beta */
+Version 3.36_beta */
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -61,6 +61,20 @@ pageOverlay.style.zIndex = "998";
 pageOverlay.style.display = "none";
 document.body.appendChild(pageOverlay);
 stickyContainer.style.zIndex = "999";
+
+// Close Button erstellen und zum Container hinzufügen
+const closeButton = document.createElement("button");
+closeButton.textContent = "×";
+closeButton.style.position = "absolute";
+closeButton.style.top = "10px";
+closeButton.style.right = "10px";
+closeButton.style.background = "transparent";
+closeButton.style.border = "none";
+closeButton.style.fontSize = "20px";
+closeButton.style.cursor = "pointer";
+closeButton.addEventListener("click", () => toggleMenu(false));
+stickyContainer.appendChild(closeButton);
+
 function toggleMenu(isOpen) {
     if (isOpen) {
         stickyContainer.setAttribute("data-state", "open");
@@ -72,17 +86,21 @@ function toggleMenu(isOpen) {
         pageOverlay.style.display = "none";
     }
 }
+
 toggleBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     const isOpen = stickyContainer.getAttribute("data-state") === "open";
     toggleMenu(!isOpen);
 });
+
 pageOverlay.addEventListener("click", () => {
     toggleMenu(false);
 });
+
 stickyContainer.addEventListener("click", (e) => {
     e.stopPropagation();
 });
+
 function ensureToggleBtnExists() {
     const existingBtn = document.getElementById("toggleStickyBtn");
     if (!existingBtn) {
@@ -99,7 +117,6 @@ function ensureToggleBtnExists() {
         });
     }
 }
-
 
 
 
