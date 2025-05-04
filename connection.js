@@ -1,16 +1,40 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 connection.js
-Version 3.34_beta */
+Version 3.36_beta */
 
 document.addEventListener('DOMContentLoaded', function () {
     const connectionIcon = document.getElementById('connection-status');
-
-    // Stil für das Icon setzen
-    Object.assign(connectionIcon.style, {
+    
+    // Container für Icon und Text erstellen
+    const connectionContainer = document.createElement('div');
+    Object.assign(connectionContainer.style, {
         position: 'sticky',
         top: '10px',
         left: '10px',
         zIndex: '1000',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '4px'
+    });
+    
+    // Ursprüngliches Icon in den Container verschieben
+    connectionIcon.parentNode.insertBefore(connectionContainer, connectionIcon);
+    connectionContainer.appendChild(connectionIcon);
+
+    // Text-Element für Online/Offline-Status erstellen
+    const statusText = document.createElement('div');
+    Object.assign(statusText.style, {
+        fontSize: '12px',
+        fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center',
+        width: '100%'
+    });
+    connectionContainer.appendChild(statusText);
+
+    // Stil für das Icon setzen
+    Object.assign(connectionIcon.style, {
         width: '40px',
         height: '40px',
         borderRadius: '4px',
@@ -20,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
         justifyContent: 'center',
         cursor: 'pointer',
         boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-        padding: '4px'
+        padding: '4px',
+        margin: '0' // Margin entfernen für bessere Ausrichtung
     });
 
     const signalContainer = connectionIcon.querySelector('.signal-container');
@@ -40,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function checkConnection() {
         connectionIcon.title = "Verbindung wird geprüft...";
+        statusText.textContent = "Prüfe...";
 
         if (navigator.onLine) {
             fetch('https://httpbin.org/get', {
@@ -49,15 +75,21 @@ document.addEventListener('DOMContentLoaded', function () {
             }).then(() => {
                 connectionIcon.style.backgroundColor = '#4CAF50';
                 connectionIcon.title = 'Online - Verbindung besteht';
+                statusText.textContent = 'Online';
+                statusText.style.color = '#4CAF50';
                 updateSignalBars(5);
             }).catch(() => {
                 connectionIcon.style.backgroundColor = '#FF9800';
                 connectionIcon.title = 'Online - Keine Internetverbindung';
+                statusText.textContent = 'Eingeschränkt';
+                statusText.style.color = '#FF9800';
                 updateSignalBars(0);
             });
         } else {
             connectionIcon.style.backgroundColor = '#FFEB3B';
             connectionIcon.title = 'Offline - Keine Internetverbindung';
+            statusText.textContent = 'Offline';
+            statusText.style.color = '#F44336';
             updateSignalBars(0);
         }
     }
