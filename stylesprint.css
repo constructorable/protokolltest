@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 stylesprint.css
-Version 3.34_beta */
+Version 3.36_beta */
 
 body {
     font-family: Arial, sans-serif;
@@ -251,7 +251,7 @@ input[type="text"] {
     padding-top: 10px;
     padding-bottom: 0px;
     padding-left: 5px;
-    background-color: #f3f8ff;
+    background-color: #fff;
     color: #333;
     border: 1px solid #ccc;
     padding-left: 5px;
@@ -289,14 +289,15 @@ input.dupli {
 
 .signature-canvas,
 #vermieter-signature {
-    border: 2px solid #121212;
+    border: 2px solid #d7d7d7;
     background: #fff;
     width: 500px;
     height: 150px;
 }
 
 #vermieter-signature {
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
+    margin-bottom: 0px;
 }
 
 .allgemein00>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1+2) {
@@ -356,7 +357,7 @@ input.dupli {
 
 [id^="einziehender-mieter-signature-"] {
     background-color: #fff;
-    border: 2px solid green;
+    border: 2px solid #d7d7d7;
 }
 
 /* #einziehender-mieter-info-1,
@@ -420,7 +421,7 @@ input.dupli {
 [id^="ausziehender-mieter-signature-"] {
     margin-bottom: 1px;
     background-color: #fff;
-    border: 2px solid rgb(132, 14, 14);
+    border: 2px solid #d7d7d7;
 }
 
 
@@ -488,7 +489,7 @@ input.dupli {
 .mails,
 .mails2 {
     font-size: 16px !important;
-    background-color: #f3f8ff;
+    background-color: #fff;
     height: 1.9 !important;
     line-height: 1.9 !important;
     border-radius: 5px;
@@ -530,7 +531,7 @@ input.dupli {
 
 #schluesselTable>tbody:nth-child(2)>tr>td:nth-child(2)>input:first-child {
     width: 100%;
-    background: #f3f8ff;
+    background: #fff;
     border: none;
     border-radius: 5px;
     line-height: 1.11;
@@ -1097,7 +1098,8 @@ select {
     font-size: 16px;
     margin-right: 5px;
     margin-left: 5px;
-    background-color: #f3f8ff !important;
+    /* background-color: #fff !important; */
+    background-color: #fff !important;
 
 }
 
@@ -1277,7 +1279,7 @@ table {
 #auszugmieterTable input {
     width: 100% !important;
     box-sizing: border-box !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     padding: 3px 5px 0px 5px !important;
 
     margin: 3px 0 !important;
@@ -1428,12 +1430,12 @@ table {
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(9)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(10)>td:nth-child(2)>input:nth-child(1),
 #schluesselTable>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(2)>input:nth-child(1) {
-    background: #f3f8ff;
+    background: #fff;
 
 } */
 
 #schluesselTable>tbody:nth-child(2)>tr>td:nth-child(2)>input {
-    background: #f3f8ff;
+    background: #fff;
 }
 
 
@@ -1692,7 +1694,7 @@ table {
 .vermieter {
     margin-bottom: 22px !important;
     position: relative !important;
-    top: -33px !important;
+    top: -8px !important;
     font-weight: 600 !important;
 }
 
@@ -1708,6 +1710,7 @@ table {
 [id^="einziehender-mieter-signature-"] {
     width: 500px !important;
     height: 150px !important;
+    /* margin-bottom: 11px !important; */
 }
 
 .signature-content>div:nth-child(1)>table:nth-child(4)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
@@ -2036,7 +2039,7 @@ div.remark-row:nth-child(n+3):nth-child(-n+13)>div:first-child>input:first-child
 }
 
 .meterstand {
-    background-color: #f3f8ff;
+    background-color: #fff;
     border-radius: 5px;
     width: 178px !important;
 }
@@ -2137,7 +2140,7 @@ div.remark-row:nth-child(n+3):nth-child(-n+13)>div:first-child>input:first-child
 
 #protokollart2,
 #protokollart3 {
-    background-color: #f3f8ff !important;
+    background-color: #fff !important;
     padding: 5px !important;
     border: 1px solid rgb(176, 176, 176) !important;
     padding-left: 5px !important;
@@ -2446,3 +2449,15 @@ h3 i.fas {
 .pdf-button:hover .burger-menu-icon {
     opacity: 0.8;
 }
+
+.signature-box{
+    margin-top:20px;
+}
+
+
+  #StrasseAus01 {
+    height: 24px;
+    font-size: 22px !important;
+  }
+  
+  
