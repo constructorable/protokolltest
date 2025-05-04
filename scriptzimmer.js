@@ -467,14 +467,70 @@ function addRoom() {
     mainButtonContainer.appendChild(mainButton);
     mainButtonContainer.appendChild(choiceMenu);
 
+
+
+
+    /*     const roomTitle = document.createElement("h3");
+        roomTitle.textContent = "Zimmer " + roomCount;
+    
+        const remarkSection = document.createElement("div");
+        remarkSection.classList.add("remark-row");
+        remarkSection.innerHTML = `
+            <input type="text" name="remark" id="dupli${roomId}-zeile1" class="autoscale" placeholder=""> 
+        `; */
+
     const roomTitle = document.createElement("h3");
     roomTitle.textContent = "Zimmer " + roomCount;
 
     const remarkSection = document.createElement("div");
     remarkSection.classList.add("remark-row");
-    remarkSection.innerHTML = `
-        <input type="text" name="remark" id="dupli${roomId}-zeile1" class="autoscale" placeholder=""> 
+
+    // Container für Input + Button erstellen
+    const inputContainer = document.createElement("div");
+    inputContainer.style.position = "relative";
+    inputContainer.style.display = "inline-block";
+    inputContainer.style.width = "100%";
+
+    // Input-Feld erstellen
+    const remarkInput = document.createElement("input");
+    remarkInput.type = "text";
+    remarkInput.name = "remark";
+    remarkInput.id = `dupli${roomId}-zeile1`;
+    remarkInput.classList.add("autoscale");
+    remarkInput.placeholder = "";
+    remarkInput.style.paddingRight = "35px"; // Platz für den Button
+
+    // Löschbutton erstellen
+    const clearButton = document.createElement("button");
+    clearButton.type = "button";
+    clearButton.innerHTML = `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+             style="color: #777; transition: opacity 0.2s;"
+             onmouseover="this.style.color='#333'" onmouseout="this.style.color='#777'">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
     `;
+    clearButton.title = "Text löschen";
+    clearButton.style.position = "absolute";
+    clearButton.style.right = "18px";
+    clearButton.style.top = "50%";
+    clearButton.style.transform = "translateY(-50%)";
+    clearButton.style.background = "none";
+    clearButton.style.border = "none";
+    clearButton.style.cursor = "pointer";
+    clearButton.style.padding = "0";
+
+    // Click-Event für den Button
+    clearButton.addEventListener("click", function () {
+        remarkInput.value = "";
+    });
+
+    // Elemente zusammenbauen
+    inputContainer.appendChild(remarkInput);
+    inputContainer.appendChild(clearButton);
+    remarkSection.appendChild(inputContainer);
+
+
 
     const addRemarkButton = document.createElement("button");
     addRemarkButton.classList.add("add-remark-btn");
@@ -509,33 +565,124 @@ function addRoom() {
     roomDiv.insertBefore(newRemarkRow, roomDiv.querySelector('button.add-remark-btn'));
 } */
 
-    function addRemark(roomDiv) {
-        const newRemarkRow = document.createElement("div");
-        newRemarkRow.classList.add("remark-row");
-    
-        // Hole die Raum-ID, z. B. "zimm01"
-        const roomId = roomDiv.id;
-    
-        // Finde bereits vorhandene Zeilen für diesen Raum
-        const existingInputs = roomDiv.querySelectorAll(`input[id^="dupli${roomId}-zeile"]`);
-    
-        // Neue Zeilennummer (beginnt bei 2)
-        const newLineNumber = existingInputs.length + 2; // erste Zeile wäre 2, danach 3 usw.
-    
-        // Neue eindeutige ID
-        const newId = `dupli${roomId}-zeile${newLineNumber}`;
-    
-        newRemarkRow.innerHTML = `
+
+
+
+
+
+
+
+
+
+
+
+/* function addRemark(roomDiv) {
+    const newRemarkRow = document.createElement("div");
+    newRemarkRow.classList.add("remark-row");
+
+    // Hole die Raum-ID, z. B. "zimm01"
+    const roomId = roomDiv.id;
+
+    // Finde bereits vorhandene Zeilen für diesen Raum
+    const existingInputs = roomDiv.querySelectorAll(`input[id^="dupli${roomId}-zeile"]`);
+
+    // Neue Zeilennummer (beginnt bei 2)
+    const newLineNumber = existingInputs.length + 2; // erste Zeile wäre 2, danach 3 usw.
+
+    // Neue eindeutige ID
+    const newId = `dupli${roomId}-zeile${newLineNumber}`;
+
+    newRemarkRow.innerHTML = `
             <input type="text" id="${newId}" name="remark" class="autoscale dupli" placeholder="">
         `;
-    
-        // Neue Bemerkungszeile vor dem "Hinzufügen"-Button einfügen
-        const addButton = roomDiv.querySelector('button.add-remark-btn');
-        roomDiv.insertBefore(newRemarkRow, addButton);
-    }
-    
 
-    
+    // Neue Bemerkungszeile vor dem "Hinzufügen"-Button einfügen
+    const addButton = roomDiv.querySelector('button.add-remark-btn');
+    roomDiv.insertBefore(newRemarkRow, addButton);
+}
+ */
+
+function addRemark(roomDiv) {
+    const newRemarkRow = document.createElement("div");
+    newRemarkRow.classList.add("remark-row");
+
+    // Hole die Raum-ID, z.B. "zimm01"
+    const roomId = roomDiv.id;
+
+    // Finde bereits vorhandene Zeilen für diesen Raum
+    const existingInputs = roomDiv.querySelectorAll(`input[id^="dupli${roomId}-zeile"]`);
+
+    // Neue Zeilennummer (beginnt bei 2)
+    const newLineNumber = existingInputs.length + 2; // erste Zeile wäre 2, danach 3 usw.
+
+    // Neue eindeutige ID
+    const newId = `dupli${roomId}-zeile${newLineNumber}`;
+
+    // Container für Input + Button
+    const inputContainer = document.createElement("div");
+    inputContainer.style.position = "relative";
+    inputContainer.style.display = "inline-block";
+    inputContainer.style.width = "100%";
+
+    // Input-Feld erstellen
+    const remarkInput = document.createElement("input");
+    remarkInput.type = "text";
+    remarkInput.id = newId;
+    remarkInput.name = "remark";
+    remarkInput.classList.add("autoscale", "dupli");
+    remarkInput.placeholder = "";
+    remarkInput.style.paddingRight = "35px";
+    remarkInput.style.width = "100%";
+
+    // Löschbutton erstellen
+    const clearButton = document.createElement("button");
+    clearButton.type = "button";
+    clearButton.innerHTML = `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" 
+             style="color:#777;transition:all 0.2s" onmouseover="this.style.color='#333'">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2"/>
+        </svg>
+    `;
+    clearButton.title = "Text löschen";
+    Object.assign(clearButton.style, {
+        position: "absolute",
+        right: "8px",
+        top: "50%",
+        transform: "translateY(-50%)",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        padding: "0"
+    });
+
+    // Click-Handler für den Button
+    clearButton.addEventListener("click", function() {
+        remarkInput.value = "";
+    });
+
+    // Elemente zusammenbauen
+    inputContainer.appendChild(remarkInput);
+    inputContainer.appendChild(clearButton);
+    newRemarkRow.appendChild(inputContainer);
+
+    // Neue Bemerkungszeile vor dem "Hinzufügen"-Button einfügen
+    const addButton = roomDiv.querySelector('button.add-remark-btn');
+    roomDiv.insertBefore(newRemarkRow, addButton);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 async function compressImage(file) {
     return new Promise((resolve) => {
         const reader = new FileReader();
