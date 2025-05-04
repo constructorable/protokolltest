@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 stylestablet.css
-Version 3.34_beta */
+Version 3.36_beta */
 
 body {
     font-family: Arial, sans-serif;
@@ -701,7 +701,7 @@ td.label-cell:nth-child(1) {
 .sticky-container select {
     min-width: 100px;
     padding: 0.5em 1em;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -1171,7 +1171,7 @@ h3 {
 
 
 .add-remark-btn {
-    background-color: rgba(15, 122, 27, 0);
+    /*     background-color: rgba(15, 122, 27, 0);
     color: rgb(126, 126, 126);
     font-size: 20px;
     border: none;
@@ -1184,6 +1184,22 @@ h3 {
     margin-left: 3px;
     cursor: pointer;
     margin-top: 10px;
+    position: relative;
+    top: -51px;
+    left: 96%; */
+    background-color: rgba(15, 122, 27, 0);
+    color: rgb(29, 154, 11);
+    font-size: 24px;
+    border: none;
+    border-radius: 25px;
+    margin-right: 50px;
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 3px;
+    cursor: pointer;
+    margin-top: 7px;
     position: relative;
     top: -51px;
     left: 96%;
@@ -2735,8 +2751,8 @@ input.input-error {
 #withoutImagesBtn,
 #cancelModalBtn {
     font-size: 22px;
-    margin-bottom:22px;
-    height:3em;
+    margin-bottom: 22px;
+    height: 3em;
 }
 
 /* Hover – sichtbar bei Maus (z. B. auf Tablets mit Tastatur) */
@@ -2931,4 +2947,237 @@ td.label-cellheiz1:nth-child(1)>h3:nth-child(1) {
 /* Dezenter Hover-Effekt */
 .modalpic-option:hover {
     border-color: #2b55c0;
+}
+
+.sticky-container button,
+.sticky-container select {
+    box-shadow: none !important;
+
+}
+
+#stickyContainer>button:nth-child(15) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: medium;
+    font-size: 31px !important;
+    cursor: pointer;
+}
+
+
+#stickyContainer>div:nth-child(1)>div:nth-child(2) {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(23, 83, 28) !important;
+    text-align: center;
+    width: 100%;
+}
+
+#stickyContainer>div:nth-child(1) {
+
+    top: 100% !important;
+    left: 100% !important;
+    transform: translateY(17px);
+}
+
+
+#importPortableBtn:hover,
+#exportPortableBtn:hover {
+    background-color: #ddd !important;
+    border: 1px solid #fff !important;
+}
+
+#importPortableBtn,
+#exportPortableBtn {
+    border: 1px solid #fff0;
+}
+
+#cancelSaveBtn {
+    color: white !important;
+    padding: 10px 25px !important;
+    ;
+    border: none !important;
+    ;
+    border-radius: 6px !important;
+    ;
+    cursor: pointer !important;
+    ;
+    font-size: 22px !important;
+    ;
+    transition: background-color 0.3s !important;
+    ;
+    background: rgb(151, 30, 30) !important;
+    ;
+}
+
+#confirmSaveBtn {
+    background-color: rgb(40, 118, 43) !important;
+    ;
+    color: white !important;
+    ;
+    padding: 10px 25px !important;
+    ;
+    border: none !important;
+    ;
+    border-radius: 6px !important;
+    ;
+    cursor: pointer !important;
+    ;
+    font-size: 22px !important;
+    ;
+    transition: background-color 0.3s !important;
+    ;
+}
+
+#saveNameInput {
+    margin-bottom: 45px !important;
+}
+
+.button-group {
+    gap: 20px !important;
+    justify-content: center !important;
+}
+
+
+#saveNameModal>div:nth-child(1)>h2:nth-child(1),
+#saveNameModal>div:nth-child(1)>h2:nth-child(2) {
+    font-weight: 200 !important;
+    font-size: 32px !important;
+}
+
+#cancelDelete {
+    margin-right: 21px !important;
+}
+
+.input-with-counter {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.character-counter-container {
+    position: absolute;
+    right: 10px;
+    bottom: -18px;
+    font-size: 12px;
+}
+
+.character-counter {
+    color: #999;
+}
+
+.character-counter.limit-reached {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+/* Optional: Stil für Inputs mit Zähler */
+input[data-counter="true"] {
+    padding-right: 50px !important;
+}
+
+/* Für die erste und zweite Spalte (nicht alle geraden) */
+.rooms td:nth-child(2),
+.rooms td:nth-child(3),
+.room-container td:nth-child(2),
+.room-container td:nth-child(3) {
+    background-color: #edffce;
+}
+
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(3),
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(3),
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(9)>td:nth-child(2),
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(14)>td:nth-child(2),
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(18)>td:nth-child(2),
+#zzzkueche>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(29)>td:nth-child(2),
+#zzzbad>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#zzzbad>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zzzbad>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2),
+#zzzbad>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(12)>td:nth-child(2),
+#zzzbad>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(2),
+#zzzwc>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#zzzwc>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#zzzwc>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zzzwc>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(2),
+#zzzwc>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(12)>td:nth-child(2),
+#zzzwc>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(2),
+#zzzflur>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#zzzflur>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zzzflur>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(11)>td:nth-child(2),
+#zzzflur>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(14)>td:nth-child(2),
+#zzzflur>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(17)>td:nth-child(2),
+#abstell>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#abstell>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(2),
+#abstell>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(3),
+#abstell>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(2),
+#abstell>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(13)>td:nth-child(2),
+#abstell>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(16)>td:nth-child(2),
+#abstell>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21)>td:nth-child(2),
+#weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#hauptBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3),
+#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(2),
+#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(13)>td:nth-child(2),
+#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(15)>td:nth-child(2),
+#zimm01>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21)>td:nth-child(2),
+#zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(2),
+#zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(13)>td:nth-child(2),
+#zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(15)>td:nth-child(2),
+#zimm02>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21)>td:nth-child(2),
+#zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(2),
+#zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(13)>td:nth-child(2),
+#zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(15)>td:nth-child(2),
+#zimm03>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21)>td:nth-child(2),
+#zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(2),
+#zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(13)>td:nth-child(2),
+#zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(15)>td:nth-child(2),
+#zimm04>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21)>td:nth-child(2),
+#zimm05>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zimm05>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(2),
+#zimm05>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(13)>td:nth-child(2),
+#zimm05>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(15)>td:nth-child(2),
+#zimm05>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21)>td:nth-child(2),
+#zimm06>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3),
+#zimm06>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(2),
+#zimm06>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(13)>td:nth-child(2),
+#zimm06>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(15)>td:nth-child(2),
+#zimm06>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(21)>td:nth-child(2) {
+    background-color: #fff !important;
+}
+
+#weitereBemerkungen>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(2) {
+    background-color: #f1f1f1 !important;
+}
+
+#farbeInput1,
+#fussbodenInput1,
+#farbeInput2,
+#fussbodenInput2,
+#farbeInput3,
+#fussbodenInput3,
+#farbeInput4,
+#fussbodenInput4,
+#farbeInput5,
+#fussbodenInput5,
+#farbeInput8,
+#fussbodenInput8,
+#farbeInput9,
+#fussbodenInput9,
+#farbeInput10,
+#fussbodenInput10,
+#farbeInput11,
+#fussbodenInput11,
+#farbeInput12,
+#fussbodenInput12,
+#farbeInput13,
+#fussbodenInput13,
+#farbeInput14,
+#fussbodenInput14 {
+    width: 99% !important;
 }
