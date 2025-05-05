@@ -69,34 +69,11 @@ Version 3.36_beta -->
         </div>
 
 
-        <!--         <div id="sucpdf2" class="modal-overlay" style="display: none;">
-            <div class="modal-content" style="position: relative;">
-                <button id="closeSuccessModal2" style="
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background: transparent;
-                    border: none;
-                    font-size: 1.5rem;
-                    cursor: pointer;
-                ">&times;</button>
-                <h2> <i style="color: #c12b2b; font-size: 33px;" class="fas fa-file-pdf"></i>Bilder erfolgreich als PDF-Datei abgespeichert</h2>
-            </div>
-        </div> -->
-
-
-
-
-        <!--         <button class="pdf-button" id="toggleStickyBtn" data-state="closed">
-            Menü
-        </button> -->
-
         <button class="pdf-button" id="toggleStickyBtn" data-state="closed">
             <span class="burger-menu-icon"></span>
         </button>
 
         <div id="stickyContainer" class="sticky-container" data-state="closed">
-            <!-- Ihre Menü-Inhalte hier -->
             <div id="connection-status" title="Verbindungsstatus wird geprüft...">
                 <div class="signal-container">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -125,18 +102,10 @@ Version 3.36_beta -->
             <button id="importPortableBtn" class="btn"
                 onclick="document.getElementById('importFileInput').click()">Vorlage importieren</button>
 
-            <!-- <button id="saveasText">Daten als Text exportieren (Entwicklermodus)</button> -->
             <button id="toggleModeButton">Ansicht wechseln (Entwicklermodus)</button>
 
 
         </div>
-
-
-
-
-
-
-
 
 
         <div id="dynamic-content">
@@ -171,11 +140,6 @@ Version 3.36_beta -->
                             <tr>
                                 <td style="width: 370px; text-align: left;">Mieternummer</td>
 
-                                <!-- <td colspan="5">
-                                    <input type="text" id="mieterid" name="bemerkungen"
-                                        class="testeinzeilig langes-input autoscale suggestion-input"
-                                        style="width: 370px; margin-right:0px;">
-                                </td> -->
 
                                 <td colspan="5">
                                     <div style="position: relative; display: inline-block;">
@@ -1710,21 +1674,23 @@ Version 3.36_beta -->
                         <tr class="original-row" style="display: none;">
                             <td colspan="6">
                                 <div class="dupli-container">
-                                   <!--  <input type="text" id="duplibad" class="dupli autoscale" placeholder=""
+                                    <!--  <input type="text" id="duplibad" class="dupli autoscale" placeholder=""
                                         maxlength="115" style="font-size: 18px;"> -->
 
-                                        <div style="position: relative; display: inline-block; width:100%;">
-                                            <input type="text" id="duplibad" class="dupli autoscale" placeholder="" maxlength="115"
-                                                style="font-size: 18px; padding-right: 35px; width: 100%;">
-                                            <button type="button" onclick="this.previousElementSibling.value = '';"
-                                                style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
+                                    <div style="position: relative; display: inline-block; width:100%;">
+                                        <input type="text" id="duplibad" class="dupli autoscale" placeholder=""
+                                            maxlength="115" style="font-size: 18px; padding-right: 35px; width: 100%;">
+                                        <button type="button" onclick="this.previousElementSibling.value = '';"
+                                            style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
                                                                                                    background: none; border: none; cursor: pointer; padding: 0;" title="Text löschen">
-                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                    style="color: #b1b1b1; transition: opacity 0.2s;">
-                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                style="color: #b1b1b1; transition: opacity 0.2s;">
+                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
 
                                     <button class="dupli-button" onclick="duplicateRow(this)">
                                         +
@@ -2429,14 +2395,16 @@ Version 3.36_beta -->
                             <td colspan="6">
                                 <div class="dupli-container">
                                     <div style="position: relative; display: inline-block; width:100%;">
-                                        <input type="text" id="dupliwc" class="dupli autoscale" placeholder="" maxlength="115"
-                                            style="font-size: 18px; padding-right: 35px; width: 100%;">
+                                        <input type="text" id="dupliwc" class="dupli autoscale" placeholder=""
+                                            maxlength="115" style="font-size: 18px; padding-right: 35px; width: 100%;">
                                         <button type="button" onclick="this.previousElementSibling.value = '';"
                                             style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
                                                                                                background: none; border: none; cursor: pointer; padding: 0;" title="Text löschen">
-                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
                                                 style="color: #b1b1b1; transition: opacity 0.2s;">
-                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2"
+                                                    stroke-linecap="round" />
                                             </svg>
                                         </button>
                                     </div>
@@ -2787,14 +2755,16 @@ Version 3.36_beta -->
                             <td colspan="6">
                                 <div class="dupli-container">
                                     <div style="position: relative; display: inline-block; width:100%;">
-                                        <input type="text" id="dupliflur" class="dupli autoscale" placeholder="" maxlength="115"
-                                            style="font-size: 18px; padding-right: 35px; width: 100%;">
+                                        <input type="text" id="dupliflur" class="dupli autoscale" placeholder=""
+                                            maxlength="115" style="font-size: 18px; padding-right: 35px; width: 100%;">
                                         <button type="button" onclick="this.previousElementSibling.value = '';"
                                             style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
                                                                                                background: none; border: none; cursor: pointer; padding: 0;" title="Text löschen">
-                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
                                                 style="color: #b1b1b1; transition: opacity 0.2s;">
-                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2"
+                                                    stroke-linecap="round" />
                                             </svg>
                                         </button>
                                     </div>
@@ -3171,14 +3141,18 @@ Version 3.36_beta -->
                                 <td colspan="6">
                                     <div class="dupli-container">
                                         <div style="position: relative; display: inline-block; width:100%;">
-                                            <input type="text" id="dupliabstell" class="dupli autoscale" placeholder="" maxlength="115"
+                                            <input type="text" id="dupliabstell" class="dupli autoscale" placeholder=""
+                                                maxlength="115"
                                                 style="font-size: 18px; padding-right: 35px; width: 100%;">
                                             <button type="button" onclick="this.previousElementSibling.value = '';"
                                                 style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
-                                                                                                   background: none; border: none; cursor: pointer; padding: 0;" title="Text löschen">
-                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                                                   background: none; border: none; cursor: pointer; padding: 0;"
+                                                title="Text löschen">
+                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     style="color: #b1b1b1; transition: opacity 0.2s;">
-                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor"
+                                                        stroke-width="2.2" stroke-linecap="round" />
                                                 </svg>
                                             </button>
                                         </div>
@@ -3334,20 +3308,26 @@ Version 3.36_beta -->
                             </tr>
                             <tr class="original-row">
                                 <td colspan="6">
-                                    <div class="dupli-container"><div style="position: relative; display: inline-block; width:100%;">
-                                        <input type="text" id="duplifurther" class="dupli autoscale" placeholder="" maxlength="115"
-                                            style="font-size: 18px; padding-right: 35px; width: 100%;">
-                                        <button type="button" onclick="this.previousElementSibling.value = '';"
-                                            style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
-                                                                                               background: none; border: none; cursor: pointer; padding: 0;" title="Text löschen">
-                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                style="color: #b1b1b1; transition: opacity 0.2s;">
-                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
-                                            </svg>
-                                        </button>
-                                    </div><button class="dupli-button"
+                                    <div class="dupli-container">
+                                        <div style="position: relative; display: inline-block; width:100%;">
+                                            <input type="text" id="duplifurther" class="dupli autoscale" placeholder=""
+                                                maxlength="115"
+                                                style="font-size: 18px; padding-right: 35px; width: 100%;">
+                                            <button type="button" onclick="this.previousElementSibling.value = '';"
+                                                style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
+                                                                                               background: none; border: none; cursor: pointer; padding: 0;"
+                                                title="Text löschen">
+                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    style="color: #b1b1b1; transition: opacity 0.2s;">
+                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor"
+                                                        stroke-width="2.2" stroke-linecap="round" />
+                                                </svg>
+                                            </button>
+                                        </div><button class="dupli-button"
                                             onclick="duplicateRow(this)">+</button><button class="deletedupli-button"
-                                            onclick="deleteRow(this)">-</button></div>
+                                            onclick="deleteRow(this)">-</button>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -3493,14 +3473,18 @@ Version 3.36_beta -->
                                 <td colspan="7">
                                     <div class="dupli-container">
                                         <div style="position: relative; display: inline-block; width:100%;">
-                                            <input type="text" id="duplimaengelbeseit" class="dupli autoscale" placeholder="" maxlength="115"
+                                            <input type="text" id="duplimaengelbeseit" class="dupli autoscale"
+                                                placeholder="" maxlength="115"
                                                 style="font-size: 18px; padding-right: 35px; width: 100%;">
                                             <button type="button" onclick="this.previousElementSibling.value = '';"
                                                 style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
-                                                                                                   background: none; border: none; cursor: pointer; padding: 0;" title="Text löschen">
-                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                                                   background: none; border: none; cursor: pointer; padding: 0;"
+                                                title="Text löschen">
+                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     style="color: #b1b1b1; transition: opacity 0.2s;">
-                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor"
+                                                        stroke-width="2.2" stroke-linecap="round" />
                                                 </svg>
                                             </button>
                                         </div>
@@ -3547,14 +3531,18 @@ Version 3.36_beta -->
                                 <td colspan="8">
                                     <div class="dupli-container">
                                         <div style="position: relative; display: inline-block; width:100%;">
-                                            <input type="text" id="dupliproto" class="dupli autoscale" placeholder="" maxlength="115"
+                                            <input type="text" id="dupliproto" class="dupli autoscale" placeholder=""
+                                                maxlength="115"
                                                 style="font-size: 18px; padding-right: 35px; width: 100%;">
                                             <button type="button" onclick="this.previousElementSibling.value = '';"
                                                 style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); 
-                                                                                                   background: none; border: none; cursor: pointer; padding: 0;" title="Text löschen">
-                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                                                   background: none; border: none; cursor: pointer; padding: 0;"
+                                                title="Text löschen">
+                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     style="color: #b1b1b1; transition: opacity 0.2s;">
-                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor"
+                                                        stroke-width="2.2" stroke-linecap="round" />
                                                 </svg>
                                             </button>
                                         </div>
