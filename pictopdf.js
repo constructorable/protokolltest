@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const qualityOptions = [
             { value: 'low', label: 'Geringe Qualität (kleinere Dateigröße)', jpegQuality: 0.5, scale: 1.5 },
             { value: 'medium', label: 'Mittlere Qualität (empfohlen)', jpegQuality: 0.6, scale: 2 },
-            { value: 'high', label: 'Hohe Qualität (größere Dateigröße)', jpegQuality: 0.7, scale: 3 }
+            { value: 'high', label: 'Hohe Qualität (größere Dateigröße)', jpegQuality: 0.75, scale: 4 }
         ];
 
         let selectedQuality = qualityOptions[1]; // Standard: mittlere Qualität
@@ -80,20 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const optionContainer = document.createElement('label');
             optionContainer.htmlFor = `quality-${option.value}`;
             optionContainer.className = 'modalpic-option';
-/*             Object.assign(optionContainer.style, {
-                display: 'flex',
-                fontSize: '22px',
-                alignItems: 'center',
-                padding: '10px',
-                border: '2px solid #ccc',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                fontFamily: 'sans-serif',
-                userSelect: 'none',
-                position: 'relative',
-                backgroundColor: '#fff'
-            }); */
 
             // Radio-Button
             const radio = document.createElement('input');
@@ -178,15 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const cancelButton = document.createElement('button');
         cancelButton.textContent = 'Abbrechen';
         cancelButton.className = 'modalpic01';
-/*         Object.assign(cancelButton.style, {
-            padding: '8px 16px',
-            backgroundColor: 'rgb(160, 48, 40)',
-            fontSize:'22px',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-        }); */
+
         cancelButton.addEventListener('click', () => {
             modal.style.opacity = '0';
             setTimeout(() => {
@@ -198,15 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const confirmButton = document.createElement('button');
         confirmButton.textContent = 'PDF erstellen';
         confirmButton.className = 'modalpic02';
-/*         Object.assign(confirmButton.style, {
-            padding: '8px 16px',
-            backgroundColor: 'rgb(49, 130, 52)',
-            color: 'white',
-            fontSize:'22px !important',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-        }); */
+
         confirmButton.addEventListener('click', () => {
             modal.style.opacity = '0';
             setTimeout(() => {
@@ -228,10 +198,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     async function createPDF(qualitySettings) {
-        // Fortschrittsmodal erstellen
-        const progressModal = createProgressModal();
+        // Fortschrittsmodal erstellen und Referenz auf das Sekunden-Element speichern
+        const progressData = createProgressModal();
+        const progressModal = progressData.modal;
+        const timeElapsedText = progressData.timeElapsedText;
         document.body.appendChild(progressModal);
-
+    
+        // Timer starten
+        const startTime = Date.now();
+        let timerInterval = setInterval(() => {
+            const secondsElapsed = Math.floor((Date.now() - startTime) / 1000);
+            timeElapsedText.textContent = `${secondsElapsed} Sekunden vergangen`;
+        }, 1000);
+    
         // Animation auslösen
         setTimeout(() => {
             progressModal.style.opacity = '1';
@@ -367,6 +346,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             pdf.save(fileName);
 
+            clearInterval(timerInterval);
+
             // Fortschrittsmodal entfernen
             progressModal.style.opacity = '0';
             setTimeout(() => {
@@ -414,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.opacity = '0';
         modal.style.transition = 'opacity 0.3s ease';
         modal.style.pointerEvents = 'none';
-
+    
         const modalContent = document.createElement('div');
         modalContent.className = 'modal-content';
         modalContent.style.backgroundColor = 'white';
@@ -426,14 +407,14 @@ document.addEventListener('DOMContentLoaded', function () {
         modalContent.style.textAlign = 'center';
         modalContent.style.transform = 'translateY(-20px)';
         modalContent.style.transition = 'transform 0.3s ease';
-
+    
         const titleText = document.createElement('h2');
         titleText.textContent = 'Bilder werden als PDF erstellt...';
         titleText.style.marginTop = '0';
         titleText.style.color = '#4CAF50';
-        titleText.style.fontSize = '22px';
+        titleText.style.fontSize = '24px';
         titleText.style.fontFamily = 'sans-serif';
-
+    
         // Fortschrittsbalken
         const progressOuter = document.createElement('div');
         progressOuter.style.width = '100%';
@@ -442,29 +423,42 @@ document.addEventListener('DOMContentLoaded', function () {
         progressOuter.style.borderRadius = '10px';
         progressOuter.style.margin = '20px 0';
         progressOuter.style.overflow = 'hidden';
-
+    
         const progressBar = document.createElement('div');
         progressBar.className = 'progress-bar';
         progressBar.style.height = '100%';
         progressBar.style.width = '0%';
         progressBar.style.backgroundColor = '#4CAF50';
         progressBar.style.transition = 'width 0.3s ease';
-
+    
         progressOuter.appendChild(progressBar);
-
+    
         const progressText = document.createElement('div');
         progressText.className = 'progress-text';
         progressText.textContent = '0 %';
         progressText.style.fontFamily = 'sans-serif';
-        progressText.style.fontSize = '18px';
+        progressText.style.fontSize = '22px';
         progressText.style.marginBottom = '10px';
-
+    
+        // Sekundenanzeige hinzufügen
+        const timeElapsedText = document.createElement('div');
+        timeElapsedText.className = 'time-elapsed';
+        timeElapsedText.textContent = '0 Sekunden vergangen';
+        timeElapsedText.style.fontFamily = 'sans-serif';
+        timeElapsedText.style.fontSize = '22px';
+        timeElapsedText.style.marginBottom = '10px';
+        timeElapsedText.style.color = '#666';
+    
         modalContent.appendChild(titleText);
         modalContent.appendChild(progressOuter);
         modalContent.appendChild(progressText);
+        modalContent.appendChild(timeElapsedText); // Sekundenanzeige hinzufügen
         modal.appendChild(modalContent);
-
-        return modal;
+    
+        return {
+            modal: modal,
+            timeElapsedText: timeElapsedText // Referenz auf das Sekunden-Element zurückgeben
+        };
     }
 
     function createSuccessModal() {
@@ -571,7 +565,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const messageText = document.createElement('p');
         messageText.textContent = `Fehler beim Erstellen des PDFs: ${errorMessage}`;
         messageText.style.fontFamily = 'sans-serif';
-        messageText.style.fontSize = '18px';
+        messageText.style.fontSize = '22px';
         messageText.style.marginBottom = '20px';
 
         const closeButton = document.createElement('button');
@@ -582,7 +576,7 @@ document.addEventListener('DOMContentLoaded', function () {
         closeButton.style.border = 'none';
         closeButton.style.borderRadius = '4px';
         closeButton.style.cursor = 'pointer';
-        closeButton.style.fontSize = '16px';
+        closeButton.style.fontSize = '22px';
         closeButton.addEventListener('click', () => {
             modal.style.opacity = '0';
             setTimeout(() => {
