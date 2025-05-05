@@ -1,9 +1,9 @@
-/* Copyright - Oliver Acker, acker_oliver@yahoo.de
-printjs.js
-Version 3.36_beta */
+// Am Anfang der Datei den Import hinzufügen (falls ES6 Module verwendet werden)
+// import { showEmailMenu } from './mailsend.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-});
+// ODER sicherstellen, dass mailsend.js vorher geladen wurde, z.B. im HTML:
+// <script src="mailsend.js"></script>
+// <script src="print.js"></script>
 
 const checkboxState = storeCheckboxState();
 
@@ -29,79 +29,22 @@ function restoreCheckboxState(states) {
     });
 }
 
-function prepareDOMForPDF() {
-    const changes = [];
-
-    document.querySelectorAll('.no-print, button').forEach(el => {
-        changes.push({ element: el, property: 'display', original: el.style.display });
-        el.style.display = 'none';
-    });
-
-    document.querySelectorAll('*').forEach(el => {
-        changes.push({ element: el, property: 'animation', original: el.style.animation });
-        el.style.animation = 'none';
-    });
-
-    return changes;
-}
-
-function restoreDOM(changes) {
-    changes.forEach(({ element, property, original }) => {
-        element.style[property] = original;
-    });
-}
-
-async function preloadImages() {
-    const images = document.querySelectorAll('img');
-    const promises = Array.from(images).map(img => {
-        if (img.complete) return Promise.resolve();
-
-        return new Promise((resolve) => {
-            img.onload = resolve;
-            img.onerror = resolve;
-        });
-    });
-
-    await Promise.all(promises);
-}
-
-async function renderElementsInParallel(elements) {
-    const promises = elements.map(element =>
-        html2canvas(element, {
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            allowTaint: true,
-            letterRendering: true
-        })
-    );
-    return await Promise.all(promises);
-}
-
-document.getElementById('savePdfButton').addEventListener('click', async function (event) {
-    /* if (!validateStrasseeinzug() || !validateNumberInputs()) { */
+document.getElementById('savePdfButton').addEventListener('click', async function(event) {
     if (!validateStrasseeinzug()) {
         event.preventDefault();
         return;
     }
 
-    const bilderVorhanden =
-        document.querySelector('.bilderzimmer')?.children.length > 0 ||
-        document.querySelectorAll('[id^="large-wrapper-img"]').length > 0;
-
+    const bilderVorhanden = document.querySelector('.bilderzimmer')?.children.length > 0 || document.querySelectorAll('[id^="large-wrapper-img"]').length > 0;
     let includeImages = false;
-
     if (bilderVorhanden) {
         includeImages = await showImageModal();
-
         if (includeImages === null) {
-
             return;
         }
     }
-    exportPDF(includeImages);
 
-    let domChanges = [];
+    exportPDF(includeImages);
 
     async function exportPDF(includeImages) {
         if (exportInProgress) {
@@ -120,7 +63,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             color: '#FFEA82',
             trailColor: '#eee',
             trailWidth: 1,
-            svgStyle: { width: '100%', height: '100%' },
+            svgStyle: {width: '100%', height: '100%'},
             text: {
                 style: {
                     color: '#999',
@@ -131,23 +74,22 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                     margin: 0,
                     transform: null,
                 },
-                autoStyleContainer: false,
+                autoStyleContainer: false
             },
-            from: { color: '#FFEA82' },
-            to: { color: '#ED6A5A' },
+            from: {color: '#FFEA82'},
+            to: {color: '#ED6A5A'},
             step: (state, bar) => {
                 bar.setText(Math.round(bar.value() * 100) + ' %');
-            },
-
+            }
         });
 
-        bar.animate(1.0, async function () {
+        bar.animate(1.0, async function() {
             try {
                 if (includeImages) {
                     await printJS({
                         printable: 'printable',
                         type: 'html',
-                        style: '@page { size: auto;  margin: 20mm; }',
+                        style: '@page { size: auto; margin: 20mm; }',
                         targetStyles: ['*'],
                         scanStyles: false,
                     });
@@ -155,85 +97,26 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                     const printableElement = document.getElementById('printable').cloneNode(true);
                     const images = printableElement.querySelectorAll('img');
                     images.forEach(img => img.remove());
-
                     const printContainer = document.createElement('div');
                     printContainer.appendChild(printableElement);
                     document.body.appendChild(printContainer);
-
                     await printJS({
                         printable: printContainer.innerHTML,
                         type: 'raw-html',
-                        style: '@page { size: auto;  margin: 20mm; }',
+                        style: '@page { size: auto; margin: 20mm; }',
                         scanStyles: false,
                     });
-
                     document.body.removeChild(printContainer);
                 }
             } catch (error) {
                 console.error("Fehler beim PDF-Export:", error);
             } finally {
-
                 restoreCheckboxState(checkboxState);
-
                 progressBarContainer.style.display = 'none';
                 progressBarContainer.innerHTML = '';
-                restoreDOM(domChanges);
                 exportInProgress = false;
             }
         });
-
-        try {
-
-            const currentTheme = themeElement.getAttribute("href");
-
-            const bilderVorhanden = checkForImages();
-
-            if (bilderVorhanden) {
-
-                const includeImages = await showImageModal();
-
-                if (includeImages === null) {
-                    themeElement.setAttribute("href", currentTheme);
-                    restoreDOM(domChanges);
-                    return;
-                }
-
-                domChanges = prepareDOMForPDF();
-
-                const pdf = await generatePDF(domChanges, includeImages);
-                savePDF(pdf);
-
-                themeElement.setAttribute("href", currentTheme);
-            }
-
-        } catch (error) {
-            console.error("Fehler beim PDF-Export:", error);
-        } finally {
-
-            restoreDOM(domChanges);
-            themeElement.setAttribute("href", currentTheme);
-        }
-    }
-
-    function prepareDOMForPDF() {
-
-        const changes = [];
-
-        changes.push(...document.querySelectorAll('.important-element'));
-
-        return changes;
-    }
-
-    function restoreDOM(changes) {
-
-        changes.forEach(element => {
-
-            element.style = "";
-        });
-    }
-
-    function checkForImages() {
-        return document.querySelectorAll('img').length > 0;
     }
 
     function showImageModal() {
@@ -242,7 +125,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             const withImagesBtn = document.getElementById('withImagesBtn');
             const withoutImagesBtn = document.getElementById('withoutImagesBtn');
             const cancelModalBtn = document.getElementById('cancelModalBtn');
-
             modal.style.display = 'flex';
 
             function closeModal() {
@@ -273,21 +155,9 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         });
     }
 
-    async function generatePDF(domChanges, includeImages) {
-
-        const pdf = {};
-        return pdf;
-    }
-
-    function savePDF(pdf) {
-        console.log("PDF wurde gespeichert", pdf);
-    }
-
     initializeProgressBar();
-
     const loadingOverlay = document.getElementById('loadingOverlay');
     loadingOverlay.style.display = 'flex';
-
     const inputsWithPlaceholders = document.querySelectorAll('input[placeholder], textarea[placeholder]');
     const originalPlaceholders = [];
     inputsWithPlaceholders.forEach(input => {
@@ -299,7 +169,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
     });
 
     const closeButton = document.getElementById('closeLoadingOverlay');
-    closeButton.addEventListener('click', function () {
+    closeButton.addEventListener('click', function() {
         loadingOverlay.style.display = 'none';
     });
 
@@ -343,9 +213,8 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
     buttons.forEach(button => button.style.display = 'none');
 
     try {
-        const { jsPDF } = window.jspdf;
+        const {jsPDF} = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
-
         const pageWidth = 210;
         const pageHeight = 297;
         const margin = 10;
@@ -353,16 +222,11 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
 
         async function renderElementToPDF(element, yOffset = margin) {
             try {
-
                 if (!includeImages) {
                     element.querySelectorAll('img').forEach(img => {
                         img.style.display = 'none';
                     });
                 }
-
-
-
-
                 const originalStyles = {
                     animation: element.style.animation,
                     transition: element.style.transition,
@@ -372,13 +236,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 element.style.transition = 'none';
                 element.style.boxShadow = 'none';
 
-                if (!includeImages) {
-                    element.querySelectorAll('img').forEach(img => {
-                        img.style.display = 'none';
-                    });
-                }
-
-
                 const canvas = await html2canvas(element, {
                     scale: 2,
                     useCORS: true,
@@ -386,29 +243,23 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                     allowTaint: true,
                     letterRendering: true
                 });
-
                 element.style.animation = originalStyles.animation;
                 element.style.transition = originalStyles.transition;
                 element.style.boxShadow = originalStyles.boxShadow;
-
                 if (!includeImages) {
                     element.querySelectorAll('img').forEach(img => {
                         img.style.display = '';
                     });
                 }
-
                 const imgData = canvas.toDataURL('image/jpeg', 0.5);
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
-
                 const maxPageHeight = pageHeight - 2 * margin;
                 let scaledHeight = (imgHeight * usableWidth) / imgWidth;
-
                 if (scaledHeight > maxPageHeight) {
                     const scaleFactor = maxPageHeight / scaledHeight;
                     scaledHeight *= scaleFactor;
                     const scaledWidth = usableWidth * scaleFactor;
-
                     pdf.addImage(
                         imgData,
                         'JPEG',
@@ -422,7 +273,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 } else {
                     pdf.addImage(imgData, 'JPEG', margin, yOffset, usableWidth, scaledHeight, undefined, 'SLOW');
                 }
-
                 return yOffset + scaledHeight + margin;
             } catch (error) {
                 console.warn("Fehler beim Rendern des Elements:", element, error);
@@ -446,27 +296,30 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             ...(includeImages && elements.bilderzimmer ? Array.from(elements.bilderzimmer.children) : []),
             ...(includeImages ? Array.from(elements.largeImages) : [])
         ].length;
-
         let currentElement = 0;
 
+        function updateAndIncrementProgress() {
+            currentElement++;
+            window.updateProgress(currentElement, totalElements);
+        }
+
         await renderElementToPDF(elements.allgemein);
-        currentElement++;
-        window.updateProgress(currentElement, totalElements);
+        updateAndIncrementProgress();
+
+        function isRoomIncluded(selector) {
+            return !document.querySelector(selector)?.checked;
+        }
 
         const roomsToRender = [
-            { condition: !document.querySelector('#kitch2')?.checked, element: elements.kueche },
-            { condition: !document.querySelector('#bath2')?.checked, element: elements.bad },
-            { condition: !document.querySelector('#guestwc2')?.checked, element: elements.wc },
-            { condition: !document.querySelector('#dieleflur2')?.checked, element: elements.flur },
-            { condition: !document.querySelector('#abstell2')?.checked, element: elements.abstellraum }
+            {condition: isRoomIncluded('#kitch2'), element: elements.kueche},
+            {condition: isRoomIncluded('#bath2'), element: elements.bad},
+            {condition: isRoomIncluded('#guestwc2'), element: elements.wc},
+            {condition: isRoomIncluded('#dieleflur2'), element: elements.flur},
+            {condition: isRoomIncluded('#abstell2'), element: elements.abstellraum}
         ];
 
         for (const room of roomsToRender) {
             if (room.condition) {
-
-                let totalPages = 0;
-                const tempPdf = new jsPDF('p', 'mm', 'a4');
-
                 pdf.addPage();
                 await renderElementToPDF(room.element);
                 currentElement++;
@@ -521,12 +374,10 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 pdf.addPage();
                 const firstImage = children[i];
                 const secondImage = children[i + 1];
-
                 let yOffset = margin;
                 yOffset = await renderElementToPDF(firstImage, yOffset);
                 currentElement++;
                 window.updateProgress(currentElement, totalElements);
-
                 if (secondImage) {
                     yOffset = await renderElementToPDF(secondImage, yOffset + 10);
                     currentElement++;
@@ -541,12 +392,10 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 pdf.addPage();
                 const firstImage = largeImages[i];
                 const secondImage = largeImages[i + 1];
-
                 let yOffset = margin;
                 yOffset = await renderElementToPDF(firstImage, yOffset);
                 currentElement++;
                 window.updateProgress(currentElement, totalElements);
-
                 if (secondImage) {
                     yOffset = await renderElementToPDF(secondImage, yOffset + 10);
                     currentElement++;
@@ -562,47 +411,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             input.style.height = "24px";
         });
 
-        /*         function generateFileName() {
-                    const strasse = document.getElementById('strasseeinzug').value;
-                    const now = new Date();
-                    const datumZeit = now.toLocaleString('de-DE', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                    }).replace(/, /, '_').replace(/\./g, '-').replace(/:/g, '-');
-        
-                    const protokollDropdown = document.querySelector('.dropdown-style');
-                    let protokollTyp = protokollDropdown ? protokollDropdown.value : '';
-        
-                    if (!protokollTyp) {
-                        const isAbnahme = document.getElementById('abn01')?.checked || false;
-                        const isUebergabe = document.getElementById('ueb01')?.checked || false;
-        
-                        if (isAbnahme && isUebergabe) {
-                            protokollTyp = 'Abnahme- und Übergabeprotokoll';
-                        } else if (isAbnahme) {
-                            protokollTyp = 'Abnahmeprotokoll';
-                        } else if (isUebergabe) {
-                            protokollTyp = 'Übergabeprotokoll';
-                        }
-                    }
-        
-                    const cleanStrasse = strasse.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
-                    const cleanProtokollTyp = protokollTyp.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
-        
-                    let fileName = `${cleanStrasse}_Protokoll_${datumZeit}`;
-                    if (cleanProtokollTyp && cleanProtokollTyp !== '-') {
-                        fileName += `_${cleanProtokollTyp}`;
-                    }
-                    fileName += '.pdf';
-        
-                    return fileName;
-                } */
-
         function generateFileName() {
             const strasse = document.getElementById('strasseeinzug').value;
             const now = new Date();
@@ -615,15 +423,11 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 second: '2-digit',
                 hour12: false
             }).replace(/, /, '_').replace(/\./g, '-').replace(/:/g, '-');
-
             const protokollDropdown = document.getElementById('protokollart1');
             let protokollTyp = protokollDropdown ? protokollDropdown.value : '';
-
-            // Wenn Dropdown nicht ausgewählt ist, Checkboxen prüfen (alte Logik)
             if (!protokollTyp || protokollTyp === '-') {
                 const isAbnahme = document.getElementById('abn01')?.checked || false;
                 const isUebergabe = document.getElementById('ueb01')?.checked || false;
-
                 if (isAbnahme && isUebergabe) {
                     protokollTyp = 'Abnahme- & Uebergabe';
                 } else if (isAbnahme) {
@@ -632,7 +436,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                     protokollTyp = 'Uebergabe';
                 }
             } else {
-                // Mapping für Dropdown-Auswahl
                 switch (protokollTyp) {
                     case 'Abnahme (Auszug)':
                         protokollTyp = 'Abnahme';
@@ -647,67 +450,38 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                         protokollTyp = '';
                 }
             }
-
             const cleanStrasse = strasse.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
             const cleanProtokollTyp = protokollTyp.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
-
             let fileName = `${cleanStrasse}_Protokoll_${datumZeit}`;
             if (cleanProtokollTyp && cleanProtokollTyp !== '-') {
                 fileName += `_${cleanProtokollTyp}`;
             }
             fileName += '.pdf';
-
             return fileName;
         }
 
         const fileName = generateFileName();
         totalPages = pdf.internal.getNumberOfPages();
-        // Aufruf direkt vor pdf.save()
         addPageNumbers(pdf, totalPages);
         pdf.save(fileName);
 
-        /*         function addPageNumbers(pdf, total) {
-                    for (let i = 1; i <= total; i++) {
-                        pdf.setPage(i);
-                        pdf.setFontSize(8);
-                        pdf.setTextColor(100);
-                        const pageWidth = pdf.internal.pageSize.getWidth();
-                        pdf.text(`Seite ${i} von ${total}`, pageWidth - 20, pdf.internal.pageSize.getHeight() - 2);
-                    }
-                } */
-
         function addPageNumbers(pdf, total) {
-            // Logo-URL
             const logoUrl = 'https://raw.githubusercontent.com/constructorable/Protokoll/refs/heads/main/Logo.JPG';
-
-            // Individuelle Margins NUR FÜR DAS LOGO (in mm)
-            const logoMargins = {
-                top: 17,    // Abstand vom oberen Rand
-                right: 12,  // Abstand vom rechten Rand
-                bottom: 0,  // Nicht relevant für Logo-Positionierung
-                left: 0     // Nicht relevant für Logo-Positionierung
-            };
-
+            const logoMargins = {top: 17, right: 12, bottom: 0, left: 0};
             for (let i = 1; i <= total; i++) {
                 pdf.setPage(i);
-
-                // Seitenzahl hinzufügen (unverändert, wie in Ihrer Originalversion)
                 pdf.setFontSize(8);
                 pdf.setTextColor(100);
                 const pageWidth = pdf.internal.pageSize.getWidth();
                 pdf.text(`Seite ${i} von ${total}`, pageWidth - 20, pdf.internal.pageSize.getHeight() - 2);
-
-                // Logo nur auf der ersten Seite mit individuellen Margins
                 if (i === 1) {
                     const logoWidth = 40;
                     const logoHeight = 15;
-
-                    // Positionierung mit logoMargins
                     pdf.addImage(
                         logoUrl,
                         'JPEG',
-                        pageWidth - logoWidth - logoMargins.right,  // X-Position: Rechts mit Margin
-                        logoMargins.top,                           // Y-Position: Oben mit Margin
+                        pageWidth - logoWidth - logoMargins.right,
+                        logoMargins.top,
                         logoWidth,
                         logoHeight
                     );
@@ -715,109 +489,43 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             }
         }
 
+        // Hier speichern wir den Dateinamen im localStorage
+        localStorage.setItem('lastGeneratedPdfName', fileName);
 
-
-        /*         inputs.forEach((input, index) => {
-                    input.style.height = originalHeights[index];
-                });
-        
-                const successModal = document.getElementById('sucpdf');
-                if (successModal) {
-                    successModal.style.display = 'flex'; // oder 'block', je nach Layout
-                    } */
-
-        // ✅ Modal anzeigen
         const successModal = document.getElementById('sucpdf');
         if (successModal) {
             successModal.style.display = 'flex';
         }
 
-        // ✅ Schließen-Button aktivieren
         const closeBtn = document.getElementById('closeSuccessModal');
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 successModal.style.display = 'none';
             });
         }
+        
+
+        // Hier rufen wir die Funktion aus mailsend.js auf
+        try {
+            // Annahme: Die Funktion heißt showEmailMenu und ist global verfügbar
+            if (typeof showEmailMenu === 'function') {
+                showEmailMenu(fileName);
+            } else {
+                console.warn("Die Funktion showEmailMenu wurde nicht gefunden.");
+            }
+        } catch (error) {
+            console.error("Fehler beim Aufruf der Mail-Funktion:", error);
+        }
 
     } catch (error) {
         console.error("Fehler beim Generieren des PDFs:", error);
     } finally {
-
-        restoreDOM(domChanges);
-
         originalPlaceholders.forEach(item => {
             item.element.setAttribute('placeholder', item.placeholder);
         });
-
         themeElement.setAttribute("href", currentTheme);
-
         buttons.forEach(button => button.style.display = '');
-
         if (stickyContainer) stickyContainer.style.display = '';
-
         loadingOverlay.style.display = 'none';
-
     }
-
-    async function renderInBatches(elementsToRender) {
-        const batchSize = getOptimalBatchSize();
-        let currentY = margin;
-        let needsNewPage = true;
-        let renderStartTime = performance.now();
-        let qualityFactor = 0.5;
-
-        for (let i = 0; i < elementsToRender.length; i += batchSize) {
-            const batch = elementsToRender.slice(i, i + batchSize);
-
-            if (needsNewPage) {
-                pdf.addPage();
-                currentY = margin;
-                needsNewPage = false;
-            }
-
-            try {
-                const elementHeightEstimate = batch.reduce((sum, el) => sum + (el.clientHeight * (usableWidth / el.clientWidth)), 0);
-                needsNewPage = (currentY + elementHeightEstimate) > (pageHeight - margin - 20);
-                if (needsNewPage) continue;
-
-                const renderResults = await Promise.all(
-                    batch.map(async (element, index) => {
-                        const clone = element.cloneNode(true);
-                        clone.style.position = 'absolute';
-                        clone.style.visibility = 'hidden';
-                        document.body.appendChild(clone);
-
-                        try {
-                            const result = await renderElementToPDF(clone, currentY, qualityFactor);
-                            return { success: true, y: result };
-                        } catch (error) {
-                            qualityFactor = Math.max(0.5, qualityFactor - 0.1);
-                            return { success: false, y: currentY };
-                        } finally {
-                            document.body.removeChild(clone);
-                            if (index % 2 === 0 && typeof gc === 'function') gc();
-                        }
-                    })
-                );
-
-                for (const result of renderResults) {
-                    if (result.success) {
-                        currentY = result.y;
-                        currentElement++;
-                        window.updateProgress(currentElement, totalElements);
-
-                        if (/Mobi|Android/i.test(navigator.userAgent)) {
-                            const renderTime = performance.now() - renderStartTime;
-                            await new Promise(resolve => setTimeout(resolve, Math.min(300, renderTime * 0.5)));
-                            renderStartTime = performance.now();
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error("Batch-Rendering fehlgeschlagen:", error);
-            }
-        }
-    }
-
 });
