@@ -1207,7 +1207,7 @@ function importPortableSave(file) {
     // Modal-Inhalt
     const modalContent = document.createElement('div');
     modalContent.style.backgroundColor = 'white';
-    modalContent.style.padding = '2rem';
+    modalContent.style.padding = '48px';
     modalContent.style.borderRadius = '8px';
     modalContent.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
     modalContent.style.maxWidth = '400px';
@@ -1220,17 +1220,17 @@ function importPortableSave(file) {
     modalTitle.style.color = '#4CAF50';
 
     const modalMessage = document.createElement('p');
-    modalMessage.style.marginBottom = '1.5rem';
+    modalMessage.style.marginBottom = '40px';
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'OK';
-    closeButton.style.padding = '0.5rem 1.5rem';
+    closeButton.style.padding = '26px 38px';
     closeButton.style.backgroundColor = '#4CAF50';
     closeButton.style.color = 'white';
     closeButton.style.border = 'none';
     closeButton.style.borderRadius = '4px';
     closeButton.style.cursor = 'pointer';
-    closeButton.style.fontSize = '1rem';
+    closeButton.style.fontSize = '24px';
 
     closeButton.addEventListener('click', () => {
         modal.style.opacity = '0';
@@ -1257,8 +1257,9 @@ function importPortableSave(file) {
             setFormData(portableData.data);
 
             // Erfolgsmeldung im Modal anzeigen
-            modalTitle.textContent = 'Erfolg!';
+            modalTitle.textContent = '';
             modalMessage.textContent = 'Protokoll erfolgreich importiert!';
+            modalMessage.fontSize = '44px';
 
             document.body.appendChild(modal);
 
