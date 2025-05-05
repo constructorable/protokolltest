@@ -2105,8 +2105,9 @@ input.input-error {
 
 .pdf-hinweis {
     margin-top: 20px;
+    margin-bottom: 20px;
     padding: 12px;
-    background-color: #fff3cd;
+   /*  background-color: #fff3cd; */
     color: #574100;
     border: 1px solid #ffeeba;
     border-radius: 4px;
@@ -2115,7 +2116,7 @@ input.input-error {
     min-height: 100px;
     font-size: 24px;
     padding-top: 11px;
-    font-weight: 600;
+    font-weight: 200;
 }
 
 @media (max-width: 640px) {
@@ -2657,7 +2658,6 @@ input.input-error {
 }
 
 .pdf-button:hover,
-#sendEmailButton:hover,
 #pictopdfButton:hover,
 #savePdfButton:hover {
     background-color: #3a5a8a;
@@ -2684,11 +2684,19 @@ input.input-error {
 
 #savePdfButton {
     background-color: #a63636;
+    transition: all 0.3s ease-in-out; /* Weicherer Übergang */
+    transform: scale(1); /* Startzustand definieren */
+    will-change: transform; /* Optimierung für Browser */
 }
 
+#savePdfButton:hover {
+    transform: scale(1.2) !important; /* Kleinere Skalierung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtiler Schatten hinzufügen */
+}
+
+
 #savePdfButton:hover,
-#pictopdfButton:hover,
-#sendEmailButton:hover {
+#pictopdfButton:hover {
     background-color: #892828;
 
 }
@@ -2718,7 +2726,7 @@ input.input-error {
 
 
 #sendEmailButton {
-    background-color: #d9ad00;
+    background-color: #e5ba12;
     color: black;
 }
 
@@ -2942,6 +2950,7 @@ td.label-cellheiz1:nth-child(1)>h3:nth-child(1) {
     user-select: none;
     position: relative;
     background-color: #fff;
+    margin-bottom: 15px;
 }
 
 /* Dezenter Hover-Effekt */
@@ -3180,4 +3189,9 @@ input[data-counter="true"] {
 #farbeInput14,
 #fussbodenInput14 {
     width: 99% !important;
+}
+
+#sendEmailButton:hover {
+    background-color: #f2d84d;
+
 }
