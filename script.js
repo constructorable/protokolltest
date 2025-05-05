@@ -24,26 +24,6 @@ function toggleMode() {
 
 
 
-
-/* const toggleBtn = document.getElementById("toggleStickyBtn");
-const stickyContainer = document.getElementById("stickyContainer");
-
-toggleBtn.addEventListener("click", () => {
-    const isOpen = stickyContainer.getAttribute("data-state") === "open";
-
-    if (isOpen) {
-        // Menü schließen
-        stickyContainer.setAttribute("data-state", "closed");
-        toggleBtn.setAttribute("data-state", "closed");
-    } else {
-        // Menü öffnen
-        stickyContainer.setAttribute("data-state", "open");
-        toggleBtn.setAttribute("data-state", "open");
-    }
-});
- */
-
-
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
