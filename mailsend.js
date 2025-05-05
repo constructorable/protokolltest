@@ -94,15 +94,16 @@ function showEmailMenu(fileName) {
     const emailMenu = document.createElement('div');
     emailMenu.id = 'emailMenu';
     emailMenu.innerHTML = `
-        <h3>E-Mail-Adressen:</h3>
+            <div class="pdf-hinweis">
+            Bitte PDF-Datei manuell im E-Mail-Client anhängen
+        </div>
+        <h3>gültige E-Mail-Adressen:</h3>
         <ul>
             ${validEmails.map(email => `<li>${email}</li>`).join('')}
         </ul>
-        <button id="defaultMailClient">Standard-E-Mail-Client öffnen</button>
-        <button id="gmail">Gmail öffnen</button>
-        <div class="pdf-hinweis">
-            Hinweis:<br><br> Bitte PDF-Datei manuell im E-Mail-Client anhängen
-        </div>
+        <button id="defaultMailClient">E-Mail öffnen</button>
+        
+
         <button id="cancel">← zurück</button>
     `;
 
