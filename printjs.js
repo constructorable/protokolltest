@@ -45,7 +45,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
     }
 
     exportPDF(includeImages);
-
     async function exportPDF(includeImages) {
         if (exportInProgress) {
             console.log("Ein Export läuft bereits.");
@@ -504,7 +503,6 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             });
         }
         
-
         // Hier rufen wir die Funktion aus mailsend.js auf
         try {
             // Annahme: Die Funktion heißt showEmailMenu und ist global verfügbar
