@@ -1309,15 +1309,6 @@ function importPortableSave(file) {
 
     reader.readAsText(file);
 }
-
-
-
-
-
-
-
-
-
 // Event-Handler für Datei-Upload
 document.getElementById('importFileInput')?.addEventListener('change', function (e) {
     if (e.target.files.length > 0) {
