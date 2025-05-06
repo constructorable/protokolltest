@@ -22,8 +22,6 @@ function toggleMode() {
 }
 
 
-
-
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
@@ -100,8 +98,6 @@ function ensureToggleBtnExists() {
 
 
 
-
-
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
@@ -175,8 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Zeile am ENDE der Tabelle einfügen
         table.querySelector('tbody').appendChild(newRow);
-
-
 
         // Signatur-Container erstellen
         const signatureContainer = document.createElement('div');
@@ -305,8 +299,6 @@ document.addEventListener("DOMContentLoaded", function () {
         newRow.appendChild(emailCell);
         table.querySelector('tbody').appendChild(newRow);
 
-
-
         // Signatur-Container
         const signatureContainer = document.createElement('div');
         signatureContainer.classList.add('signature-container');
@@ -329,12 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
-
-
-
-
         signatureBox.appendChild(clearButton);
-
         const canvas = document.createElement('canvas');
         canvas.id = `ausziehender-mieter-signature-${counterAusziehender}`;
         canvas.classList.add('signature-canvas');
@@ -1368,10 +1355,21 @@ document.addEventListener("DOMContentLoaded", function () {
             let arrow = header.querySelector("span.arrows00"); // Suche nach einem span mit der Klasse arrows00
             if (!arrow) {
                 arrow = document.createElement("span");
+                /* arrow.textContent = " ▼"; */
+                /* arrow.classList.add("arrows00"); */
+                /* arrow.style.transition = "transform 0.3s ease"; */
+                /* header.appendChild(arrow); */
             }
 
             content.style.display = "table"; // Räume sollen offen sein
+            /* header.style.cursor = "pointer"; */
+            /*             header.style.display = "flex";
+                        header.style.justifyContent = "space-between";
+                        header.style.alignItems = "center"; */
 
+            /*   header.addEventListener("click", function () {
+                  toggleRoom(header, content, arrow);
+              }); */
         }
     }
 
@@ -1382,6 +1380,8 @@ document.addEventListener("DOMContentLoaded", function () {
         addToggleFunctionality(room);
     });
 });
+
+
 
 /* versehentlich geklickte Radiobutton wieder deaktivieren */
 /* versehentlich geklickte Radiobutton wieder deaktivieren */
@@ -1405,12 +1405,14 @@ document.addEventListener("click", function (event) {
 });
 
 
+
 // Vorname und Nachname unter die Unterschriftenfelder setzen xxx
 // Vorname und Nachname unter die Unterschriftenfelder setzen
 // Vorname und Nachname unter die Unterschriftenfelder setzen
 function updateFullName(fullNameSpan, name, vorname) {
     fullNameSpan.textContent = name && vorname ? `${vorname} ${name}` : '';
 }
+
 
 
 /* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
