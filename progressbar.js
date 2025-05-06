@@ -48,9 +48,9 @@ function updateProgress(completed, total) {
 }
 
 function updateProgressDisplay(percentage) {
-    const seconds = Math.floor((Date.now() - startTime) / 500);
+    const seconds = Math.floor((Date.now() - startTime) / 1000);
     progressBar.style.width = `${percentage}%`;
-    progressText.innerHTML = `Hinweis: Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
+    progressText.innerHTML = `Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
     progressText.style.fontSize = '22px';
     
     // Farbverlauf basierend auf Fortschritt
@@ -71,16 +71,17 @@ function updateProgressDisplay(percentage) {
 }
 
 function updateTimeDisplay() {
-    const seconds = Math.floor((Date.now() - startTime) / 500);
+    const seconds = Math.floor((Date.now() - startTime) / 1000);
     const percentage = currentProgress;
-    progressText.innerHTML = `Hinweis: Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
+    progressText.innerHTML = `Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
 }
 
 function completeProgressBar() {
     clearInterval(animationInterval);
-    const elapsed = Math.floor((Date.now() - startTime) / 500);
-    progressText.innerHTML = `Hinweis: Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    progressText.innerHTML = `Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
     progressText.style.fontSize = '22px';
-    progressBar.style.backgroundColor = '#2E7D32';
+    progressBar.style.backgroundColor = '#2E7D32'; // Dunkelgrün
+   /*  progressBar.style.boxShadow = '0 0 20px rgba(46, 125, 50, 0.7)'; */
     progressBar.classList.add('progress-complete');
 }
