@@ -1368,21 +1368,10 @@ document.addEventListener("DOMContentLoaded", function () {
             let arrow = header.querySelector("span.arrows00"); // Suche nach einem span mit der Klasse arrows00
             if (!arrow) {
                 arrow = document.createElement("span");
-                /* arrow.textContent = " ▼"; */
-                /* arrow.classList.add("arrows00"); */
-                /* arrow.style.transition = "transform 0.3s ease"; */
-                /* header.appendChild(arrow); */
             }
 
             content.style.display = "table"; // Räume sollen offen sein
-            /* header.style.cursor = "pointer"; */
-            /*             header.style.display = "flex";
-                        header.style.justifyContent = "space-between";
-                        header.style.alignItems = "center"; */
 
-            /*   header.addEventListener("click", function () {
-                  toggleRoom(header, content, arrow);
-              }); */
         }
     }
 
@@ -1393,8 +1382,6 @@ document.addEventListener("DOMContentLoaded", function () {
         addToggleFunctionality(room);
     });
 });
-
-
 
 /* versehentlich geklickte Radiobutton wieder deaktivieren */
 /* versehentlich geklickte Radiobutton wieder deaktivieren */
@@ -1418,14 +1405,12 @@ document.addEventListener("click", function (event) {
 });
 
 
-
 // Vorname und Nachname unter die Unterschriftenfelder setzen xxx
 // Vorname und Nachname unter die Unterschriftenfelder setzen
 // Vorname und Nachname unter die Unterschriftenfelder setzen
 function updateFullName(fullNameSpan, name, vorname) {
     fullNameSpan.textContent = name && vorname ? `${vorname} ${name}` : '';
 }
-
 
 
 /* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
@@ -1506,9 +1491,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-
-
 
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
