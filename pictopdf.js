@@ -1,14 +1,12 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 pictopdf.js
-Version 3.35_beta */
+Version 3.4_turbo */
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('pictopdfButton').addEventListener('click', async function () {
-        // Qualitätsauswahl Dialog erstellen
         const qualityDialog = createQualityDialog();
         document.body.appendChild(qualityDialog);
 
-        // Animation auslösen
         setTimeout(() => {
             qualityDialog.style.opacity = '1';
             qualityDialog.style.pointerEvents = 'auto';
@@ -58,16 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
             fontFamily: 'sans-serif'
         });
 
-        // Qualitätsoptionen
         const qualityOptions = [
-            { value: 'low', label: 'Geringe Qualität (kleinere Dateigröße)', jpegQuality: 0.5, scale: 1.5 },
-            { value: 'medium', label: 'Mittlere Qualität (empfohlen)', jpegQuality: 0.6, scale: 2 },
-            { value: 'high', label: 'Hohe Qualität (größere Dateigröße)', jpegQuality: 0.75, scale: 4 }
+            { value: 'low', label: 'Geringe Qualität (kleinere Dateigröße)', jpegQuality: 0.5, scale: 1.5, turbo: true },
+            { value: 'medium', label: 'Mittlere Qualität (empfohlen)', jpegQuality: 0.6, scale: 2, turbo: false },
+            { value: 'high', label: 'Hohe Qualität (größere Dateigröße)', jpegQuality: 0.75, scale: 4, turbo: false }
         ];
 
-        let selectedQuality = qualityOptions[1]; // Standard: mittlere Qualität
+        let selectedQuality = qualityOptions[1];
 
-        // Radio-Buttons Container
         const radioContainer = document.createElement('div');
         Object.assign(radioContainer.style, {
             margin: '20px 0',
@@ -81,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
             optionContainer.htmlFor = `quality-${option.value}`;
             optionContainer.className = 'modalpic-option';
 
-            // Radio-Button
             const radio = document.createElement('input');
             radio.type = 'radio';
             radio.name = 'pdfQuality';
@@ -90,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
             radio.style.display = 'none';
             if (option.value === 'medium') radio.checked = true;
 
-            // Custom Checkbox
             const customCheckbox = document.createElement('div');
             Object.assign(customCheckbox.style, {
                 width: '20px',
@@ -115,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             customCheckbox.appendChild(innerDot);
 
-            // Label-Text
             const labelText = document.createElement('span');
             labelText.textContent = option.label;
             Object.assign(labelText.style, {
@@ -124,12 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 fontFamily: 'sans-serif'
             });
 
-            // Event Listener für Auswahl
             radio.addEventListener('change', () => {
                 if (radio.checked) {
                     selectedQuality = option;
-
-                    // Alle Container zurücksetzen
                     document.querySelectorAll('input[name="pdfQuality"]').forEach(input => {
                         const parent = input.closest('label');
                         if (parent) {
@@ -138,8 +128,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (dot) dot.style.opacity = '0';
                         }
                     });
-
-                    // Aktuelle Auswahl hervorheben
                     optionContainer.style.borderColor = '#4CAF50';
                     innerDot.style.opacity = '1';
                 }
@@ -151,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
             radioContainer.appendChild(optionContainer);
         });
 
-        // Buttons Container
         const buttonContainer = document.createElement('div');
         Object.assign(buttonContainer.style, {
             marginTop: '20px',
@@ -160,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
             gap: '10px'
         });
 
-        // Abbrechen Button
         const cancelButton = document.createElement('button');
         cancelButton.textContent = 'Abbrechen';
         cancelButton.className = 'modalpic01';
@@ -172,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 300);
         });
 
-        // Bestätigen Button
         const confirmButton = document.createElement('button');
         confirmButton.textContent = 'PDF erstellen';
         confirmButton.className = 'modalpic02';
@@ -196,22 +181,18 @@ document.addEventListener('DOMContentLoaded', function () {
         return modal;
     }
 
-
     async function createPDF(qualitySettings) {
-        // Fortschrittsmodal erstellen und Referenz auf das Sekunden-Element speichern
         const progressData = createProgressModal();
         const progressModal = progressData.modal;
         const timeElapsedText = progressData.timeElapsedText;
         document.body.appendChild(progressModal);
-    
-        // Timer starten
+
         const startTime = Date.now();
         let timerInterval = setInterval(() => {
             const secondsElapsed = Math.floor((Date.now() - startTime) / 1000);
             timeElapsedText.textContent = `${secondsElapsed} Sekunden vergangen`;
         }, 1000);
-    
-        // Animation auslösen
+
         setTimeout(() => {
             progressModal.style.opacity = '1';
             progressModal.style.pointerEvents = 'auto';
@@ -230,35 +211,34 @@ document.addEventListener('DOMContentLoaded', function () {
             const progressBar = progressModal.querySelector('.progress-bar');
             const progressText = progressModal.querySelector('.progress-text');
 
-            async function renderImageElement(originalElement, index, total) {
-                try {
-                    // Element klonen, um es gefahrlos manipulieren zu können
-                    const clonedElement = originalElement.cloneNode(true);
-                    clonedElement.style.backgroundColor = '#ffffff';
-                    clonedElement.style.padding = '0';
+            // Turbo-Modus Funktionen
+            async function turboRender(element) {
+                const canvas = await html2canvas(element, {
+                    scale: qualitySettings.scale * (qualitySettings.turbo ? 0.8 : 1),
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false,
+                    ignoreElements: el => el.style.display === 'none' || el.style.opacity === '0',
+                    backgroundColor: '#FFFFFF',
+                    removeContainer: true
+                });
+                return canvas;
+            }
 
-                    // Interaktive Elemente im Klon ausblenden
-                    const elementsToHide = clonedElement.querySelectorAll('button, a, input, select, textarea, .no-print');
-                    elementsToHide.forEach(el => el.style.display = 'none');
-
-                    // Klon temporär zur Seite hinzufügen (aber nicht sichtbar)
-                    clonedElement.style.position = 'absolute';
-                    clonedElement.style.left = '-9999px';
-                    document.body.appendChild(clonedElement);
-
-                    // html2canvas auf dem Klon anwenden
-                    await new Promise(resolve => setTimeout(resolve, 100));
-                    const canvas = await html2canvas(clonedElement, {
-                        scale: qualitySettings.scale,
-                        useCORS: true,
-                        allowTaint: true,
-                        letterRendering: true
-                    });
-
+            async function processImageBatch(batch, batchIndex, totalBatches) {
+                const canvases = await Promise.all(batch.map(element => turboRender(element)));
+                
+                canvases.forEach((canvas, index) => {
                     const imgData = canvas.toDataURL('image/jpeg', qualitySettings.jpegQuality);
                     const imgWidth = canvas.width;
                     const imgHeight = canvas.height;
                     let scaledHeight = (imgHeight * usableWidth) / imgWidth;
+
+                    if (batchIndex === 0 && index === 0) {
+                        // Erste Seite
+                    } else {
+                        pdf.addPage();
+                    }
 
                     if (scaledHeight > maxPageHeight) {
                         const scaleFactor = maxPageHeight / scaledHeight;
@@ -270,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             scaledWidth,
                             scaledHeight,
                             undefined,
-                            'SLOW'
+                            qualitySettings.turbo ? 'FAST' : 'SLOW'
                         );
                     } else {
                         pdf.addImage(imgData, 'JPEG',
@@ -279,21 +259,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             usableWidth,
                             scaledHeight,
                             undefined,
-                            'SLOW'
+                            qualitySettings.turbo ? 'FAST' : 'SLOW'
                         );
                     }
 
-                    // Fortschritt anzeigen
-                    const percent = Math.round(((index + 1) / total) * 100);
-                    progressBar.style.width = percent + '%';
-                    progressText.textContent = `${index + 1} von ${total} Bildern verarbeitet (${percent} %)`;
-
-                    // Klon entfernen
-                    document.body.removeChild(clonedElement);
-
-                } catch (error) {
-                    console.error("Fehler beim Rendern des Bildes:", error);
-                }
+                    // Memory freigeben
+                    canvas.width = 1;
+                    canvas.height = 1;
+                });
             }
 
             // Bilder sammeln
@@ -308,12 +281,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 bilder.push(...largeImages);
             }
 
-            for (let i = 0; i < bilder.length; i++) {
-                if (i !== 0) pdf.addPage();
-                await renderImageElement(bilder[i], i, bilder.length);
+            // Batch-Verarbeitung
+            const BATCH_SIZE = qualitySettings.turbo ? 4 : 1;
+            let processedCount = 0;
+
+            for (let i = 0; i < bilder.length; i += BATCH_SIZE) {
+                const batch = bilder.slice(i, i + BATCH_SIZE);
+                await processImageBatch(batch, i, bilder.length);
+                
+                processedCount += batch.length;
+                const percent = Math.round((processedCount / bilder.length) * 100);
+                progressBar.style.width = percent + '%';
+                progressText.textContent = `${processedCount} von ${bilder.length} Bildern verarbeitet (${percent} %)`;
+
+                // Event Loop nicht blockieren
+                if (i % (BATCH_SIZE * 2) === 0) {
+                    await new Promise(resolve => setTimeout(resolve, 0));
+                }
             }
 
-            // Dateiname automatisch generieren
+            // Dateiname generieren
             const strasseInput = document.getElementById('strasseeinzug');
             const strasse = strasseInput ? strasseInput.value.trim() : 'Unbekannte_Straße';
 
@@ -345,16 +332,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const fileName = `${strasse}_Bilder_${protokollTyp}_${datumZeit}.pdf`.replace(/\s+/g, '_');
 
             pdf.save(fileName);
-
             clearInterval(timerInterval);
 
-            // Fortschrittsmodal entfernen
             progressModal.style.opacity = '0';
             setTimeout(() => {
                 document.body.removeChild(progressModal);
             }, 300);
 
-            // Erfolgsmodal anzeigen
             const successModal = createSuccessModal();
             document.body.appendChild(successModal);
 
@@ -366,8 +350,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         } catch (error) {
             console.error("Fehler beim PDF-Erstellen:", error);
+            clearInterval(timerInterval);
 
-            // Fehlermodal anzeigen
             const errorModal = createErrorModal(error.message);
             document.body.appendChild(errorModal);
 
@@ -415,7 +399,6 @@ document.addEventListener('DOMContentLoaded', function () {
         titleText.style.fontSize = '24px';
         titleText.style.fontFamily = 'sans-serif';
     
-        // Fortschrittsbalken
         const progressOuter = document.createElement('div');
         progressOuter.style.width = '100%';
         progressOuter.style.height = '20px';
@@ -440,7 +423,6 @@ document.addEventListener('DOMContentLoaded', function () {
         progressText.style.fontSize = '22px';
         progressText.style.marginBottom = '10px';
     
-        // Sekundenanzeige hinzufügen
         const timeElapsedText = document.createElement('div');
         timeElapsedText.className = 'time-elapsed';
         timeElapsedText.textContent = '0 Sekunden vergangen';
@@ -452,12 +434,12 @@ document.addEventListener('DOMContentLoaded', function () {
         modalContent.appendChild(titleText);
         modalContent.appendChild(progressOuter);
         modalContent.appendChild(progressText);
-        modalContent.appendChild(timeElapsedText); // Sekundenanzeige hinzufügen
+        modalContent.appendChild(timeElapsedText);
         modal.appendChild(modalContent);
     
         return {
             modal: modal,
-            timeElapsedText: timeElapsedText // Referenz auf das Sekunden-Element zurückgeben
+            timeElapsedText: timeElapsedText
         };
     }
 
@@ -583,10 +565,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.body.removeChild(modal);
             }, 300);
         });
+
         modalContent.appendChild(titleText);
         modalContent.appendChild(messageText);
         modalContent.appendChild(closeButton);
         modal.appendChild(modalContent);
+
         return modal;
     }
 });
