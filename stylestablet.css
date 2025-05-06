@@ -3185,10 +3185,8 @@ input[data-counter="true"] {
 #fussbodenInput14 {
     width: 99% !important;
 }
-
 #sendEmailButton:hover {
     background-color: #f2d84d;
-
 }
 
 #stickyContainer > button:nth-child(15) {
@@ -3198,7 +3196,6 @@ input[data-counter="true"] {
    color: #a7a7a7 !important;
   }
   
-
   #emailMenu {
     width: 80% !important;
     max-width: 510px !important;
