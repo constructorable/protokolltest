@@ -224,8 +224,6 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-
 document.getElementById('sendEmailButton').addEventListener('click', function () {
     const fileName = localStorage.getItem('lastGeneratedPdfName');
     showEmailMenu(fileName);
