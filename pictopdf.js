@@ -583,12 +583,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.body.removeChild(modal);
             }, 300);
         });
-
         modalContent.appendChild(titleText);
         modalContent.appendChild(messageText);
         modalContent.appendChild(closeButton);
         modal.appendChild(modalContent);
-
         return modal;
     }
 });
