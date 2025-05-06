@@ -2407,15 +2407,6 @@ input.input-error {
     cursor: pointer;
 }
 
-#withImagesBtn {
-    background-color: #6b83b2;
-    color: white;
-}
-
-#withoutImagesBtn {
-    background-color: #8a3636;
-    color: white;
-}
 
 #cancelModalBtn {
     background-color: #ddd;
@@ -2754,6 +2745,16 @@ input.input-error {
     font-size: 22px;
 }
 
+#withImagesBtn {
+    background-color: #6b83b2;
+    color: white;
+}
+
+#withoutImagesBtn {
+    background-color: #8a3636;
+    color: white;
+}
+
 
 #withImagesBtn,
 #withoutImagesBtn,
@@ -2767,38 +2768,41 @@ input.input-error {
 #withImagesBtn:hover {
     background-color: #3b5d87;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.2);
 }
 
 /* Active – wenn gedrückt gehalten wird (z. B. auf Touch-Geräten) */
 #withImagesBtn:active {
     background-color: #2e4c6f;
-    transform: scale(0.97);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transform: scale(1.2);
 }
 
 /* Fokus – für Tastaturbenutzer oder beim Antippen */
 #withImagesBtn:focus {
-    outline: 2px solid #3b5d87;
-    outline-offset: 2px;
+     transform: scale(1.2);
 }
+
+
 
 /* Hover – für Geräte mit Maus */
 #withoutImagesBtn:hover {
     background-color: #722c2c;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.2);
 }
 
 /* Active – gedrückt halten auf Touch-Geräten */
 #withoutImagesBtn:active {
     background-color: #5a2121;
-    transform: scale(0.97);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transform: scale(1.2);
 }
 
 /* Focus – Tastatur oder Tippen */
 #withoutImagesBtn:focus {
     outline: 2px solid #722c2c;
     outline-offset: 2px;
+    transform: scale(1.2);
 }
 
 body>div:nth-child(14)>div:nth-child(1) {
