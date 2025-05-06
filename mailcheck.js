@@ -77,12 +77,10 @@ function initEmailValidation() {
         childList: true,
         subtree: true
     });
-
     // Füge Event-Listener zu bestehenden E-Mail-Eingabefeldern hinzu
     const existingEmailInputs = document.querySelectorAll('input[type="email"].mails.autoscale, input[type="email"].mails2.autoscale');
     existingEmailInputs.forEach(function (emailInput) {
         addEmailValidationListeners(emailInput);
     });
 }
-
 document.addEventListener("DOMContentLoaded", initEmailValidation);
