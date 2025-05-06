@@ -14,8 +14,6 @@ function initializeProgressBar() {
     progressText = document.getElementById('progressText');
     
     document.getElementById('loadingOverlay').style.display = 'block';
-    /* document.getElementById('closeLoadingOverlay').style.display = 'block'; */
-
     // Reset Zustand
     progressBar.style.width = '0%';
     progressText.innerHTML = '0% <span class="time-display">(0s)</span>';
@@ -46,7 +44,6 @@ function updateProgress(completed, total) {
         }
     }, 50);
 }
-
 function updateProgressDisplay(percentage) {
     const seconds = Math.floor((Date.now() - startTime) / 1000);
     progressBar.style.width = `${percentage}%`;
