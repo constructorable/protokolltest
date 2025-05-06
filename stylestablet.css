@@ -1575,13 +1575,6 @@ select option {
     min-height: 69px;
 }
 
-#emailMenu button:hover {
-    transform: translateY(-2px);
-}
-
-#emailMenu button:active {
-    transform: translateY(0);
-}
 
 #emailMenu>h3:nth-child(3) {
     margin-top: 70px !important;
@@ -2107,9 +2100,7 @@ input.input-error {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 12px;
-   /*  background-color: #fff3cd; */
     color: #574100;
-    border: 1px solid #ffeeba;
     border-radius: 4px;
     font-size: 14px;
     text-align: center;
@@ -3198,4 +3189,18 @@ input[data-counter="true"] {
 #sendEmailButton:hover {
     background-color: #f2d84d;
 
+}
+
+#stickyContainer > button:nth-child(15) {
+    top: -5px  !important;
+    right: -11px !important;
+    background: transparent;
+   color: #a7a7a7 !important;
+  }
+  
+
+  #emailMenu {
+    width: 80% !important;
+    max-width: 510px !important;
+    height: 650px !important;
 }
