@@ -19,7 +19,6 @@ function storeCheckboxState() {
     });
     return states;
 }
-
 function restoreCheckboxState(states) {
     states.forEach(state => {
         const checkbox = document.getElementById(state.id);
@@ -28,13 +27,11 @@ function restoreCheckboxState(states) {
         }
     });
 }
-
 document.getElementById('savePdfButton').addEventListener('click', async function (event) {
     if (!validateStrasseeinzug()) {
         event.preventDefault();
         return;
     }
-
     // NEUE FUNKTION: Zeige sofort ein Hinweis-Modal an
     showPrepareModal();
 
