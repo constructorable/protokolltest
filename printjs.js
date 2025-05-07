@@ -29,29 +29,91 @@ function restoreCheckboxState(states) {
     });
 }
 
-document.getElementById('savePdfButton').addEventListener('click', async function(event) {
+document.getElementById('savePdfButton').addEventListener('click', async function (event) {
     if (!validateStrasseeinzug()) {
         event.preventDefault();
         return;
     }
 
-    const bilderVorhanden = document.querySelector('.bilderzimmer')?.children.length > 0 || document.querySelectorAll('[id^="large-wrapper-img"]').length > 0;
+    // NEUE FUNKTION: Zeige sofort ein Hinweis-Modal an
+    showPrepareModal();
+
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    const bilderVorhanden = document.querySelector('.bilderzimmer')?.children.length > 0 ||
+        document.querySelectorAll('[id^="large-wrapper-img"]').length > 0;
     let includeImages = false;
+
     if (bilderVorhanden) {
+        hidePreparingModal(); // Modal ausblenden während der Benutzer auswählt
         includeImages = await showImageModal();
         if (includeImages === null) {
             return;
         }
+        /* showPrepareModal(); */ // Modal wieder einblenden nach der Benutzerauswahl
+        await new Promise(resolve => setTimeout(resolve, 3000)); // Wieder ein 3-Sekunden-Delay
+    }
+    exportPDF(includeImages);
+
+    function showPrepareModal() {
+        const prepareModal = document.getElementById('prepareModal');
+        if (!prepareModal) {
+            console.error('Prepare Modal nicht gefunden');
+            return;
+        }
+        
+        // Sicherstellen, dass das Modal sichtbar ist
+        prepareModal.style.display = 'flex';
+        
+        // Countdown starten
+        const countdownElement = document.getElementById('countdown');
+        if (countdownElement) {
+            let seconds = 3;
+            countdownElement.textContent = seconds.toString();
+            
+            const countdownInterval = setInterval(() => {
+                seconds--;
+                if (seconds > 0) {
+                    countdownElement.textContent = seconds.toString();
+                } else {
+                    clearInterval(countdownInterval);
+                    // Automatisch ausblenden nach Countdown
+                    hidePreparingModal();
+                }
+            }, 1000);
+        }
     }
 
-    exportPDF(includeImages);
+    function hidePreparingModal() {
+        console.log('Hide modal called'); // Debug
+        const prepareModal = document.getElementById('prepareModal');
+        if (!prepareModal) {
+            console.error('Prepare Modal nicht gefunden beim Ausblenden');
+            return;
+        }
+        
+        // Sicherstellen, dass das Modal ausgeblendet wird
+        prepareModal.style.display = 'none';
+        console.log('Modal sollte jetzt ausgeblendet sein'); // Debug
+    }
+
+
+
+
+
+
+
     async function exportPDF(includeImages) {
         if (exportInProgress) {
             console.log("Ein Export läuft bereits.");
+            hidePreparingModal();
             return;
         }
         exportInProgress = true;
         const domChanges = prepareDOMForPDF();
+        hidePreparingModal();
+
         const progressBarContainer = document.getElementById('progress-bar');
         progressBarContainer.style.display = 'block';
 
@@ -62,7 +124,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             color: '#FFEA82',
             trailColor: '#eee',
             trailWidth: 1,
-            svgStyle: {width: '100%', height: '100%'},
+            svgStyle: { width: '100%', height: '100%' },
             text: {
                 style: {
                     color: '#999',
@@ -75,14 +137,14 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 },
                 autoStyleContainer: false
             },
-            from: {color: '#FFEA82'},
-            to: {color: '#ED6A5A'},
+            from: { color: '#FFEA82' },
+            to: { color: '#ED6A5A' },
             step: (state, bar) => {
                 bar.setText(Math.round(bar.value() * 100) + ' %');
             }
         });
 
-        bar.animate(1.0, async function() {
+        bar.animate(1.0, async function () {
             try {
                 if (includeImages) {
                     await printJS({
@@ -118,7 +180,10 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         });
     }
 
+
+
     function showImageModal() {
+        hidePreparingModal();
         return new Promise((resolve) => {
             const modal = document.getElementById('imageModal');
             const withImagesBtn = document.getElementById('withImagesBtn');
@@ -168,7 +233,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
     });
 
     const closeButton = document.getElementById('closeLoadingOverlay');
-    closeButton.addEventListener('click', function() {
+    closeButton.addEventListener('click', function () {
         loadingOverlay.style.display = 'none';
     });
 
@@ -186,8 +251,8 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         abstellraum: document.querySelector('#abstellContainer'),
         roomContainers: document.querySelectorAll('.room-container'),
         nebenraum: document.querySelector('#nebenraumContainer'),
-        weitereBemerkungen: document.querySelector('#weitereBemerkungenContainer'),
-        hauptBemerkungen: document.querySelector('#hauptBemerkungenContainer'),
+        webem: document.querySelector('#webemContainer'),
+        hptbem: document.querySelector('#hptbemContainer'),
         signtoggle: document.querySelector('#signtoggle'),
         bilderzimmer: includeImages ? document.querySelector('.bilderzimmer') : null,
         largeImages: includeImages ? document.querySelectorAll('[id^="large-wrapper-img"]') : [],
@@ -212,7 +277,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
     buttons.forEach(button => button.style.display = 'none');
 
     try {
-        const {jsPDF} = window.jspdf;
+        const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pageWidth = 210;
         const pageHeight = 297;
@@ -288,8 +353,8 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
             elements.abstellraum,
             ...elements.roomContainers,
             elements.nebenraum,
-            elements.weitereBemerkungen,
-            elements.hauptBemerkungen,
+            elements.webem,
+            elements.hptbem,
             elements.print1,
             elements.signtoggle,
             ...(includeImages && elements.bilderzimmer ? Array.from(elements.bilderzimmer.children) : []),
@@ -310,11 +375,11 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         }
 
         const roomsToRender = [
-            {condition: isRoomIncluded('#kitch2'), element: elements.kueche},
-            {condition: isRoomIncluded('#bath2'), element: elements.bad},
-            {condition: isRoomIncluded('#guestwc2'), element: elements.wc},
-            {condition: isRoomIncluded('#dieleflur2'), element: elements.flur},
-            {condition: isRoomIncluded('#abstell2'), element: elements.abstellraum}
+            { condition: isRoomIncluded('#kitch2'), element: elements.kueche },
+            { condition: isRoomIncluded('#bath2'), element: elements.bad },
+            { condition: isRoomIncluded('#gwc12'), element: elements.wc },
+            { condition: isRoomIncluded('#difu2'), element: elements.flur },
+            { condition: isRoomIncluded('#abstell2'), element: elements.abstellraum }
         ];
 
         for (const room of roomsToRender) {
@@ -338,8 +403,8 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         const neinElements = [];
         if (document.querySelector('#kitch2')?.checked) neinElements.push(elements.kueche);
         if (document.querySelector('#bath2')?.checked) neinElements.push(elements.bad);
-        if (document.querySelector('#guestwc2')?.checked) neinElements.push(elements.wc);
-        if (document.querySelector('#dieleflur2')?.checked) neinElements.push(elements.flur);
+        if (document.querySelector('#gwc12')?.checked) neinElements.push(elements.wc);
+        if (document.querySelector('#difu2')?.checked) neinElements.push(elements.flur);
         if (document.querySelector('#abstell2')?.checked) neinElements.push(elements.abstellraum);
 
         if (neinElements.length > 0) {
@@ -355,8 +420,8 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
         pdf.addPage();
         let yOffset = margin;
         if (elements.nebenraum) yOffset = await renderElementToPDF(elements.nebenraum, yOffset);
-        if (elements.weitereBemerkungen) yOffset = await renderElementToPDF(elements.weitereBemerkungen, yOffset);
-        if (elements.hauptBemerkungen) yOffset = await renderElementToPDF(elements.hauptBemerkungen, yOffset);
+        if (elements.webem) yOffset = await renderElementToPDF(elements.webem, yOffset);
+        if (elements.hptbem) yOffset = await renderElementToPDF(elements.hptbem, yOffset);
         currentElement++;
         window.updateProgress(currentElement, totalElements);
 
@@ -422,7 +487,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 second: '2-digit',
                 hour12: false
             }).replace(/, /, '_').replace(/\./g, '-').replace(/:/g, '-');
-            const protokollDropdown = document.getElementById('protokollart1');
+            const protokollDropdown = document.getElementById('pro1');
             let protokollTyp = protokollDropdown ? protokollDropdown.value : '';
             if (!protokollTyp || protokollTyp === '-') {
                 const isAbnahme = document.getElementById('abn01')?.checked || false;
@@ -466,7 +531,7 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
 
         function addPageNumbers(pdf, total) {
             const logoUrl = 'https://raw.githubusercontent.com/constructorable/Protokoll/refs/heads/main/Logo.JPG';
-            const logoMargins = {top: 17, right: 12, bottom: 0, left: 0};
+            const logoMargins = { top: 17, right: 12, bottom: 0, left: 0 };
             for (let i = 1; i <= total; i++) {
                 pdf.setPage(i);
                 pdf.setFontSize(8);
@@ -502,7 +567,8 @@ document.getElementById('savePdfButton').addEventListener('click', async functio
                 successModal.style.display = 'none';
             });
         }
-        
+
+
         // Hier rufen wir die Funktion aus mailsend.js auf
         try {
             // Annahme: Die Funktion heißt showEmailMenu und ist global verfügbar
