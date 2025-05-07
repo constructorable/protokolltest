@@ -57,13 +57,13 @@ function initEmailValidation() {
             if (mutation.type === 'childList') {
                 mutation.addedNodes.forEach(function (node) {
                     // Überprüfe, ob das hinzugefügte Element ein E-Mail-Eingabefeld mit den Klassen "mails" oder "mails2" ist
-                    if (node.nodeType === 1 && node.matches('input[type="email"].mails.autoscale, input[type="email"].mails2.autoscale')) {
+                    if (node.nodeType === 1 && node.matches('input[type="email"].mails.atsc, input[type="email"].mails2.atsc')) {
                         addEmailValidationListeners(node);
                     }
 
                     // Überprüfe alle Kinder des hinzugefügten Elements auf E-Mail-Eingabefelder
                     if (node.nodeType === 1) {
-                        const emailInputs = node.querySelectorAll('input[type="email"].mails.autoscale, input[type="email"].mails2.autoscale');
+                        const emailInputs = node.querySelectorAll('input[type="email"].mails.atsc, input[type="email"].mails2.atsc');
                         emailInputs.forEach(function (emailInput) {
                             addEmailValidationListeners(emailInput);
                         });
@@ -77,10 +77,12 @@ function initEmailValidation() {
         childList: true,
         subtree: true
     });
+
     // Füge Event-Listener zu bestehenden E-Mail-Eingabefeldern hinzu
-    const existingEmailInputs = document.querySelectorAll('input[type="email"].mails.autoscale, input[type="email"].mails2.autoscale');
+    const existingEmailInputs = document.querySelectorAll('input[type="email"].mails.atsc, input[type="email"].mails2.atsc');
     existingEmailInputs.forEach(function (emailInput) {
         addEmailValidationListeners(emailInput);
     });
 }
+
 document.addEventListener("DOMContentLoaded", initEmailValidation);
