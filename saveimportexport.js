@@ -6,8 +6,8 @@ Version 3.36_beta */
 function getFormData() {
     const data = {};
 
-    data['dupli_autoscale'] = [];
-    document.querySelectorAll('input.dupli.autoscale[id]').forEach(input => {
+    data['dupli_atsc'] = [];
+    document.querySelectorAll('input.dupli.atsc[id]').forEach(input => {
         const key = input.id;
         data[key] = input.value;
     });
@@ -58,9 +58,9 @@ function setFormData(data) {
 
     // Process regular fields
     Object.keys(data).forEach(key => {
-        // First try elements with class "dupli autoscale"
+        // First try elements with class "dupli atsc"
         const dupliEl = document.getElementById(key);
-        if (dupliEl && dupliEl.classList.contains("dupli") && dupliEl.classList.contains("autoscale")) {
+        if (dupliEl && dupliEl.classList.contains("dupli") && dupliEl.classList.contains("atsc")) {
             setElementValue(dupliEl, data[key]);
             return;
         }
@@ -82,14 +82,14 @@ function setFormData(data) {
 
     // Process remarks
     if (Array.isArray(data.remarks)) {
-        const originalRow = document.querySelector('tr.original-row');
+        const originalRow = document.querySelector('tr.ogro');
         if (!originalRow) return;
 
         const dupliTable = originalRow.parentElement;
-        const firstInput = originalRow.querySelector('input.dupli.autoscale');
+        const firstInput = originalRow.querySelector('input.dupli.atsc');
 
         // Clear existing rows except original
-        dupliTable.querySelectorAll('tr:not(.original-row)').forEach(row => row.remove());
+        dupliTable.querySelectorAll('tr:not(.ogro)').forEach(row => row.remove());
 
         // Set first remark
         if (firstInput) firstInput.value = data.remarks[0] ?? '';
@@ -97,8 +97,8 @@ function setFormData(data) {
         // Add additional remarks
         data.remarks.slice(1).forEach(remark => {
             const newRow = originalRow.cloneNode(true);
-            newRow.classList.remove('original-row');
-            const input = newRow.querySelector('input.dupli.autoscale');
+            newRow.classList.remove('ogro');
+            const input = newRow.querySelector('input.dupli.atsc');
             if (input) input.value = remark;
             dupliTable.appendChild(newRow);
         });
@@ -1309,6 +1309,8 @@ function importPortableSave(file) {
 
     reader.readAsText(file);
 }
+
+
 // Event-Handler für Datei-Upload
 document.getElementById('importFileInput')?.addEventListener('change', function (e) {
     if (e.target.files.length > 0) {
@@ -1316,4 +1318,3 @@ document.getElementById('importFileInput')?.addEventListener('change', function 
         e.target.value = ''; // Reset für erneuten Upload
     }
 });
-
