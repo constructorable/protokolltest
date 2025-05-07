@@ -21,14 +21,12 @@ function showError(inputElement, message) {
 
     inputElement.insertAdjacentElement('afterend', errorMessage);
 }
-
 function clearError(inputElement) {
     const existingError = inputElement.nextElementSibling;
     if (existingError && existingError.classList.contains('error-message')) {
         existingError.remove();
     }
 }
-
 function addEmailValidationListeners(emailInput) {
     emailInput.addEventListener('input', function () {
         const email = emailInput.value.trim();
