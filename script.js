@@ -21,9 +21,6 @@ function toggleMode() {
     }
 }
 
-
-
-
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
