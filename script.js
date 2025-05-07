@@ -22,6 +22,8 @@ function toggleMode() {
 }
 
 
+
+
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
 // Sticky- und Toggle Menü
@@ -98,6 +100,8 @@ function ensureToggleBtnExists() {
 
 
 
+
+
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
 /* Button einziehender Mieter hinzufügen (inkl. Unterschriftenfeld für einziehenden Mieter)... */
@@ -148,19 +152,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const emailId = `MailEin${suffix1}`;
 
         nameCell.innerHTML = `
-        <input type="text" id="${nameId}" class="autoscale nameeinziehmieter" 
+        <input type="text" id="${nameId}" class="atsc nameeinziehmieter" 
                style="min-width: 1px;" placeholder="Nachname einziehender Mieter">`;
 
         vornameCell.innerHTML = `
-        <input type="text" id="${vornameId}" class="autoscale vornameeinziehmieter" 
+        <input type="text" id="${vornameId}" class="atsc vornameeinziehmieter" 
                style="min-width: 1px;" placeholder="Vorname">`;
 
         telefonCell.innerHTML = `
-        <input type="text" id="${telefonId}" class="phones autoscale teleinziehmieter" 
+        <input type="text" id="${telefonId}" class="phones atsc teleinziehmieter" 
                style="min-width: 1px;" placeholder="Telefon">`;
 
         emailCell.innerHTML = `
-        <input type="email" id="${emailId}" class="mails autoscale maileinziehmieter" 
+        <input type="email" id="${emailId}" class="mails atsc maileinziehmieter" 
                style="min-width: 1px;" placeholder="E-Mail">`;
 
         newRow.appendChild(nameCell);
@@ -171,6 +175,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Zeile am ENDE der Tabelle einfügen
         table.querySelector('tbody').appendChild(newRow);
+
+
 
         // Signatur-Container erstellen
         const signatureContainer = document.createElement('div');
@@ -282,22 +288,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const emailId = `MailAus${suffix2}`;
 
         nameCell.innerHTML = `
-            <input type="text" id="${nameId}" class="autoscale" placeholder="Vor- und Nachname ausziehender Mieter">`;
+            <input type="text" id="${nameId}" class="atsc" placeholder="Vor- und Nachname ausziehender Mieter">`;
 
         strasseCell.innerHTML = `
-            <input type="text" id="${strasseId}" class="newstreets autoscale" placeholder="neue Straße">`;
+            <input type="text" id="${strasseId}" class="newstreets atsc" placeholder="neue Straße">`;
 
         plzOrtCell.innerHTML = `
-            <input type="text" id="${plzOrtId}" class="plzauszug autoscale" placeholder="PLZ / Ort">`;
+            <input type="text" id="${plzOrtId}" class="plzauszug atsc" placeholder="PLZ / Ort">`;
 
         emailCell.innerHTML = `
-            <input type="email" id="${emailId}" style="width: 11px;" class="mails2 autoscale" placeholder="E-Mail">`;
+            <input type="email" id="${emailId}" style="width: 11px;" class="mails2 atsc" placeholder="E-Mail">`;
 
         newRow.appendChild(nameCell);
         newRow.appendChild(strasseCell);
         newRow.appendChild(plzOrtCell);
         newRow.appendChild(emailCell);
         table.querySelector('tbody').appendChild(newRow);
+
+
 
         // Signatur-Container
         const signatureContainer = document.createElement('div');
@@ -321,7 +329,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
+
+
+
+
         signatureBox.appendChild(clearButton);
+
         const canvas = document.createElement('canvas');
         canvas.id = `ausziehender-mieter-signature-${counterAusziehender}`;
         canvas.classList.add('signature-canvas');
@@ -632,7 +645,7 @@ window.onload = function () {
     }
 
     // Entferne die Markierung der ursprünglichen Zeile (falls vorhanden)
-    newRow.classList.remove('original-row');
+    newRow.classList.remove('ogro');
 
     // Füge die neue Zeile nach der aktuellen Zeile ein
     row.parentNode.insertBefore(newRow, row.nextSibling);
@@ -666,7 +679,7 @@ function duplicateRow(button) {
         inputField.id = newId;
     }
 
-    newRow.classList.remove('original-row');
+    newRow.classList.remove('ogro');
     row.parentNode.insertBefore(newRow, row.nextSibling);
 }
 
@@ -680,7 +693,7 @@ function deleteRow(button) {
     const row = button.closest('tr');
 
     // Überprüfe, ob die Zeile die ursprüngliche Zeile ist
-    if (row.classList.contains('original-row')) {
+    if (row.classList.contains('ogro')) {
         alert('Die ursprüngliche Zeile kann nicht gelöscht werden.');
         return; // Beende die Funktion, ohne die Zeile zu löschen
     }
@@ -700,7 +713,7 @@ function setupImageUpload(uploadButton) {
         const title = this.getAttribute("data-title");
 
         // Container für Miniaturansichten und hochauflösende Bilder auswählen
-        const imagePreview = this.nextElementSibling; // Miniaturansicht-Container
+        const immpr = this.nextElementSibling; // Miniaturansicht-Container
         const signContainer = document.querySelector('.bilderzimmer'); // Container für hochauflösende Bilder
 
         // Bilder verarbeiten und hinzufügen, ohne bestehende Bilder zu ersetzen
@@ -784,7 +797,7 @@ function setupImageUpload(uploadButton) {
 
                         imgWrapper.appendChild(imgThumbnail);
                         imgWrapper.appendChild(deleteButton);
-                        imagePreview.appendChild(imgWrapper);
+                        immpr.appendChild(imgWrapper);
 
                         // Hochauflösendes Bild mit Titel in der gewünschten HTML-Struktur
                         let highResWrapper = document.createElement("div");
@@ -1026,7 +1039,7 @@ function clearError(inputElement) {
 // Warte, bis das DOM vollständig geladen ist
 document.addEventListener("DOMContentLoaded", function () {
     // Hole das E-Mail-Eingabefeld
-    const emailInput = document.querySelector('.mails.autoscale');
+    const emailInput = document.querySelector('.mails.atsc');
 
     // Füge Event-Listener für das "input"- und "blur"-Event hinzu
     if (emailInput) {
@@ -1057,7 +1070,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // maximale Zeichenanzeil für Bemerkungszeilen
 // maximale Zeichenanzeil für Bemerkungszeilen
 // maximale Zeichenanzeil für Bemerkungszeilen
-const inputFields = document.querySelectorAll('input.dupli.autoscale');
+const inputFields = document.querySelectorAll('input.dupli.atsc');
 inputFields.forEach((input) => {
     input.setAttribute('maxlength', '115');
     input.style.fontSize = '18px';
@@ -1212,7 +1225,7 @@ document.getElementById('addKeyButton').addEventListener('click', function () {
     anzahlCell.innerHTML = `<input type="number" id="${idAnzahl}" placeholder="" style="width: 100%;">`;
 
     const schluesselnummerCell = document.createElement('td');
-    schluesselnummerCell.innerHTML = `<input type="text" id="${idBemerkung}" placeholder="" class="autoscale" style="width: 100%;">`;
+    schluesselnummerCell.innerHTML = `<input type="text" id="${idBemerkung}" placeholder="" class="atsc" style="width: 100%;">`;
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(anzahlCell);
@@ -1287,13 +1300,13 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
         </select>`;
 
     const zaehlernummerCell = document.createElement('td');
-    zaehlernummerCell.innerHTML = `<input type="text" id="${idNummer}" class="metercounter autoscale" style="width:250px;">`;
+    zaehlernummerCell.innerHTML = `<input type="text" id="${idNummer}" class="metercounter atsc" style="width:250px;">`;
 
     const einbaulageCell = document.createElement('td');
-    einbaulageCell.innerHTML = `<input type="text" id="${idEinbau}" class="autoscale" style="width: 100%;">`;
+    einbaulageCell.innerHTML = `<input type="text" id="${idEinbau}" class="atsc" style="width: 100%;">`;
 
     const zaehlerstandCell = document.createElement('td');
-    zaehlerstandCell.innerHTML = `<input type="number" id="${idStand}" class="meterstand autoscale" style="width:166px;">`;
+    zaehlerstandCell.innerHTML = `<input type="number" id="${idStand}" class="meterstand atsc" style="width:166px;">`;
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(zaehlernummerCell);
@@ -1310,8 +1323,8 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
 // Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorhanden" auf "nein" geklickt wird.
 document.addEventListener("DOMContentLoaded", function () {
     function setupRoomToggle(room) {
-        // Überprüfen, ob der Container die ID "weitereBemerkungenContainer" oder "nebenraum" hat
-        if (room.id === "weitereBemerkungen" || room.id === "nebenraum" || room.id === "hauptBemerkungen") {
+        // Überprüfen, ob der Container die ID "webemContainer" oder "nebenraum" hat
+        if (room.id === "webem" || room.id === "nebenraum" || room.id === "hptbem") {
             return; // Überspringen, wenn es einer der ausgeschlossenen Container ist
         }
 
@@ -1494,16 +1507,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+
+
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 
 document.addEventListener('DOMContentLoaded', function () {
-    const masterRadio = document.getElementById('weitereBemerkungen2');
+    const masterRadio = document.getElementById('webem2');
     const dependentRadios = [
-        'weitereBemerkungen6',
-        'weitereBemerkungen9',
-        'nichtZutreffendCheckbox2'
+        'webem6',
+        'webem9',
+        'niczu2'
     ];
     if (!masterRadio) {
         console.error('Haupt-Radio-Button nicht gefunden');
