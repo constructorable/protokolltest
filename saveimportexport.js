@@ -27,23 +27,18 @@ function getFormData() {
             data[key] = input.value;
         }
     });
-
     document.querySelectorAll('select').forEach(select => {
         const key = select.id || select.name;
         if (!key) return;
 
         data[key] = select.value;
     });
-
     return data;
 }
-
 const saveAsTextBtn = document.getElementById("saveasText");
 if (saveAsTextBtn) {
     saveAsTextBtn.addEventListener("click", exportCurrentSaveAsText);
 }
-
-
 
 // Gespeicherte Daten wieder ins Formular einsetzen
 function setFormData(data) {
