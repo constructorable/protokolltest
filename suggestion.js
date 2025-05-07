@@ -11,9 +11,7 @@ const mitarbeiternamen = [
     "Darius Andörfer",
     "Stefanie Muscat"
 ];
-
 const farben = [
-
     "weiß",
     "beige",
     "grau",        
