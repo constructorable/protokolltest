@@ -12,10 +12,8 @@ let targetProgress = 0;
 function initializeProgressBar() {
     progressBar = document.getElementById('progressBar');
     progressText = document.getElementById('progressText');
-    
-    document.getElementById('loadingOverlay').style.display = 'block';
-    // Reset Zustand
-    progressBar.style.width = '0%';
+        document.getElementById('loadingOverlay').style.display = 'block';
+      progressBar.style.width = '0%';
     progressText.innerHTML = '0% <span class="time-display">(0s)</span>';
     progressBar.style.backgroundColor = '#ff4d4d'; // Rot für Anfang
  /*    progressBar.style.boxShadow = '0 0 5px rgba(255, 77, 77, 0.3)'; */
