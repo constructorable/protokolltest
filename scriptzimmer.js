@@ -26,25 +26,20 @@ function initializeSuggestionInputs() {
                 console.warn(`Unbekannter Datentyp: ${dataType}`);
                 return;
         }
-
         inputField.addEventListener("input", function (event) {
             showSuggestions(event.target, suggestionsArray, suggestionList);
         });
-
         inputField.addEventListener("focus", function () {
             showAllSuggestions(inputField, suggestionsArray, suggestionList);
         });
     });
 }
-
 document.addEventListener("DOMContentLoaded", function () {
     initializeSuggestionInputs();
 });
 
 let roomCount = 0;
 let specialRoomCount = 7;
-
-
 function getRandomLetters(length = 3) {
     const letters = "abcdefghijklmnopqrstuvwxyz";
     let result = "";
