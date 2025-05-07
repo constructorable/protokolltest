@@ -79,7 +79,7 @@ const farben = [
     "goldgelb"
 ];
 
-const fussbodenMaterialien = [
+const fuboMaterialien = [
     "Holz - Parkett",
     "Holz - Parkett, Eiche",
     "Holz - Parkett, Esche",
@@ -102,14 +102,14 @@ const fussbodenMaterialien = [
     "Laminat - Optik Stein",
     "Laminat - Optik terrakotta",
     "Laminat - Optik Bunt / Musterung",
-    "Fliesen",
-    "Fliesen - beige",
-    "Fliesen - weiß",
-    "Fliesen - schwarz",
-    "Fliesen - grau",
-    "Fliesen - blau",
-    "Fliesen - grün",
-    "Fliesen - terrakotta",
+    "tile",
+    "tile - beige",
+    "tile - weiß",
+    "tile - schwarz",
+    "tile - grau",
+    "tile - blau",
+    "tile - grün",
+    "tile - terrakotta",
     "Teppich",
     "Teppich - grau",
     "Teppich - blau",
@@ -145,7 +145,7 @@ const fussbodenMaterialien = [
     "sonstiger Bodenbelag"
 ];
 
-const fussbodenFarben = [
+const fuboFarben = [
     "braun",
     "holz",
     "hellbraun",
@@ -237,10 +237,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
     
-            // 2. Nur für Elemente mit Klasse 'suggestion-input' ausführen
-            if (target.classList.contains("suggestion-input")) {
+            // 2. Nur für Elemente mit Klasse 'sugin' ausführen
+            if (target.classList.contains("sugin")) {
                 // 3. Sicherstellen, dass benötigte Attribute existieren
-                const suggestionListId = target.getAttribute("data-suggestion-list");
+                const suggestionListId = target.getAttribute("data-sugl");
                 const dataType = target.getAttribute("data-type");
                 
                 if (!suggestionListId || !dataType) {
@@ -248,10 +248,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
     
-                // 4. Suggestion-Liste finden
+                // 4. sugle finden
                 const suggestionList = document.getElementById(suggestionListId);
                 if (!suggestionList) {
-                    console.warn("Suggestion-Liste nicht gefunden:", suggestionListId);
+                    console.warn("sugle nicht gefunden:", suggestionListId);
                     return;
                 }
     
@@ -264,11 +264,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     case "mitarbeiter":
                         suggestionsArray = mitarbeiternamen;
                         break;
-                    case "fussboden":
-                        suggestionsArray = fussbodenMaterialien;
+                    case "fubo":
+                        suggestionsArray = fuboMaterialien;
                         break;
-                    case "fussboden-farbe":
-                        suggestionsArray = fussbodenFarben;
+                    case "fubo-farbe":
+                        suggestionsArray = fuboFarben;
                         break;
                     default:
                         console.warn(`Unbekannter Datentyp: ${dataType}`);
@@ -291,8 +291,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener("focus", function (event) {
         const target = event.target;
-        if (target.classList.contains("suggestion-input")) {
-            const suggestionListId = target.getAttribute("data-suggestion-list");
+        if (target.classList.contains("sugin")) {
+            const suggestionListId = target.getAttribute("data-sugl");
             const suggestionList = document.getElementById(suggestionListId);
             const dataType = target.getAttribute("data-type");
 
@@ -304,11 +304,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 case "mitarbeiter":
                     suggestionsArray = mitarbeiternamen;
                     break;
-                case "fussboden":
-                    suggestionsArray = fussbodenMaterialien;
+                case "fubo":
+                    suggestionsArray = fuboMaterialien;
                     break;
-                case "fussboden-farbe":
-                    suggestionsArray = fussbodenFarben;
+                case "fubo-farbe":
+                    suggestionsArray = fuboFarben;
                     break;
                 case "stockwerk":
                     suggestionsArray = stockwerke;
@@ -330,8 +330,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
             
-            if (!target.classList.contains("suggestion-input")) {
-                document.querySelectorAll(".suggestion-list").forEach(list => {
+            if (!target.classList.contains("sugin")) {
+                document.querySelectorAll(".sugl").forEach(list => {
                     list.style.display = "none";
                 });
             }
