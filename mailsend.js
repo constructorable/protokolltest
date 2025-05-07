@@ -10,7 +10,7 @@ function sendEmail(fileName, emails, client) {
     const datum = document.getElementById('datum').value;
     const mietid = document.getElementById('mieterid').value;
 
-    const protokollSelect = document.getElementById('protokollart1');
+    const protokollSelect = document.getElementById('pro1');
     let protokollTyp = "";
 
 
