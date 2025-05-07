@@ -1484,7 +1484,6 @@ td.label-cellheiz1:nth-child(3)>h3:nth-child(1) {
         margin: 4px 0;
     }
 }
-
 @media (min-width: 769px) {
     .sticky-container {
         flex-direction: row;
@@ -1495,26 +1494,20 @@ td.label-cellheiz1:nth-child(3)>h3:nth-child(1) {
         margin-right: 8px;
     }
 }
-
 #toggleStickyBtn {
     position: fixed;
     top: 20px;
     left: 20px;
     z-index: 1001;
-
     padding: 10px 16px;
     background-color: #4a6fa5;
     color: #fff;
-
     font-size: 16px;
     font-weight: 500;
-
     border: none;
     border-radius: 8px;
     cursor: pointer;
-
     box-shadow: none;
-
 }
 
 #toggleStickyBtn::after {
