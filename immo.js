@@ -1342,7 +1342,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("datum").addEventListener("change", updateSignFields);
 
     document.addEventListener("click", function (event) {
-        if (!event.target.matches(".suggestion-input, .suggestion-item")) {
+        if (!event.target.matches(".sugin, .suggestion-item")) {
             document.getElementById("suggestionList").style.display = "none";
         }
     });
@@ -1374,8 +1374,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.head.appendChild(style);
     }
 
-    document.getElementById("mieterid").classList.add("suggestion-input");
-    document.getElementById("strasseeinzug").classList.add("suggestion-input");
+    document.getElementById("mieterid").classList.add("sugin");
+    document.getElementById("strasseeinzug").classList.add("sugin");
 
     updateSignFields();
 });
