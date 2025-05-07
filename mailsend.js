@@ -12,8 +12,6 @@ function sendEmail(fileName, emails, client) {
 
     const protokollSelect = document.getElementById('pro1');
     let protokollTyp = "";
-
-
     switch(protokollSelect.value) {
         case "Abnahmeprotokoll (Mieterauszug)":
             protokollTyp = "Abnahmeprotokoll";
