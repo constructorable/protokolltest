@@ -11,7 +11,6 @@ body {
     padding: 0;
     height: 200vh;
 }
-
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -26,7 +25,6 @@ table {
     margin-bottom: 22px;
     border: none;
 }
-
 p {
     margin-bottom: 1px;
 }
@@ -1466,20 +1464,16 @@ th {
     width: 350px;
     z-index: 1000;
 }
-
 .suggestion-item {
     padding: 8px;
     cursor: pointer;
 }
-
 .suggestion-item:hover {
     background-color: #e9e9e9;
 }
-
 #stockwerkSuggestions {
     position: absolute;
     top: 100%;
-
     left: 0;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -1487,7 +1481,6 @@ th {
     overflow-y: auto;
     z-index: 1000;
     width: 240px;
-
 }
 
 .error-message {
