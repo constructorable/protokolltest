@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-
     // Einziehender Mieter mit Symbol
     handleTenantChange(
         'addeinziehenderMieter', 
