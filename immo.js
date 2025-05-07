@@ -1,7 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 immo.js
 Version 3.34_beta */
-
 document.addEventListener("DOMContentLoaded", function () {
     window.strassen = [
         {mieternummer: "CI001-M-20010.02", objekt: "Amalienstr. 38", plz: "90419", ort: "Nürnberg", lage: "EG rechts - WE10"},
@@ -1373,7 +1372,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         document.head.appendChild(style);
     }
-
     document.getElementById("mieterid").classList.add("sugin");
     document.getElementById("strasseeinzug").classList.add("sugin");
 
