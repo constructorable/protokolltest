@@ -11,7 +11,6 @@ function validateStrasseeinzug() {
         showModalBox("", "Objekt / Straße bitte eingeben.", strasseeinzugInput);
         return false;
     }
-
     // 2. Radio-Button Validierung mit allen relevanten Gruppen
     const radioGroups = [
         { names: ["rb", "rb00"], area: "Balkon" },
@@ -19,11 +18,9 @@ function validateStrasseeinzug() {
         { names: ["rd", "rd00"], area: "Dachboden" },
         { names: ["rg", "rg00"], area: "Stellplatz" }
     ];
-
     let isValid = true;
     let firstInvalidArea = "";
     let firstInvalidElement = null;
-
     radioGroups.forEach(group => {
         let isChecked = false;
         let groupRadioElements = [];
