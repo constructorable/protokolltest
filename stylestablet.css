@@ -43,18 +43,13 @@ td {
     line-height: 1.1;
     border: none;
 }
-
 .rooms td:nth-child(even),
 .room-container td:nth-child(even) {
     background-color: #f1f1f1;
-
 }
-
 .rooms th:nth-child(even) {
     background-color: #f1f1f1;
-
 }
-
 th {
     background-color: #f1f1f1;
     font-weight: bold;
