@@ -13,9 +13,7 @@ body {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-
 }
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -23,7 +21,6 @@ table {
     color: #bdd5f3;
     word-wrap: break-word;
 }
-
 th,
 td {
     border: 1px solid #555;
