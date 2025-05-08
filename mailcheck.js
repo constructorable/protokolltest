@@ -1,6 +1,6 @@
-/* Copyright - Oliver Acker, acker_oliver@yahoo.de
-mailcheck.js
-Version 3.34_beta */
+// Copyright - Oliver Acker, acker_oliver@yahoo.de
+// mailcheck.js
+// Version 3.32_beta
 
 function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,12 +21,14 @@ function showError(inputElement, message) {
 
     inputElement.insertAdjacentElement('afterend', errorMessage);
 }
+
 function clearError(inputElement) {
     const existingError = inputElement.nextElementSibling;
     if (existingError && existingError.classList.contains('error-message')) {
         existingError.remove();
     }
 }
+
 function addEmailValidationListeners(emailInput) {
     emailInput.addEventListener('input', function () {
         const email = emailInput.value.trim();
@@ -55,13 +57,13 @@ function initEmailValidation() {
             if (mutation.type === 'childList') {
                 mutation.addedNodes.forEach(function (node) {
                     // Überprüfe, ob das hinzugefügte Element ein E-Mail-Eingabefeld mit den Klassen "mails" oder "mails2" ist
-                    if (node.nodeType === 1 && node.matches('input[type="email"].mails.atsc, input[type="email"].mails2.atsc')) {
+                    if (node.nodeType === 1 && node.matches('input[type="email"].mails.autoscale, input[type="email"].mails2.autoscale')) {
                         addEmailValidationListeners(node);
                     }
 
                     // Überprüfe alle Kinder des hinzugefügten Elements auf E-Mail-Eingabefelder
                     if (node.nodeType === 1) {
-                        const emailInputs = node.querySelectorAll('input[type="email"].mails.atsc, input[type="email"].mails2.atsc');
+                        const emailInputs = node.querySelectorAll('input[type="email"].mails.autoscale, input[type="email"].mails2.autoscale');
                         emailInputs.forEach(function (emailInput) {
                             addEmailValidationListeners(emailInput);
                         });
@@ -77,7 +79,7 @@ function initEmailValidation() {
     });
 
     // Füge Event-Listener zu bestehenden E-Mail-Eingabefeldern hinzu
-    const existingEmailInputs = document.querySelectorAll('input[type="email"].mails.atsc, input[type="email"].mails2.atsc');
+    const existingEmailInputs = document.querySelectorAll('input[type="email"].mails.autoscale, input[type="email"].mails2.autoscale');
     existingEmailInputs.forEach(function (emailInput) {
         addEmailValidationListeners(emailInput);
     });
