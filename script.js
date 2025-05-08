@@ -1,6 +1,6 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 script.js
-Version 3.36_beta */
+Version 3.32_beta */
 
 /* CSS Styles zum toggeln... */
 /* CSS Styles zum toggeln... */
@@ -21,80 +21,26 @@ function toggleMode() {
     }
 }
 
-// Sticky- und Toggle Menü
-// Sticky- und Toggle Menü
-// Sticky- und Toggle Menü
+
+
+
+
 const toggleBtn = document.getElementById("toggleStickyBtn");
 const stickyContainer = document.getElementById("stickyContainer");
-const pageOverlay = document.createElement("div");
-pageOverlay.style.position = "fixed";
-pageOverlay.style.top = "0";
-pageOverlay.style.left = "0";
-pageOverlay.style.width = "100%";
-pageOverlay.style.height = "100%";
-pageOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
-pageOverlay.style.backdropFilter = "blur(5px)";
-pageOverlay.style.zIndex = "998";
-pageOverlay.style.display = "none";
-document.body.appendChild(pageOverlay);
-stickyContainer.style.zIndex = "999";
 
-// Close Button erstellen und zum Container hinzufügen
-const closeButton = document.createElement("button");
-closeButton.textContent = "×";
-closeButton.style.position = "absolute";
-closeButton.style.top = "10px";
-closeButton.style.right = "10px";
-closeButton.style.background = "transparent";
-closeButton.style.border = "none";
-closeButton.style.fontSize = "20px";
-closeButton.style.cursor = "pointer";
-closeButton.addEventListener("click", () => toggleMenu(false));
-stickyContainer.appendChild(closeButton);
-
-function toggleMenu(isOpen) {
-    if (isOpen) {
-        stickyContainer.setAttribute("data-state", "open");
-        toggleBtn.setAttribute("data-state", "open");
-        pageOverlay.style.display = "block";
-    } else {
-        stickyContainer.setAttribute("data-state", "closed");
-        toggleBtn.setAttribute("data-state", "closed");
-        pageOverlay.style.display = "none";
-    }
-}
-
-toggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isOpen = stickyContainer.getAttribute("data-state") === "open";
-    toggleMenu(!isOpen);
+toggleBtn.addEventListener("click", () => {
+  const isOpen = stickyContainer.getAttribute("data-state") === "open";
+  
+  if (isOpen) {
+    // Menü schließen
+    stickyContainer.setAttribute("data-state", "closed");
+    toggleBtn.setAttribute("data-state", "closed");
+  } else {
+    // Menü öffnen
+    stickyContainer.setAttribute("data-state", "open");
+    toggleBtn.setAttribute("data-state", "open");
+  }
 });
-
-pageOverlay.addEventListener("click", () => {
-    toggleMenu(false);
-});
-
-stickyContainer.addEventListener("click", (e) => {
-    e.stopPropagation();
-});
-
-function ensureToggleBtnExists() {
-    const existingBtn = document.getElementById("toggleStickyBtn");
-    if (!existingBtn) {
-        const newBtn = document.createElement("button");
-        newBtn.className = "pdf-button";
-        newBtn.id = "toggleStickyBtn";
-        newBtn.setAttribute("data-state", "closed");
-        newBtn.textContent = "Menü";
-        document.body.appendChild(newBtn);
-        newBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const isOpen = stickyContainer.getAttribute("data-state") === "open";
-            toggleMenu(!isOpen);
-        });
-    }
-}
-
 
 
 
@@ -149,19 +95,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const emailId = `MailEin${suffix1}`;
 
         nameCell.innerHTML = `
-        <input type="text" id="${nameId}" class="atsc nameeinziehmieter" 
+        <input type="text" id="${nameId}" class="autoscale nameeinziehmieter" 
                style="min-width: 1px;" placeholder="Nachname einziehender Mieter">`;
 
         vornameCell.innerHTML = `
-        <input type="text" id="${vornameId}" class="atsc vornameeinziehmieter" 
+        <input type="text" id="${vornameId}" class="autoscale vornameeinziehmieter" 
                style="min-width: 1px;" placeholder="Vorname">`;
 
         telefonCell.innerHTML = `
-        <input type="text" id="${telefonId}" class="phones atsc teleinziehmieter" 
+        <input type="text" id="${telefonId}" class="phones autoscale teleinziehmieter" 
                style="min-width: 1px;" placeholder="Telefon">`;
 
         emailCell.innerHTML = `
-        <input type="email" id="${emailId}" class="mails atsc maileinziehmieter" 
+        <input type="email" id="${emailId}" class="mails autoscale maileinziehmieter" 
                style="min-width: 1px;" placeholder="E-Mail">`;
 
         newRow.appendChild(nameCell);
@@ -285,16 +231,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const emailId = `MailAus${suffix2}`;
 
         nameCell.innerHTML = `
-            <input type="text" id="${nameId}" class="atsc" placeholder="Vor- und Nachname ausziehender Mieter">`;
+            <input type="text" id="${nameId}" class="autoscale" placeholder="Vor- und Nachname ausziehender Mieter">`;
 
         strasseCell.innerHTML = `
-            <input type="text" id="${strasseId}" class="newstreets atsc" placeholder="neue Straße">`;
+            <input type="text" id="${strasseId}" class="newstreets autoscale" placeholder="neue Straße">`;
 
         plzOrtCell.innerHTML = `
-            <input type="text" id="${plzOrtId}" class="plzauszug atsc" placeholder="PLZ / Ort">`;
+            <input type="text" id="${plzOrtId}" class="plzauszug autoscale" placeholder="PLZ / Ort">`;
 
         emailCell.innerHTML = `
-            <input type="email" id="${emailId}" style="width: 11px;" class="mails2 atsc" placeholder="E-Mail">`;
+            <input type="email" id="${emailId}" style="width: 11px;" class="mails2 autoscale" placeholder="E-Mail">`;
 
         newRow.appendChild(nameCell);
         newRow.appendChild(strasseCell);
@@ -642,7 +588,7 @@ window.onload = function () {
     }
 
     // Entferne die Markierung der ursprünglichen Zeile (falls vorhanden)
-    newRow.classList.remove('ogro');
+    newRow.classList.remove('original-row');
 
     // Füge die neue Zeile nach der aktuellen Zeile ein
     row.parentNode.insertBefore(newRow, row.nextSibling);
@@ -676,7 +622,7 @@ function duplicateRow(button) {
         inputField.id = newId;
     }
 
-    newRow.classList.remove('ogro');
+    newRow.classList.remove('original-row');
     row.parentNode.insertBefore(newRow, row.nextSibling);
 }
 
@@ -690,7 +636,7 @@ function deleteRow(button) {
     const row = button.closest('tr');
 
     // Überprüfe, ob die Zeile die ursprüngliche Zeile ist
-    if (row.classList.contains('ogro')) {
+    if (row.classList.contains('original-row')) {
         alert('Die ursprüngliche Zeile kann nicht gelöscht werden.');
         return; // Beende die Funktion, ohne die Zeile zu löschen
     }
@@ -710,7 +656,7 @@ function setupImageUpload(uploadButton) {
         const title = this.getAttribute("data-title");
 
         // Container für Miniaturansichten und hochauflösende Bilder auswählen
-        const immpr = this.nextElementSibling; // Miniaturansicht-Container
+        const imagePreview = this.nextElementSibling; // Miniaturansicht-Container
         const signContainer = document.querySelector('.bilderzimmer'); // Container für hochauflösende Bilder
 
         // Bilder verarbeiten und hinzufügen, ohne bestehende Bilder zu ersetzen
@@ -794,7 +740,7 @@ function setupImageUpload(uploadButton) {
 
                         imgWrapper.appendChild(imgThumbnail);
                         imgWrapper.appendChild(deleteButton);
-                        immpr.appendChild(imgWrapper);
+                        imagePreview.appendChild(imgWrapper);
 
                         // Hochauflösendes Bild mit Titel in der gewünschten HTML-Struktur
                         let highResWrapper = document.createElement("div");
@@ -1036,7 +982,7 @@ function clearError(inputElement) {
 // Warte, bis das DOM vollständig geladen ist
 document.addEventListener("DOMContentLoaded", function () {
     // Hole das E-Mail-Eingabefeld
-    const emailInput = document.querySelector('.mails.atsc');
+    const emailInput = document.querySelector('.mails.autoscale');
 
     // Füge Event-Listener für das "input"- und "blur"-Event hinzu
     if (emailInput) {
@@ -1067,7 +1013,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // maximale Zeichenanzeil für Bemerkungszeilen
 // maximale Zeichenanzeil für Bemerkungszeilen
 // maximale Zeichenanzeil für Bemerkungszeilen
-const inputFields = document.querySelectorAll('input.dupli.atsc');
+const inputFields = document.querySelectorAll('input.dupli.autoscale');
 inputFields.forEach((input) => {
     input.setAttribute('maxlength', '115');
     input.style.fontSize = '18px';
@@ -1113,7 +1059,11 @@ window.addEventListener('beforeunload', function (event) {
         return confirmationMessage;
     }
 });
-
+/* document.getElementById('newTabButton').addEventListener('click', function () {
+    allowUnload = true;
+    window.open('https://www.google.com', '_blank');
+    setTimeout(() => { allowUnload = false; }, 1000);
+}); */
 window.addEventListener('beforeunload', function (event) {
     const confirmationMessage = 'Möchten Sie die Seite wirklich verlassen? Alle Eingaben gehen dadurch verloren.';
     event.returnValue = confirmationMessage;
@@ -1211,7 +1161,6 @@ document.getElementById('addKeyButton').addEventListener('click', function () {
             <option value="doppelparkanlage">Doppelparkanlage</option>
             <option value="fahrradbereich">Fahrradbereich</option>
             <option value="abstellraum">Abstellraum</option>
-            <option value="laden">Laden</option>
             <option value="buero">Büro</option>
             <option value="lagerraum">Lagerraum</option>
             <option value="muellraum">Müllraum</option>
@@ -1222,7 +1171,7 @@ document.getElementById('addKeyButton').addEventListener('click', function () {
     anzahlCell.innerHTML = `<input type="number" id="${idAnzahl}" placeholder="" style="width: 100%;">`;
 
     const schluesselnummerCell = document.createElement('td');
-    schluesselnummerCell.innerHTML = `<input type="text" id="${idBemerkung}" placeholder="" class="atsc" style="width: 100%;">`;
+    schluesselnummerCell.innerHTML = `<input type="text" id="${idBemerkung}" placeholder="" class="autoscale" style="width: 100%;">`;
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(anzahlCell);
@@ -1297,13 +1246,13 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
         </select>`;
 
     const zaehlernummerCell = document.createElement('td');
-    zaehlernummerCell.innerHTML = `<input type="text" id="${idNummer}" class="metercounter atsc" style="width:250px;">`;
+    zaehlernummerCell.innerHTML = `<input type="text" id="${idNummer}" class="metercounter autoscale" style="width:250px;">`;
 
     const einbaulageCell = document.createElement('td');
-    einbaulageCell.innerHTML = `<input type="text" id="${idEinbau}" class="atsc" style="width: 100%;">`;
+    einbaulageCell.innerHTML = `<input type="text" id="${idEinbau}" class="autoscale" style="width: 100%;">`;
 
     const zaehlerstandCell = document.createElement('td');
-    zaehlerstandCell.innerHTML = `<input type="number" id="${idStand}" class="meterstand atsc" style="width:166px;">`;
+    zaehlerstandCell.innerHTML = `<input type="number" id="${idStand}" class="meterstand autoscale" style="width:166px;">`;
 
     newRow.appendChild(bezeichnungCell);
     newRow.appendChild(zaehlernummerCell);
@@ -1320,8 +1269,8 @@ document.getElementById('addZaehlerButton').addEventListener('click', function (
 // Räume bzw. derein Eigenschaften ausblenden, wenn "Raum vorhanden" auf "nein" geklickt wird.
 document.addEventListener("DOMContentLoaded", function () {
     function setupRoomToggle(room) {
-        // Überprüfen, ob der Container die ID "webemContainer" oder "nebenraum" hat
-        if (room.id === "webem" || room.id === "nebenraum" || room.id === "hptbem") {
+        // Überprüfen, ob der Container die ID "weitereBemerkungenContainer" oder "nebenraum" hat
+        if (room.id === "weitereBemerkungen" || room.id === "nebenraum" || room.id === "hauptBemerkungen") {
             return; // Überspringen, wenn es einer der ausgeschlossenen Container ist
         }
 
@@ -1425,36 +1374,31 @@ function updateFullName(fullNameSpan, name, vorname) {
 
 
 
-/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
-/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
-/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel und Zähler nicht vorkommen */
-document.addEventListener("DOMContentLoaded", function () {
-    const icons = {
-        schluessel: '<i class="fas fa-key" aria-hidden="true"></i>',
-        zaehler: '<i class="fas fa-tachometer-alt" aria-hidden="true"></i>',
-        mieter: '<i class="fas fa-user" aria-hidden="true"></i>'
-    };
-    function checkSection(sectionId, defaultText, activeText, icon) {
+/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
+/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
+/* Textinhalt und Farben von Überschriften ändern, wenn Schlüssel, Zähler, Mieter etc. nicht vorkommen */
+document.addEventListener("DOMContentLoaded", function() {
+    // Allgemeine Funktion zur Überprüfung von Tabelleninhalten
+    function checkSection(sectionId, defaultText, activeText) {
         const section = document.getElementById(sectionId);
         const hasContent = section && (
-            section.querySelector('input') ||
+            section.querySelector('input') || 
             section.querySelector('select') ||
             section.querySelector('tbody tr:not(#addausziehenderMieterRow)')
         );
+        
         const headers = document.querySelectorAll('h3');
         headers.forEach(header => {
-            const baseText = header.textContent.replace(icons.schluessel, '').replace(icons.zaehler, '').trim();
-            
-            if (baseText.includes(defaultText)) {  
+            if (header.textContent.includes(defaultText)) {  // Hier fehlte die schließende Klammer
                 if (hasContent) {
-                    header.innerHTML = `${icon} ${activeText}`;
+                    header.textContent = activeText;
                     header.style.color = "black";
                     header.style.borderBottom = "0px solid black";
                     header.style.paddingBottom = "0px";
                 }
-            } else if (baseText.includes(activeText)) {
+            } else if (header.textContent.includes(activeText)) {
                 if (!hasContent) {
-                    header.innerHTML = `${icon} ${defaultText}`;
+                    header.textContent = defaultText;
                     header.style.color = "#c80000";
                     header.style.borderBottom = "1px solid black";
                     header.style.paddingBottom = "5px";
@@ -1462,40 +1406,75 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    // Spezielle Funktion für einziehende Mieter
+    function checkEinziehendeMieter() {
+        const hasEinziehende = document.querySelectorAll('#einzugmieterTable input').length > 0;
+        const headers = document.querySelectorAll('h3');
+        
+        headers.forEach(header => {
+            if (header.textContent.includes("einziehender Mieter")) {
+                if (hasEinziehende) {
+                    header.textContent = "einziehender Mieter";
+                    header.style.color = "black";
+                    header.style.borderBottom = "0px solid black";
+                    header.style.paddingBottom = "0px";
+                } else {
+                    header.textContent = "einziehender Mieter (nicht zutreffend)";
+                    header.style.color = "#c80000";
+                    header.style.borderBottom = "1px solid black";
+                    header.style.paddingBottom = "5px";
+                }
+            }
+        });
+    }
+
+    // Initiale Prüfung
     function initialCheck() {
-        checkSection('schluesselTable', 'Schlüssel (nicht angegeben)', 'Schlüssel', icons.schluessel);
-        checkSection('zaehlerTable', 'Zähler (nicht angegeben)', 'Zähler', icons.zaehler);
+        checkSection('schluesselTable', 'Schlüssel (nicht angegeben)', 'Schlüssel');
+        checkSection('auszugmieterTable', 'ausziehender Mieter (nicht zutreffend)', 'ausziehender Mieter');
+        checkSection('zaehlerTable', 'Zähler (nicht angegeben)', 'Zähler');
+        checkEinziehendeMieter();
     }
+
+    // Event Listener für Buttons
     function setupEventListeners() {
-        document.getElementById('addKeyButton')?.addEventListener('click', () => {
-            setTimeout(() => checkSection('schluesselTable', 'Schlüssel (nicht angegeben)', 'Schlüssel', icons.schluessel), 50);
+        document.getElementById('addKeyButton').addEventListener('click', () => {
+            setTimeout(() => checkSection('schluesselTable', 'Schlüssel (nicht angegeben)', 'Schlüssel'), 50);
         });
-        document.getElementById('addZaehlerButton')?.addEventListener('click', () => {
-            setTimeout(() => checkSection('zaehlerTable', 'Zähler (nicht angegeben)', 'Zähler', icons.zaehler), 50);
+        
+        document.getElementById('addausziehenderMieter').addEventListener('click', () => {
+            setTimeout(() => {
+                checkSection('auszugmieterTable', 'ausziehender Mieter (nicht zutreffend)', 'ausziehender Mieter');
+                checkEinziehendeMieter();
+            }, 50);
+        });
+        
+        document.getElementById('addeinziehenderMieter').addEventListener('click', () => {
+            setTimeout(checkEinziehendeMieter, 50);
+        });
+        
+        document.getElementById('addZaehlerButton').addEventListener('click', () => {
+            setTimeout(() => checkSection('zaehlerTable', 'Zähler (nicht angegeben)', 'Zähler'), 50);
         });
     }
-    if (!document.getElementById('dynamic-icons-style')) {
-        const style = document.createElement('style');
-        style.id = 'dynamic-icons-style';
-        style.textContent = `
-            h3 i.fas {
-                margin-right: 8px;
-                color: #4a6fa5;
-                font-size: 0.9em;
-            }
-            h3[style*="color: #c80000"] i.fas {
-                color: #c80000 !important;
-            }
-        `;
-        document.head.appendChild(style);
-    }
+
     initialCheck();
     setupEventListeners();
-    const observer = new MutationObserver(initialCheck);
+
+    // Zusätzliche Überprüfung bei Änderungen
+    const observer = new MutationObserver(function(mutations) {
+        initialCheck();
+    });
+
+    // Beobachte Änderungen in den relevanten Containern
     const containers = [
         document.getElementById('schluesselTable'),
-        document.getElementById('zaehlerTable')
+        document.getElementById('auszugmieterTable'),
+        document.getElementById('zaehlerTable'),
+        document.getElementById('einzugmieterTable')
     ].filter(Boolean);
+
     containers.forEach(container => {
         observer.observe(container, {
             childList: true,
@@ -1507,16 +1486,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 /* Abteilung "Regelung Mäneglbeseitigung": wenn die erste radio-Checkbox mit nicht-zutreffend ausgewählt wird werden alle darunterliegenden Radio-Checkboxes ebenfalls mit nicht-zutreffend" ausgefüllt. */
 
 document.addEventListener('DOMContentLoaded', function () {
-    const masterRadio = document.getElementById('webem2');
+    const masterRadio = document.getElementById('weitereBemerkungen2');
     const dependentRadios = [
-        'webem6',
-        'webem9',
-        'niczu2'
+        'weitereBemerkungen6',
+        'weitereBemerkungen9',
+        'nichtZutreffendCheckbox2'
     ];
     if (!masterRadio) {
         console.error('Haupt-Radio-Button nicht gefunden');
