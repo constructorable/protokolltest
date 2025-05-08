@@ -1,6 +1,7 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 progressbar.js
-Version 3.34_beta */
+Version 3.32_beta */
+
 
 let progressBar;
 let progressText;
@@ -12,11 +13,15 @@ let targetProgress = 0;
 function initializeProgressBar() {
     progressBar = document.getElementById('progressBar');
     progressText = document.getElementById('progressText');
-        document.getElementById('loadingOverlay').style.display = 'block';
-      progressBar.style.width = '0%';
+    
+    document.getElementById('loadingOverlay').style.display = 'block';
+    /* document.getElementById('closeLoadingOverlay').style.display = 'block'; */
+
+    // Reset Zustand
+    progressBar.style.width = '0%';
     progressText.innerHTML = '0% <span class="time-display">(0s)</span>';
     progressBar.style.backgroundColor = '#ff4d4d'; // Rot für Anfang
- /*    progressBar.style.boxShadow = '0 0 5px rgba(255, 77, 77, 0.3)'; */
+    progressBar.style.boxShadow = '0 0 5px rgba(255, 77, 77, 0.3)';
     progressBar.classList.remove('progress-complete');
     
     currentProgress = 0;
@@ -42,22 +47,23 @@ function updateProgress(completed, total) {
         }
     }, 50);
 }
+
 function updateProgressDisplay(percentage) {
     const seconds = Math.floor((Date.now() - startTime) / 1000);
     progressBar.style.width = `${percentage}%`;
-    progressText.innerHTML = `Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
+    progressText.innerHTML = `${percentage}% <span class="time-display">(${seconds}s)</span>`;
     progressText.style.fontSize = '22px';
     
     // Farbverlauf basierend auf Fortschritt
-    if (percentage < 20) {
-        progressBar.style.backgroundColor = 'rgb(255, 247, 0)'; // Rot
-    
-    } else if (percentage < 60) {
-        progressBar.style.backgroundColor = 'rgb(180, 221, 0)'; // Gelb
-     
+    if (percentage < 30) {
+        progressBar.style.backgroundColor = '#ff4d4d'; // Rot
+        progressBar.style.boxShadow = '0 0 5px rgba(255, 77, 77, 0.3)';
+    } else if (percentage < 70) {
+        progressBar.style.backgroundColor = '#ffcc00'; // Gelb
+        progressBar.style.boxShadow = '0 0 10px rgba(255, 204, 0, 0.4)';
     } else {
-        progressBar.style.backgroundColor = 'rgb(13, 190, 0)'; // Grün
-    
+        progressBar.style.backgroundColor = '#4CAF50'; // Grün
+        progressBar.style.boxShadow = '0 0 15px rgba(76, 175, 80, 0.5)';
     }
     
     if (percentage >= 100) {
@@ -68,15 +74,38 @@ function updateProgressDisplay(percentage) {
 function updateTimeDisplay() {
     const seconds = Math.floor((Date.now() - startTime) / 1000);
     const percentage = currentProgress;
-    progressText.innerHTML = `Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
+    progressText.innerHTML = `${percentage}% <span class="time-display">(${seconds}s)</span>`;
 }
 
 function completeProgressBar() {
     clearInterval(animationInterval);
     const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    progressText.innerHTML = `Bildschirm und Tablet aktiv lassen, bis der Prozess abgeschlossen ist! <br><br>${percentage}% <span class="time-display">(${seconds}s)</span>`;
+    progressText.innerHTML = `100% <span class="time-display">(${elapsed}s)</span>`;
     progressText.style.fontSize = '22px';
     progressBar.style.backgroundColor = '#2E7D32'; // Dunkelgrün
-   /*  progressBar.style.boxShadow = '0 0 20px rgba(46, 125, 50, 0.7)'; */
+    progressBar.style.boxShadow = '0 0 20px rgba(46, 125, 50, 0.7)';
     progressBar.classList.add('progress-complete');
 }
+
+// Close-Button Funktion
+/* document.getElementById('closeLoadingOverlay').addEventListener('click', () => {
+    // 1. Lade-Overlay ausblenden
+    document.getElementById('loadingOverlay').style.display = 'none';
+
+    // 2. Fortschrittsanzeige zurücksetzen
+    progressBar.style.width = '0%';
+    progressText.innerHTML = '0% <span class="time-display">(0s)</span>';
+    clearInterval(animationInterval);
+
+    // 3. Close-Button verstecken
+    document.getElementById('closeLoadingOverlay').style.display = 'none';
+
+    // 4. Abbruch-Modal sofort anzeigen
+    const abortModal = document.getElementById('abortProgressModal');
+    abortModal.style.display = 'flex';  // Modal wird direkt angezeigt
+
+    // 5. Nach 3 Sekunden automatisch Modal ausblenden
+    setTimeout(() => {
+        abortModal.style.display = 'none';  // Nach 3 Sekunden Modal ausblenden
+    }, 3000);
+}); */
