@@ -1,10 +1,10 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 scriptzimmer.js
-Version 3.34_beta */
+Version 3.32_beta */
 
 function initializeSuggestionInputs() {
-    document.querySelectorAll(".sugin").forEach(inputField => {
-        const suggestionListId = inputField.getAttribute("data-sugl");
+    document.querySelectorAll(".suggestion-input").forEach(inputField => {
+        const suggestionListId = inputField.getAttribute("data-suggestion-list");
         const suggestionList = document.getElementById(suggestionListId);
         const dataType = inputField.getAttribute("data-type");
 
@@ -16,8 +16,8 @@ function initializeSuggestionInputs() {
             case "mitarbeiter":
                 suggestionsArray = mitarbeiternamen;
                 break;
-            case "fubo":
-                suggestionsArray = fuboMaterialien;
+            case "fussboden":
+                suggestionsArray = fussbodenMaterialien;
                 break;
             case "stockwerk":
                 suggestionsArray = stockwerke;
@@ -26,20 +26,25 @@ function initializeSuggestionInputs() {
                 console.warn(`Unbekannter Datentyp: ${dataType}`);
                 return;
         }
+
         inputField.addEventListener("input", function (event) {
             showSuggestions(event.target, suggestionsArray, suggestionList);
         });
+
         inputField.addEventListener("focus", function () {
             showAllSuggestions(inputField, suggestionsArray, suggestionList);
         });
     });
 }
+
 document.addEventListener("DOMContentLoaded", function () {
     initializeSuggestionInputs();
 });
 
 let roomCount = 0;
 let specialRoomCount = 7;
+
+
 function getRandomLetters(length = 3) {
     const letters = "abcdefghijklmnopqrstuvwxyz";
     let result = "";
@@ -83,23 +88,23 @@ function addRoom() {
     <td></td>
     <td>
         <input type="radio" id="${roomId}-zus01" name="${roomId}-zus">
-        <label for="${roomId}-zus01" class="rdl"></label>
+        <label for="${roomId}-zus01" class="radio-label"></label>
     </td>
     <td>
         <input type="radio" id="${roomId}-zus02" name="${roomId}-zus">
-        <label for="${roomId}-zus02" class="rdl"></label>
+        <label for="${roomId}-zus02" class="radio-label"></label>
     </td>
     <td>
         <input type="radio" id="${roomId}-zus03" name="${roomId}-zus">
-        <label for="${roomId}-zus03" class="rdl"></label>
+        <label for="${roomId}-zus03" class="radio-label"></label>
     </td>
     <td>
         <input type="radio" id="${roomId}-zus04" name="${roomId}-zus">
-        <label for="${roomId}-zus04" class="rdl"></label>
+        <label for="${roomId}-zus04" class="radio-label"></label>
     </td>
     <td>
         <input type="radio" id="${roomId}-zus05" name="${roomId}-zus">
-        <label for="${roomId}-zus05" class="rdl"></label>
+        <label for="${roomId}-zus05" class="radio-label"></label>
     </td>
 
 </tr>
@@ -125,32 +130,32 @@ function addRoom() {
 <tr>
     <td>Tür / Zarge / Beschläge</td>
     <td>
-        <input type="radio" id="${roomId}-tur1" name="${roomId}-tur">
-        <label for="${roomId}-tur1" class="rdl"></label>
+        <input type="radio" id="${roomId}-tuere1" name="${roomId}-tuere">
+        <label for="${roomId}-tuere1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-tur2" name="${roomId}-tur">
-        <label for="${roomId}-tur2" class="rdl"></label>
+        <input type="radio" id="${roomId}-tuere2" name="${roomId}-tuere">
+        <label for="${roomId}-tuere2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-tur3" name="${roomId}-tur00">
-        <label for="${roomId}-tur3" class="rdl"></label>
+        <input type="radio" id="${roomId}-tuere3" name="${roomId}-tuere00">
+        <label for="${roomId}-tuere3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}tuer" class="dds2">
+    <td><select id="protokollart${roomId}tuer" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-tur5" name="${roomId}-tur">
-        <label for="${roomId}-tur5" class="rdl"></label>
+        <input type="radio" id="${roomId}-tuere5" name="${roomId}-tuere">
+        <label for="${roomId}-tuere5" class="radio-label"></label>
     </td>
 </tr>
 
 <tr>
     <td>Schlüssel vorhanden</td>
-                        <td colspan="2"><select id="pro${roomId}a" id="pro${roomId}key" class="dds2">
+                        <td colspan="2"><select id="protokollart${roomId}a" id="protokollart${roomId}key" class="dropdown-style2">
                                 <option>-</option>
                                 <option>ja</option>
                                 <option>nein</option>
@@ -160,176 +165,176 @@ function addRoom() {
 <tr>
     <td>Fenster / Beschläge / Glas</td>
     <td>
-        <input type="radio" id="${roomId}-fen1" name="${roomId}-fen">
-        <label for="${roomId}-fen1" class="rdl"></label>
+        <input type="radio" id="${roomId}-fenster1" name="${roomId}-fenster">
+        <label for="${roomId}-fenster1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-fen2" name="${roomId}-fen">
-        <label for="${roomId}-fen2" class="rdl"></label>
+        <input type="radio" id="${roomId}-fenster2" name="${roomId}-fenster">
+        <label for="${roomId}-fenster2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-fen3" name="${roomId}-fen00">
-        <label for="${roomId}-fen3" class="rdl"></label>
+        <input type="radio" id="${roomId}-fenster3" name="${roomId}-fenster00">
+        <label for="${roomId}-fenster3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}glas" class="dds2">
+    <td><select id="protokollart${roomId}glas" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-fen5" name="${roomId}-fen">
-        <label for="${roomId}-fen5" class="rdl"></label>
+        <input type="radio" id="${roomId}-fenster5" name="${roomId}-fenster">
+        <label for="${roomId}-fenster5" class="radio-label"></label>
     </td>
 </tr>
 
 <tr>
     <td>Jalousie / Rolläden / Klappäden</td>
     <td>
-        <input type="radio" id="${roomId}-rol1" name="${roomId}-rol">
-        <label for="${roomId}-rol1" class="rdl"></label>
+        <input type="radio" id="${roomId}-rollo1" name="${roomId}-rollo">
+        <label for="${roomId}-rollo1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-rol2" name="${roomId}-rol">
-        <label for="${roomId}-rol2" class="rdl"></label>
+        <input type="radio" id="${roomId}-rollo2" name="${roomId}-rollo">
+        <label for="${roomId}-rollo2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-rol3" name="${roomId}-rol00">
-        <label for="${roomId}-rol3" class="rdl"></label>
+        <input type="radio" id="${roomId}-rollo3" name="${roomId}-rollo00">
+        <label for="${roomId}-rollo3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}rol" class="dds2">
+    <td><select id="protokollart${roomId}rollo" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-rol5" name="${roomId}-rol">
-        <label for="${roomId}-rol5" class="rdl"></label>
+        <input type="radio" id="${roomId}-rollo5" name="${roomId}-rollo">
+        <label for="${roomId}-rollo5" class="radio-label"></label>
     </td>
 </tr>
 
 <tr>
     <td>Decke</td>
     <td>
-        <input type="radio" id="${roomId}-dec1" name="${roomId}-dec">
-        <label for="${roomId}-dec1" class="rdl"></label>
+        <input type="radio" id="${roomId}-decke1" name="${roomId}-decke">
+        <label for="${roomId}-decke1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-dec2" name="${roomId}-dec">
-        <label for="${roomId}-dec2" class="rdl"></label>
+        <input type="radio" id="${roomId}-decke2" name="${roomId}-decke">
+        <label for="${roomId}-decke2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-dec3" name="${roomId}-dec00">
-        <label for="${roomId}-dec3" class="rdl"></label>
+        <input type="radio" id="${roomId}-decke3" name="${roomId}-decke00">
+        <label for="${roomId}-decke3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}dec" class="dds2">
+    <td><select id="protokollart${roomId}decke" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-dec5" name="${roomId}-dec">
-        <label for="${roomId}-dec5" class="rdl"></label>
+        <input type="radio" id="${roomId}-decke5" name="${roomId}-decke">
+        <label for="${roomId}-decke5" class="radio-label"></label>
     </td>
 </tr>
 
 <tr>
     <td>Wände / Tapeten</td>
     <td>
-        <input type="radio" id="${roomId}-wan1" name="${roomId}-wan">
-        <label for="${roomId}-wan1" class="rdl"></label>
+        <input type="radio" id="${roomId}-waende1" name="${roomId}-waende">
+        <label for="${roomId}-waende1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-wan2" name="${roomId}-wan">
-        <label for="${roomId}-wan2" class="rdl"></label>
+        <input type="radio" id="${roomId}-waende2" name="${roomId}-waende">
+        <label for="${roomId}-waende2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-wan3" name="${roomId}-wan00">
-        <label for="${roomId}-wan3" class="rdl"></label>
+        <input type="radio" id="${roomId}-waende3" name="${roomId}-waende00">
+        <label for="${roomId}-waende3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}wand" class="dds2">
+    <td><select id="protokollart${roomId}wand" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-wan5" name="${roomId}-wan">
-        <label for="${roomId}-wan5" class="rdl"></label>
+        <input type="radio" id="${roomId}-waende5" name="${roomId}-waende">
+        <label for="${roomId}-waende5" class="radio-label"></label>
     </td>
 </tr>
 
 <tr>
     <td>Farbe der Wände</td>
     <td colspan="5">
-        <input id="farin${specialRoomCount}" type="text" name="farbe"
-            class="tez lain atsc sugin" style="width: 350px;" data-type="farbe"
-            data-sugl="fsug${specialRoomCount}">
-        <div id="fsug${specialRoomCount}" class="sugl"></div>
+        <input id="farbeInput${specialRoomCount}" type="text" name="farbe"
+            class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;" data-type="farbe"
+            data-suggestion-list="farbeSuggestions${specialRoomCount}">
+        <div id="farbeSuggestions${specialRoomCount}" class="suggestion-list"></div>
     </td>
 </tr>
 
 <tr>
     <td style="padding-bottom: 20px; padding-top:20px">Heizkörper / Ventile / Rohre</td>
     <td>
-        <input type="radio" id="${roomId}-heik1" name="${roomId}-heik">
-        <label for="${roomId}-heik1" class="rdl"></label>
+        <input type="radio" id="${roomId}-heizkoerper1" name="${roomId}-heizkoerper">
+        <label for="${roomId}-heizkoerper1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-heik2" name="${roomId}-heik">
-        <label for="${roomId}-heik2" class="rdl"></label>
+        <input type="radio" id="${roomId}-heizkoerper2" name="${roomId}-heizkoerper">
+        <label for="${roomId}-heizkoerper2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-heik3" name="${roomId}-heik00">
-        <label for="${roomId}-heik3" class="rdl"></label>
+        <input type="radio" id="${roomId}-heizkoerper3" name="${roomId}-heizkoerper00">
+        <label for="${roomId}-heizkoerper3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}farb" class="dds2">
+    <td><select id="protokollart${roomId}farb" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-heik5" name="${roomId}-heik">
-        <label for="${roomId}-heik5" class="rdl"></label>
+        <input type="radio" id="${roomId}-heizkoerper5" name="${roomId}-heizkoerper">
+        <label for="${roomId}-heizkoerper5" class="radio-label"></label>
     </td>
 </tr>
 
 <tr>
     <td>Fußboden Material</td>
     <td colspan="5">
-        <input id="fuboin${specialRoomCount}" type="text" name="fubo"
-            class="tez lain atsc sugin" style="width: 350px;" data-type="fubo"
-            data-sugl="fusug${specialRoomCount}">
-        <div id="fusug${specialRoomCount}" class="sugl"></div>
+        <input id="fussbodenInput${specialRoomCount}" type="text" name="fussboden"
+            class="testeinzeilig langes-input autoscale suggestion-input" style="width: 350px;" data-type="fussboden"
+            data-suggestion-list="fussbodenSuggestions${specialRoomCount}">
+        <div id="fussbodenSuggestions${specialRoomCount}" class="suggestion-list"></div>
     </td>
 </tr>
 
 <tr>
     <td>Fußboden / Leisten</td>
     <td>
-        <input type="radio" id="${roomId}-fubo1" name="${roomId}-fubo">
-        <label for="${roomId}-fubo1" class="rdl"></label>
+        <input type="radio" id="${roomId}-fussboden1" name="${roomId}-fussboden">
+        <label for="${roomId}-fussboden1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-fubo2" name="${roomId}-fubo">
-        <label for="${roomId}-fubo2" class="rdl"></label>
+        <input type="radio" id="${roomId}-fussboden2" name="${roomId}-fussboden">
+        <label for="${roomId}-fussboden2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-fubo3" name="${roomId}-fubo00">
-        <label for="${roomId}-fubo3" class="rdl"></label>
+        <input type="radio" id="${roomId}-fussboden3" name="${roomId}-fussboden00">
+        <label for="${roomId}-fussboden3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}fussb" class="dds2">
+    <td><select id="protokollart${roomId}fussb" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-fubo5" name="${roomId}-fubo">
-        <label for="${roomId}-fubo5" class="rdl"></label>
+        <input type="radio" id="${roomId}-fussboden5" name="${roomId}-fussboden">
+        <label for="${roomId}-fussboden5" class="radio-label"></label>
     </td>
 </tr>
 
@@ -337,17 +342,17 @@ function addRoom() {
     <td style="padding-bottom: 20px; padding-top:20px">Radio- / Fernseh- / Internetdose</td>
     <td>
         <input type="radio" id="${roomId}-internet1" name="${roomId}-internet">
-        <label for="${roomId}-internet1" class="rdl"></label>
+        <label for="${roomId}-internet1" class="radio-label"></label>
     </td>
     <td>
         <input type="radio" id="${roomId}-internet2" name="${roomId}-internet">
-        <label for="${roomId}-internet2" class="rdl"></label>
+        <label for="${roomId}-internet2" class="radio-label"></label>
     </td>
     <td>
         <input type="radio" id="${roomId}-internet3" name="${roomId}-internet00">
-        <label for="${roomId}-internet3" class="rdl"></label>
+        <label for="${roomId}-internet3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}fuss2" class="dds2">
+    <td><select id="protokollart${roomId}fuss2" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
@@ -355,7 +360,7 @@ function addRoom() {
         </select></td>
     <td>
         <input type="radio" id="${roomId}-internet5" name="${roomId}-internet">
-        <label for="${roomId}-internet5" class="rdl"></label>
+        <label for="${roomId}-internet5" class="radio-label"></label>
     </td>
 </tr>
 
@@ -364,26 +369,26 @@ function addRoom() {
 <tr>
     <td style="padding-bottom: 20px;">Steckdosen / Lichtschalter</td>
     <td>
-        <input type="radio" id="${roomId}-etk1" name="${roomId}-etk">
-        <label for="${roomId}-etk1" class="rdl"></label>
+        <input type="radio" id="${roomId}-elektrik1" name="${roomId}-elektrik">
+        <label for="${roomId}-elektrik1" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-etk2" name="${roomId}-etk">
-        <label for="${roomId}-etk2" class="rdl"></label>
+        <input type="radio" id="${roomId}-elektrik2" name="${roomId}-elektrik">
+        <label for="${roomId}-elektrik2" class="radio-label"></label>
     </td>
     <td>
-        <input type="radio" id="${roomId}-etk3" name="${roomId}-etk00">
-        <label for="${roomId}-etk3" class="rdl"></label>
+        <input type="radio" id="${roomId}-elektrik3" name="${roomId}-elektrik00">
+        <label for="${roomId}-elektrik3" class="radio-label"></label>
     </td>
-    <td><select id="pro${roomId}dose" class="dds2">
+    <td><select id="protokollart${roomId}dose" class="dropdown-style2">
             <option>-</option>
             <option>Mieter</option>
             <option>Vermieter</option>
             <option>in Klärung</option>
         </select></td>
     <td>
-        <input type="radio" id="${roomId}-etk5" name="${roomId}-etk">
-        <label for="${roomId}-etk5" class="rdl"></label>
+        <input type="radio" id="${roomId}-elektrik5" name="${roomId}-elektrik">
+        <label for="${roomId}-elektrik5" class="radio-label"></label>
     </td>
 </tr>
 
@@ -391,8 +396,8 @@ function addRoom() {
 
 <tr>
     <td class="rwm-label">Anzahl der Rauchwarnmelder</td>
-    <td colspan="4" class="rwmin">
-        <input type="number" id="rwmc${roomId}" name="rwmc" min="1" class="rwminp">
+    <td colspan="4" class="rwm-input-container">
+        <input type="number" id="rwm-count${roomId}" name="rwm-count" min="1" class="rwm-input">
     </td>
 </tr>
 
@@ -462,70 +467,14 @@ function addRoom() {
     mainButtonContainer.appendChild(mainButton);
     mainButtonContainer.appendChild(choiceMenu);
 
-
-
-
-    /*     const roomTitle = document.createElement("h3");
-        roomTitle.textContent = "Zimmer " + roomCount;
-    
-        const remarkSection = document.createElement("div");
-        remarkSection.classList.add("remark-row");
-        remarkSection.innerHTML = `
-            <input type="text" name="remark" id="dupli${roomId}-zeile1" class="atsc" placeholder=""> 
-        `; */
-
     const roomTitle = document.createElement("h3");
     roomTitle.textContent = "Zimmer " + roomCount;
 
     const remarkSection = document.createElement("div");
     remarkSection.classList.add("remark-row");
-
-    // Container für Input + Button erstellen
-    const inputContainer = document.createElement("div");
-    inputContainer.style.position = "relative";
-    inputContainer.style.display = "inline-block";
-    inputContainer.style.width = "100%";
-
-    // Input-Feld erstellen
-    const remarkInput = document.createElement("input");
-    remarkInput.type = "text";
-    remarkInput.name = "remark";
-    remarkInput.id = `dupli${roomId}-zeile1`;
-    remarkInput.classList.add("atsc");
-    remarkInput.placeholder = "";
-    remarkInput.style.paddingRight = "35px"; // Platz für den Button
-
-    // Löschbutton erstellen
-    const clearButton = document.createElement("button");
-    clearButton.type = "button";
-    clearButton.innerHTML = `
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-             style="color: #777; transition: opacity 0.2s;"
-             onmouseover="this.style.color='#333'" onmouseout="this.style.color='#777'">
-            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>
+    remarkSection.innerHTML = `
+        <input type="text" name="remark" id="dupli${roomId}-zeile1" class="autoscale" placeholder=""> 
     `;
-    clearButton.title = "Text löschen";
-    clearButton.style.position = "absolute";
-    clearButton.style.right = "18px";
-    clearButton.style.top = "50%";
-    clearButton.style.transform = "translateY(-50%)";
-    clearButton.style.background = "none";
-    clearButton.style.border = "none";
-    clearButton.style.cursor = "pointer";
-    clearButton.style.padding = "0";
-
-    // Click-Event für den Button
-    clearButton.addEventListener("click", function () {
-        remarkInput.value = "";
-    });
-
-    // Elemente zusammenbauen
-    inputContainer.appendChild(remarkInput);
-    inputContainer.appendChild(clearButton);
-    remarkSection.appendChild(inputContainer);
-
-
 
     const addRemarkButton = document.createElement("button");
     addRemarkButton.classList.add("add-remark-btn");
@@ -554,130 +503,39 @@ function addRoom() {
     const newRemarkRow = document.createElement("div");
     newRemarkRow.classList.add("remark-row");
     newRemarkRow.innerHTML = `
-        <input type="text" name="remark" class="atsc" placeholder="">
+        <input type="text" name="remark" class="autoscale" placeholder="">
     `;
 
     roomDiv.insertBefore(newRemarkRow, roomDiv.querySelector('button.add-remark-btn'));
 } */
 
-
-
-
-
-
-
-
-
-
-
-
-/* function addRemark(roomDiv) {
-    const newRemarkRow = document.createElement("div");
-    newRemarkRow.classList.add("remark-row");
-
-    // Hole die Raum-ID, z. B. "zimm01"
-    const roomId = roomDiv.id;
-
-    // Finde bereits vorhandene Zeilen für diesen Raum
-    const existingInputs = roomDiv.querySelectorAll(`input[id^="dupli${roomId}-zeile"]`);
-
-    // Neue Zeilennummer (beginnt bei 2)
-    const newLineNumber = existingInputs.length + 2; // erste Zeile wäre 2, danach 3 usw.
-
-    // Neue eindeutige ID
-    const newId = `dupli${roomId}-zeile${newLineNumber}`;
-
-    newRemarkRow.innerHTML = `
-            <input type="text" id="${newId}" name="remark" class="atsc dupli" placeholder="">
+    function addRemark(roomDiv) {
+        const newRemarkRow = document.createElement("div");
+        newRemarkRow.classList.add("remark-row");
+    
+        // Hole die Raum-ID, z. B. "zimm01"
+        const roomId = roomDiv.id;
+    
+        // Finde bereits vorhandene Zeilen für diesen Raum
+        const existingInputs = roomDiv.querySelectorAll(`input[id^="dupli${roomId}-zeile"]`);
+    
+        // Neue Zeilennummer (beginnt bei 2)
+        const newLineNumber = existingInputs.length + 2; // erste Zeile wäre 2, danach 3 usw.
+    
+        // Neue eindeutige ID
+        const newId = `dupli${roomId}-zeile${newLineNumber}`;
+    
+        newRemarkRow.innerHTML = `
+            <input type="text" id="${newId}" name="remark" class="autoscale dupli" placeholder="">
         `;
+    
+        // Neue Bemerkungszeile vor dem "Hinzufügen"-Button einfügen
+        const addButton = roomDiv.querySelector('button.add-remark-btn');
+        roomDiv.insertBefore(newRemarkRow, addButton);
+    }
+    
 
-    // Neue Bemerkungszeile vor dem "Hinzufügen"-Button einfügen
-    const addButton = roomDiv.querySelector('button.add-remark-btn');
-    roomDiv.insertBefore(newRemarkRow, addButton);
-}
- */
-
-function addRemark(roomDiv) {
-    const newRemarkRow = document.createElement("div");
-    newRemarkRow.classList.add("remark-row");
-
-    // Hole die Raum-ID, z.B. "zimm01"
-    const roomId = roomDiv.id;
-
-    // Finde bereits vorhandene Zeilen für diesen Raum
-    const existingInputs = roomDiv.querySelectorAll(`input[id^="dupli${roomId}-zeile"]`);
-
-    // Neue Zeilennummer (beginnt bei 2)
-    const newLineNumber = existingInputs.length + 2; // erste Zeile wäre 2, danach 3 usw.
-
-    // Neue eindeutige ID
-    const newId = `dupli${roomId}-zeile${newLineNumber}`;
-
-    // Container für Input + Button
-    const inputContainer = document.createElement("div");
-    inputContainer.style.position = "relative";
-    inputContainer.style.display = "inline-block";
-    inputContainer.style.width = "100%";
-
-    // Input-Feld erstellen
-    const remarkInput = document.createElement("input");
-    remarkInput.type = "text";
-    remarkInput.id = newId;
-    remarkInput.name = "remark";
-    remarkInput.classList.add("atsc", "dupli");
-    remarkInput.placeholder = "";
-    remarkInput.style.paddingRight = "35px";
-    remarkInput.style.width = "100%";
-
-    // Löschbutton erstellen
-    const clearButton = document.createElement("button");
-    clearButton.type = "button";
-    clearButton.innerHTML = `
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" 
-             style="color:#777;transition:all 0.2s" onmouseover="this.style.color='#333'">
-            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.2"/>
-        </svg>
-    `;
-    clearButton.title = "Text löschen";
-    Object.assign(clearButton.style, {
-        position: "absolute",
-        right: "8px",
-        top: "50%",
-        transform: "translateY(-50%)",
-        background: "none",
-        border: "none",
-        cursor: "pointer",
-        padding: "0"
-    });
-
-    // Click-Handler für den Button
-    clearButton.addEventListener("click", function() {
-        remarkInput.value = "";
-    });
-
-    // Elemente zusammenbauen
-    inputContainer.appendChild(remarkInput);
-    inputContainer.appendChild(clearButton);
-    newRemarkRow.appendChild(inputContainer);
-
-    // Neue Bemerkungszeile vor dem "Hinzufügen"-Button einfügen
-    const addButton = roomDiv.querySelector('button.add-remark-btn');
-    roomDiv.insertBefore(newRemarkRow, addButton);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 async function compressImage(file) {
     return new Promise((resolve) => {
         const reader = new FileReader();
