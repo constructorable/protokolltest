@@ -1,6 +1,7 @@
 /* Copyright - Oliver Acker, acker_oliver@yahoo.de
 immo.js
-Version 3.34_beta */
+Version 3.32_beta */
+
 document.addEventListener("DOMContentLoaded", function () {
     window.strassen = [
         {mieternummer: "CI001-M-20010.02", objekt: "Amalienstr. 38", plz: "90419", ort: "Nürnberg", lage: "EG rechts - WE10"},
@@ -1341,7 +1342,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("datum").addEventListener("change", updateSignFields);
 
     document.addEventListener("click", function (event) {
-        if (!event.target.matches(".sugin, .suggestion-item")) {
+        if (!event.target.matches(".suggestion-input, .suggestion-item")) {
             document.getElementById("suggestionList").style.display = "none";
         }
     });
@@ -1372,8 +1373,9 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         document.head.appendChild(style);
     }
-    document.getElementById("mieterid").classList.add("sugin");
-    document.getElementById("strasseeinzug").classList.add("sugin");
+
+    document.getElementById("mieterid").classList.add("suggestion-input");
+    document.getElementById("strasseeinzug").classList.add("suggestion-input");
 
     updateSignFields();
 });
